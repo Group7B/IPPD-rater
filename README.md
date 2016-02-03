@@ -7,6 +7,8 @@
 
 In order to setup this repository, first clone the project then run "npm install" (assuming you already set everything up for previous projects).  You will need a local.js file that is NOT included in this public repository for privacy reasons (passwords and whatnot), so hit me (Amanda) up for that.  Once you get it, please squeeze it into config/env.
 
+Once you have done this, simply run "grunt", open a browser, and go to "localhost/3000" (or if you're still using IE or Edge, then "http://localhost/3000") and you should see the default (or not) webpage.
+
 Everything below is just the original README from the meanjs generator:
 
 MEAN.JS is a full-stack JavaScript open-source solution, which provides a solid starting point for [MongoDB](http://www.mongodb.org/), [Node.js](http://www.nodejs.org/), [Express](http://expressjs.com/), and [AngularJS](http://angularjs.org/) based applications. The idea is to solve the common issues with connecting those frameworks, build a robust framework to support daily development needs, and help developers use better practices while working with popular JavaScript components.
