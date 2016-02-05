@@ -22,15 +22,15 @@ var RatingSchema = new Schema({
     type: Schema.ObjectId,
     ref: 'User'
   },
-  poster: {
+  posterRating: {
     type: Number,
     default: 0
   },
-  presentation: {
+  presentationRating: {
     type: Number,
     default: 0
   },
-  demo: {
+  demoRating: {
     type: Number,
     default: 0
   }
