@@ -3,7 +3,7 @@
 // Setting up route
 angular.module('ratings').config(['$stateProvider',
   function ($stateProvider) {
-    // Articles state routing
+    // Ratings state routing
     $stateProvider
       .state('ratings', {
         abstract: true,
