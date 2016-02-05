@@ -14,7 +14,7 @@ var RatingSchema = new Schema({
     type: Boolean,
     default: false
   },
-  projectId: {
+  project: {
     type: Schema.ObjectId,
     ref: 'Project'
   },
