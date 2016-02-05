@@ -1,5 +1,7 @@
 'use strict';
 
+/* Need to update this to represent new schema */
+
 /**
  * Module dependencies.
  */
@@ -14,6 +16,10 @@ var path = require('path'),
 exports.create = function (req, res) {
   var rating = new Rating(req.body);
   rating.user = req.user;
+  rating.project = req.body.project;
+  if (req.body.posterRating) rating.posterRating = req.body.posterRating;
+  if (req.body.presentationRating) rating.presentationRating = req.body.presentationRating;
+  if (req.body.demoRating) rating.demoRating = req.body.demoRating;
 
   rating.save(function (err) {
     if (err) {
@@ -39,8 +45,11 @@ exports.read = function (req, res) {
 exports.update = function (req, res) {
   var rating = req.rating;
 
-  rating.title = req.body.title;
-  rating.content = req.body.content;
+  rating.user = req.user;
+  rating.project = req.body.project;
+  if (req.body.posterRating) rating.posterRating = req.body.posterRating;
+  if (req.body.presentationRating) rating.presentationRating = req.body.presentationRating;
+  if (req.body.demoRating) rating.demoRating = req.body.demoRating;
 
   rating.save(function (err) {
     if (err) {
