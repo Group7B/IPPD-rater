@@ -1,17 +1,17 @@
 'use strict';
 
 (function () {
-  // Articles Controller Spec
-  describe('Articles Controller Tests', function () {
+  // Ratings Controller Spec
+  describe('Ratings Controller Tests', function () {
     // Initialize global variables
-    var ArticlesController,
+    var RatingsController,
       scope,
       $httpBackend,
       $stateParams,
       $location,
       Authentication,
-      Articles,
-      mockArticle;
+      Ratings,
+      mockRating;
 
     // The $resource service augments the response object with methods for updating and deleting the resource.
     // If we were to use the standard toEqual matcher, our tests would fail because the test values would not match
@@ -38,7 +38,7 @@
     // The injector ignores leading and trailing underscores here (i.e. _$httpBackend_).
     // This allows us to inject a service but then attach it to a variable
     // with the same name as the service.
-    beforeEach(inject(function ($controller, $rootScope, _$location_, _$stateParams_, _$httpBackend_, _Authentication_, _Articles_) {
+    beforeEach(inject(function ($controller, $rootScope, _$location_, _$stateParams_, _$httpBackend_, _Authentication_, _Ratings_) {
       // Set a new global scope
       scope = $rootScope.$new();
 
@@ -47,12 +47,12 @@
       $httpBackend = _$httpBackend_;
       $location = _$location_;
       Authentication = _Authentication_;
-      Articles = _Articles_;
+      Ratings = _Ratings_;
 
-      // create mock article
-      mockArticle = new Articles({
+      // create mock rating
+      mockRating = new Ratings({
         _id: '525a8422f6d0f87f0e407a33',
-        title: 'An Article about MEAN',
+        title: 'An Rating about MEAN',
         content: 'MEAN rocks!'
       });
 
@@ -61,62 +61,62 @@
         roles: ['user']
       };
 
-      // Initialize the Articles controller.
-      ArticlesController = $controller('ArticlesController', {
+      // Initialize the Ratings controller.
+      RatingsController = $controller('RatingsController', {
         $scope: scope
       });
     }));
 
-    it('$scope.find() should create an array with at least one article object fetched from XHR', inject(function (Articles) {
-      // Create a sample articles array that includes the new article
-      var sampleArticles = [mockArticle];
+    it('$scope.find() should create an array with at least one rating object fetched from XHR', inject(function (Ratings) {
+      // Create a sample ratings array that includes the new rating
+      var sampleRatings = [mockRating];
 
       // Set GET response
-      $httpBackend.expectGET('api/articles').respond(sampleArticles);
+      $httpBackend.expectGET('api/ratings').respond(sampleRatings);
 
       // Run controller functionality
       scope.find();
       $httpBackend.flush();
 
       // Test scope value
-      expect(scope.articles).toEqualData(sampleArticles);
+      expect(scope.ratings).toEqualData(sampleRatings);
     }));
 
-    it('$scope.findOne() should create an array with one article object fetched from XHR using a articleId URL parameter', inject(function (Articles) {
+    it('$scope.findOne() should create an array with one rating object fetched from XHR using a ratingId URL parameter', inject(function (Ratings) {
       // Set the URL parameter
-      $stateParams.articleId = mockArticle._id;
+      $stateParams.ratingId = mockRating._id;
 
       // Set GET response
-      $httpBackend.expectGET(/api\/articles\/([0-9a-fA-F]{24})$/).respond(mockArticle);
+      $httpBackend.expectGET(/api\/ratings\/([0-9a-fA-F]{24})$/).respond(mockRating);
 
       // Run controller functionality
       scope.findOne();
       $httpBackend.flush();
 
       // Test scope value
-      expect(scope.article).toEqualData(mockArticle);
+      expect(scope.rating).toEqualData(mockRating);
     }));
 
     describe('$scope.create()', function () {
-      var sampleArticlePostData;
+      var sampleRatingPostData;
 
       beforeEach(function () {
-        // Create a sample article object
-        sampleArticlePostData = new Articles({
-          title: 'An Article about MEAN',
+        // Create a sample rating object
+        sampleRatingPostData = new Ratings({
+          title: 'An Rating about MEAN',
           content: 'MEAN rocks!'
         });
 
         // Fixture mock form input values
-        scope.title = 'An Article about MEAN';
+        scope.title = 'An Rating about MEAN';
         scope.content = 'MEAN rocks!';
 
         spyOn($location, 'path');
       });
 
-      it('should send a POST request with the form input values and then locate to new object URL', inject(function (Articles) {
+      it('should send a POST request with the form input values and then locate to new object URL', inject(function (Ratings) {
         // Set POST response
-        $httpBackend.expectPOST('api/articles', sampleArticlePostData).respond(mockArticle);
+        $httpBackend.expectPOST('api/ratings', sampleRatingPostData).respond(mockRating);
 
         // Run controller functionality
         scope.create(true);
@@ -126,13 +126,13 @@
         expect(scope.title).toEqual('');
         expect(scope.content).toEqual('');
 
-        // Test URL redirection after the article was created
-        expect($location.path.calls.mostRecent().args[0]).toBe('articles/' + mockArticle._id);
+        // Test URL redirection after the rating was created
+        expect($location.path.calls.mostRecent().args[0]).toBe('ratings/' + mockRating._id);
       }));
 
       it('should set scope.error if save error', function () {
         var errorMessage = 'this is an error message';
-        $httpBackend.expectPOST('api/articles', sampleArticlePostData).respond(400, {
+        $httpBackend.expectPOST('api/ratings', sampleRatingPostData).respond(400, {
           message: errorMessage
         });
 
@@ -145,25 +145,25 @@
 
     describe('$scope.update()', function () {
       beforeEach(function () {
-        // Mock article in scope
-        scope.article = mockArticle;
+        // Mock rating in scope
+        scope.rating = mockRating;
       });
 
-      it('should update a valid article', inject(function (Articles) {
+      it('should update a valid rating', inject(function (Ratings) {
         // Set PUT response
-        $httpBackend.expectPUT(/api\/articles\/([0-9a-fA-F]{24})$/).respond();
+        $httpBackend.expectPUT(/api\/ratings\/([0-9a-fA-F]{24})$/).respond();
 
         // Run controller functionality
         scope.update(true);
         $httpBackend.flush();
 
         // Test URL location to new object
-        expect($location.path()).toBe('/articles/' + mockArticle._id);
+        expect($location.path()).toBe('/ratings/' + mockRating._id);
       }));
 
-      it('should set scope.error to error response message', inject(function (Articles) {
+      it('should set scope.error to error response message', inject(function (Ratings) {
         var errorMessage = 'error';
-        $httpBackend.expectPUT(/api\/articles\/([0-9a-fA-F]{24})$/).respond(400, {
+        $httpBackend.expectPUT(/api\/ratings\/([0-9a-fA-F]{24})$/).respond(400, {
           message: errorMessage
         });
 
@@ -174,36 +174,36 @@
       }));
     });
 
-    describe('$scope.remove(article)', function () {
+    describe('$scope.remove(rating)', function () {
       beforeEach(function () {
-        // Create new articles array and include the article
-        scope.articles = [mockArticle, {}];
+        // Create new ratings array and include the rating
+        scope.ratings = [mockRating, {}];
 
         // Set expected DELETE response
-        $httpBackend.expectDELETE(/api\/articles\/([0-9a-fA-F]{24})$/).respond(204);
+        $httpBackend.expectDELETE(/api\/ratings\/([0-9a-fA-F]{24})$/).respond(204);
 
         // Run controller functionality
-        scope.remove(mockArticle);
+        scope.remove(mockRating);
       });
 
-      it('should send a DELETE request with a valid articleId and remove the article from the scope', inject(function (Articles) {
-        expect(scope.articles.length).toBe(1);
+      it('should send a DELETE request with a valid ratingId and remove the rating from the scope', inject(function (Ratings) {
+        expect(scope.ratings.length).toBe(1);
       }));
     });
 
     describe('scope.remove()', function () {
       beforeEach(function () {
         spyOn($location, 'path');
-        scope.article = mockArticle;
+        scope.rating = mockRating;
 
-        $httpBackend.expectDELETE(/api\/articles\/([0-9a-fA-F]{24})$/).respond(204);
+        $httpBackend.expectDELETE(/api\/ratings\/([0-9a-fA-F]{24})$/).respond(204);
 
         scope.remove();
         $httpBackend.flush();
       });
 
-      it('should redirect to articles', function () {
-        expect($location.path).toHaveBeenCalledWith('articles');
+      it('should redirect to ratings', function () {
+        expect($location.path).toHaveBeenCalledWith('ratings');
       });
     });
   });

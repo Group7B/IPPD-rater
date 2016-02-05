@@ -5,106 +5,106 @@
  */
 var path = require('path'),
   mongoose = require('mongoose'),
-  Article = mongoose.model('Article'),
+  Rating = mongoose.model('Rating'),
   errorHandler = require(path.resolve('./modules/core/server/controllers/errors.server.controller'));
 
 /**
- * Create a article
+ * Create a rating
  */
 exports.create = function (req, res) {
-  var article = new Article(req.body);
-  article.user = req.user;
+  var rating = new Rating(req.body);
+  rating.user = req.user;
 
-  article.save(function (err) {
+  rating.save(function (err) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
       });
     } else {
-      res.json(article);
+      res.json(rating);
     }
   });
 };
 
 /**
- * Show the current article
+ * Show the current rating
  */
 exports.read = function (req, res) {
-  res.json(req.article);
+  res.json(req.rating);
 };
 
 /**
- * Update a article
+ * Update a rating
  */
 exports.update = function (req, res) {
-  var article = req.article;
+  var rating = req.rating;
 
-  article.title = req.body.title;
-  article.content = req.body.content;
+  rating.title = req.body.title;
+  rating.content = req.body.content;
 
-  article.save(function (err) {
+  rating.save(function (err) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
       });
     } else {
-      res.json(article);
+      res.json(rating);
     }
   });
 };
 
 /**
- * Delete an article
+ * Delete an rating
  */
 exports.delete = function (req, res) {
-  var article = req.article;
+  var rating = req.rating;
 
-  article.remove(function (err) {
+  rating.remove(function (err) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
       });
     } else {
-      res.json(article);
+      res.json(rating);
     }
   });
 };
 
 /**
- * List of Articles
+ * List of Ratings
  */
 exports.list = function (req, res) {
-  Article.find().sort('-created').populate('user', 'displayName').exec(function (err, articles) {
+  Rating.find().sort('-created').populate('user', 'displayName').exec(function (err, ratings) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
       });
     } else {
-      res.json(articles);
+      res.json(ratings);
     }
   });
 };
 
 /**
- * Article middleware
+ * Rating middleware
  */
-exports.articleByID = function (req, res, next, id) {
+exports.ratingByID = function (req, res, next, id) {
 
   if (!mongoose.Types.ObjectId.isValid(id)) {
     return res.status(400).send({
-      message: 'Article is invalid'
+      message: 'Rating is invalid'
     });
   }
 
-  Article.findById(id).populate('user', 'displayName').exec(function (err, article) {
+  Rating.findById(id).populate('user', 'displayName').exec(function (err, rating) {
     if (err) {
       return next(err);
-    } else if (!article) {
+    } else if (!rating) {
       return res.status(404).send({
-        message: 'No article with that identifier has been found'
+        message: 'No rating with that identifier has been found'
       });
     }
-    req.article = article;
+    req.rating = rating;
     next();
   });
 };
