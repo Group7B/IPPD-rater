@@ -14,13 +14,10 @@ var ProjectSchema = new Schema({
   },
   description: {
     type: String
-  }
-  /* Not sure how to store logo yet
-  ,
+  },
   logo: {
-    type: ???
+    type: String
   }
-  */
 });
 
 mongoose.model('Project', ProjectSchema);
