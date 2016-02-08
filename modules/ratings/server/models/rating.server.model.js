@@ -17,12 +17,12 @@ var RatingSchema = new Schema({
   project: {
     type: Schema.ObjectId,
     ref: 'Project',
-    required
+    required: true
   },
   user: {
     type: Schema.ObjectId,
     ref: 'User',
-    required
+    required: true
   },
   posterRating: {
     type: Number,
