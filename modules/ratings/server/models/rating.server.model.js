@@ -16,23 +16,31 @@ var RatingSchema = new Schema({
   },
   project: {
     type: Schema.ObjectId,
-    ref: 'Project'
+    ref: 'Project',
+    required
   },
   user: {
     type: Schema.ObjectId,
-    ref: 'User'
+    ref: 'User',
+    required
   },
   posterRating: {
     type: Number,
-    default: 0
+    default: 0,
+    min: 0,
+    max: 5
   },
   presentationRating: {
     type: Number,
-    default: 0
+    default: 0,
+    min: 0,
+    max: 5
   },
   demoRating: {
     type: Number,
-    default: 0
+    default: 0,
+    min: 0,
+    max: 5
   }
   /* Old things from Articles module:
   created: {
