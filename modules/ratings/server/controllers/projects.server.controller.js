@@ -76,7 +76,7 @@ exports.delete = function (req, res) {
  * List of Projects
  */
 exports.list = function (req, res) {
-  Project.find().sort('-created').populate('user', 'displayName').exec(function (err, projects) {
+  Project.find().sort('-teamName').exec(function (err, projects) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
@@ -98,7 +98,7 @@ exports.projectByID = function (req, res, next, id) {
     });
   }
 
-  Project.findById(id).populate('user', 'displayName').exec(function (err, project) {
+  Project.findById(id).exec(function (err, project) {
     if (err) {
       return next(err);
     } else if (!project) {

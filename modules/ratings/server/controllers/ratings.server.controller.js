@@ -83,7 +83,7 @@ exports.delete = function (req, res) {
  * List of Ratings
  */
 exports.list = function (req, res) {
-  Rating.find().sort('-created').populate('user', 'displayName').exec(function (err, ratings) {
+  Rating.find().exec(function (err, ratings) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
@@ -105,7 +105,7 @@ exports.ratingByID = function (req, res, next, id) {
     });
   }
 
-  Rating.findById(id).populate('user', 'displayName').exec(function (err, rating) {
+  Rating.findById(id).exec(function (err, rating) {
     if (err) {
       return next(err);
     } else if (!rating) {
