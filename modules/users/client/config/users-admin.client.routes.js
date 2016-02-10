@@ -32,6 +32,18 @@ angular.module('users.admin.routes').config(['$stateProvider',
             });
           }]
         }
+      })
+      .state('admin.create-project', {
+        url: '/projects/create',
+        templateUrl: 'modules/users/client/views/admin/create-project.client.view.html',
+        controller: 'CreateProjectController',
+        resolve: {
+          userResolve: ['$stateParams', 'Admin', function ($stateParams, Admin) {
+            return Admin.get({
+              userId: $stateParams.userId
+            });
+          }]
+        }
       });
   }
 ]);
