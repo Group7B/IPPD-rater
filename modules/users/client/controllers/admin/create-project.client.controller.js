@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('users.admin').controller('CreateProjectController', ['$scope', '$state', 'Authentication', 'userResolve',
-  function ($scope, $state, Authentication, userResolve, Ratings) {
+  function ($scope, $state, $stateParams, $location, Authentication, userResolve, Ratings) {
     $scope.authentication = Authentication;
     $scope.user = userResolve;
 
