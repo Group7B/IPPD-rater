@@ -1,85 +1,87 @@
 'use strict';
 
-angular.module('users.admin').controller('CreateProjectController', ['$scope', '$state', 'Authentication', 'userResolve',
-  function ($scope, $state, $stateParams, $location, Authentication, userResolve, Ratings) {
+angular.module('users.admin').controller('CreateProjectController', ['$scope', '$stateParams', '$location', 'Authentication', 'projects',
+  function ($scope, $stateParams, $location, Authentication, Project) {
     $scope.authentication = Authentication;
-    $scope.user = userResolve;
+    //$scope.user = userResolve;
 
     $scope.create = function (isValid) {
       $scope.error = null;
 
       if (!isValid) {
-        $scope.$broadcast('show-errors-check-validity', 'ratingForm');
+        $scope.$broadcast('show-errors-check-validity', 'createProjectForm');
 
         return false;
       }
 
-      // Create new Rating object
-      var rating = new Ratings({
+      // Create new project object
+      var project = new Project({
         teamName: this.teamName,
-        description: this.description,
-        logo: this.logo
+        description: this.description
+        //,logo: this.logo
       });
 
       // Redirect after save
-      rating.$save(function (response) {
-        $location.path('ratings/' + response._id);
+      project.$save(function (response) {
+        $location.path('admin/projects/' + response._id);
 
         // Clear form fields
         $scope.teamName = '';
         $scope.description = '';
-        $scope.logo = '';
+        //$scope.logo = '';
       }, function (errorResponse) {
         $scope.error = errorResponse.data.message;
       });
     };
 
-    // Remove existing Rating
-    $scope.remove = function (rating) {
-      if (rating) {
-        rating.$remove();
+    // Remove existing project
+    $scope.remove = function (project) {
+      if (project) {
+        project.$remove();
 
-        for (var i in $scope.ratings) {
-          if ($scope.ratings[i] === rating) {
-            $scope.ratings.splice(i, 1);
+        for (var i in $scope.projects) {
+          if ($scope.projects[i] === project) {
+            $scope.projects.splice(i, 1);
           }
         }
       } else {
-        $scope.rating.$remove(function () {
-          $location.path('ratings');
+        $scope.project.$remove(function () {
+          $location.path('admin/projects');
         });
       }
     };
 
-    // Update existing Rating
+    // Update existing project
     $scope.update = function (isValid) {
       $scope.error = null;
 
       if (!isValid) {
-        $scope.$broadcast('show-errors-check-validity', 'ratingForm');
+        $scope.$broadcast('show-errors-check-validity', 'createProjectForm');
 
         return false;
       }
 
-      var rating = $scope.rating;
+      var project = $scope.project;
 
-      rating.$update(function () {
-        $location.path('ratings/' + rating._id);
+      project.$update(function () {
+        $location.path('admin/projects/' + project._id);
       }, function (errorResponse) {
         $scope.error = errorResponse.data.message;
       });
     };
 
-    // Find a list of Ratings
+    // Find a list of projects
     $scope.find = function () {
-      $scope.ratings = Ratings.query();
+      $scope.projects = Project.query();
     };
 
-    // Find existing Rating
+    // Find existing project
+    /*
     $scope.findOne = function () {
-      $scope.rating = Ratings.get({
-        ratingId: $stateParams.ratingId
+      $scope.project = Project.get({
+        projectId: $stateParams.projectId
       });
     };
+    */
   }
 ]);

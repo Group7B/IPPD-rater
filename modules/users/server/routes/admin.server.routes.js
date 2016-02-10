@@ -14,17 +14,17 @@ module.exports = function (app) {
 
   // Users collection routes
   app.route('/api/users')
-    .get(adminPolicy.isAllowed, admin.list);
+    .get(adminPolicy.isAllowed, admin.listUser);
 
   // Single user routes
   app.route('/api/users/:userId')
-    .get(adminPolicy.isAllowed, admin.read)
-    .put(adminPolicy.isAllowed, admin.update)
-    .delete(adminPolicy.isAllowed, admin.delete);
+    .get(adminPolicy.isAllowed, admin.readUser)
+    .put(adminPolicy.isAllowed, admin.updateUser)
+    .delete(adminPolicy.isAllowed, admin.deleteUser);
 
   // Create project route
   app.route('/api/projects/create')
-    .get(adminPolicy.isAllowed, project.list)
+    //.get(adminPolicy.isAllowed, project.list)
     .put(adminPolicy.isAllowed, project.create);
 
   /* TODO: add routes as follows:

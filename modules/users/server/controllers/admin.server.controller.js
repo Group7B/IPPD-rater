@@ -6,19 +6,20 @@
 var path = require('path'),
   mongoose = require('mongoose'),
   User = mongoose.model('User'),
+  Project = mongoose.model('Project'),
   errorHandler = require(path.resolve('./modules/core/server/controllers/errors.server.controller'));
 
 /**
  * Show the current user
  */
-exports.read = function (req, res) {
+exports.readUser = function (req, res) {
   res.json(req.model);
 };
 
 /**
  * Update a User
  */
-exports.update = function (req, res) {
+exports.updateUser = function (req, res) {
   var user = req.model;
 
   //For security purposes only merge these parameters
@@ -41,7 +42,7 @@ exports.update = function (req, res) {
 /**
  * Delete a user
  */
-exports.delete = function (req, res) {
+exports.deleteUser = function (req, res) {
   var user = req.model;
 
   user.remove(function (err) {
@@ -58,7 +59,7 @@ exports.delete = function (req, res) {
 /**
  * List of Users
  */
-exports.list = function (req, res) {
+exports.listUser = function (req, res) {
   User.find({}, '-salt -password').sort('-created').populate('user', 'displayName').exec(function (err, users) {
     if (err) {
       return res.status(400).send({
