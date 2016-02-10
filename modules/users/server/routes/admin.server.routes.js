@@ -23,13 +23,15 @@ module.exports = function (app) {
     .delete(adminPolicy.isAllowed, admin.delete);
 
   // Create project route
-      // TODO: make sure this is correct
   app.route('/api/projects/create')
     .get(adminPolicy.isAllowed, project.list)
     .put(adminPolicy.isAllowed, project.create);
 
-  // TODO: Create user route
-
+  /* TODO: add routes as follows:
+        app.route('/api/LOGICAL/PATH')
+          .get(adminPolicy.isAllowed, ADMIN/PROJECT/RATING.FUNCTION)
+          .put(adminPolicy.isAllowed, ADMIN/PROJECT/RATING.FUNCTION);
+  */
 
   // Finish by binding the user middleware
   app.param('userId', admin.userByID);

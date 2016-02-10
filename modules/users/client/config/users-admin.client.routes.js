@@ -45,5 +45,20 @@ angular.module('users.admin.routes').config(['$stateProvider',
           }]
         }
       });
+
+      /*  TODO: add states using:
+            .state('STATE NAME (admin.WHATEVER-WITH-DASHES)', {
+              url: '/PATH/IN/URL',
+              templateUrl: 'modules/users/client/views/admin/HTML-FOR-THIS-STATE',
+              controller: 'CONTROLLER NAME (not file)',
+              resolve: {      // copy all this as is. Don't cahnge any of it
+                userResolve: ['$stateParams', 'Admin', function ($stateParams, Admin) {
+                  return Admin.get({
+                    userId: $stateParams.userId
+                  });
+                }]
+              }
+            });
+      */
   }
 ]);
