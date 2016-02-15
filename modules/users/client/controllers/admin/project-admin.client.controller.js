@@ -3,8 +3,6 @@
 angular.module('users.admin').controller('AdminProjectController', ['$scope', '$stateParams', '$location', 'Authentication', 'Projects',
   function ($scope, $stateParams, $location, Authentication, Projects) {
     $scope.authentication = Authentication;
-    //$scope.user = userResolve;
-    //$scope.authentication = Authentication;
 
     $scope.create = function (isValid) {
       $scope.error = null;
@@ -24,7 +22,7 @@ angular.module('users.admin').controller('AdminProjectController', ['$scope', '$
 
       // Redirect after save
       project.$save(function (response) {
-        console.log ("Adding " + project.teamName + ", " + project.description);
+        console.log ('Adding ' + project.teamName + ', ' + project.description);
         $location.path('admin/projects/' + response._id);
         //$location.path('admin/projects/create');
 
