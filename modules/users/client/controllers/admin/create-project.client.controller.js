@@ -1,32 +1,36 @@
 'use strict';
 
-angular.module('users.admin').controller('CreateProjectController', ['$scope', '$stateParams', '$location', 'Authentication', 'projects',
-  function ($scope, $stateParams, $location, Authentication, Project) {
+angular.module('users.admin').controller('CreateProjectController', ['$scope', '$stateParams', '$location', 'Authentication', 'Projects',
+  function ($scope, $stateParams, $location, Authentication, Projects) {
     $scope.authentication = Authentication;
     //$scope.user = userResolve;
+    //$scope.authentication = Authentication;
 
     $scope.create = function (isValid) {
       $scope.error = null;
 
       if (!isValid) {
         $scope.$broadcast('show-errors-check-validity', 'createProjectForm');
-
         return false;
       }
 
       // Create new project object
-      var project = new Project({
-        teamName: this.teamName,
+      var project = new Projects({
+        teamName: this.name,
         description: this.description
         //,logo: this.logo
       });
 
+      console.log (project.name + " " + project.description);
+
       // Redirect after save
       project.$save(function (response) {
+        console.log (project.name + " " + project.description);
         $location.path('admin/projects/' + response._id);
+        //$location.path('admin/projects/create');
 
         // Clear form fields
-        $scope.teamName = '';
+        $scope.name = '';
         $scope.description = '';
         //$scope.logo = '';
       }, function (errorResponse) {
@@ -72,16 +76,17 @@ angular.module('users.admin').controller('CreateProjectController', ['$scope', '
 
     // Find a list of projects
     $scope.find = function () {
-      $scope.projects = Project.query();
+      $scope.projects = Projects.query();
     };
 
     // Find existing project
-    /*
+
     $scope.findOne = function () {
-      $scope.project = Project.get({
+      $scope.project = Projects.get({
         projectId: $stateParams.projectId
       });
     };
-    */
+
+
   }
 ]);

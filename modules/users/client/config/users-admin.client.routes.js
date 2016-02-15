@@ -37,12 +37,16 @@ angular.module('users.admin.routes').config(['$stateProvider',
         url: '/projects/create',
         templateUrl: 'modules/users/client/views/admin/create-project.client.view.html',
         controller: 'CreateProjectController',
-        resolve: {
-          userResolve: ['$stateParams', 'Admin', function ($stateParams, Admin) {
-            return Admin.get({
-              userId: $stateParams.userId
-            });
-          }]
+        data: {
+          roles: ['user', 'admin']
+        }
+      })
+      .state('admin.project', {
+        url: '/projects/:projectId',
+        templateUrl: 'modules/users/client/views/admin/view-project.client.view.html',
+        controller: 'CreateProjectController',
+        data: {
+          roles: ['user', 'admin']
         }
       });
 
