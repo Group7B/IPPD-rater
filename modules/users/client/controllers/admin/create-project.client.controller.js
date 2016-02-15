@@ -21,11 +21,10 @@ angular.module('users.admin').controller('CreateProjectController', ['$scope', '
         //,logo: this.logo
       });
 
-      console.log (project.name + " " + project.description);
 
       // Redirect after save
       project.$save(function (response) {
-        console.log (project.name + " " + project.description);
+        console.log ("Adding " + project.teamName + ", " + project.description);
         $location.path('admin/projects/' + response._id);
         //$location.path('admin/projects/create');
 
