@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('users.admin').controller('CreateProjectController', ['$scope', '$stateParams', '$location', 'Authentication', 'Projects',
+angular.module('users.admin').controller('AdminProjectController', ['$scope', '$stateParams', '$location', 'Authentication', 'Projects',
   function ($scope, $stateParams, $location, Authentication, Projects) {
     $scope.authentication = Authentication;
     //$scope.user = userResolve;

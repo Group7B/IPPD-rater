@@ -13,6 +13,11 @@ angular.module('users.admin').run(['Menus',
       state: 'admin.create-project',
       roles: ['admin']
     });
+    Menus.addSubMenuItem('topbar', 'admin', {
+      title: 'Manage Projects',
+      state: 'admin.projects',
+      roles: ['admin']
+    });
 
     /* TODO: add any other menu items with:
         Menus.addSubMenuItem('topbar', 'admin', {
