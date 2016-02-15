@@ -28,7 +28,7 @@ module.exports = function (app) {
   // Create project route
   app.route('/api/projects/create')
     .get(adminPolicy.isAllowed, project.list)
-    .post(project.create);
+    .post(adminPolicy.isAllowed, project.create);
 
   app.route('/api/projects/:projectId')
         // temporary test to see if project.projectById is the problem
