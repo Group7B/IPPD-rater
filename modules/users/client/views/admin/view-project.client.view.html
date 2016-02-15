@@ -1,3 +1,14 @@
-<section>
-This will the view for single projects
+<section ng-controller="AdminProjectController" ng-init="findOne()">
+  <div class="page-header">
+    <h1 ng-bind="project.teamName"></h1>
+  </div>
+  <div class="pull-right">
+    <a class="btn btn-primary" ui-sref="admin.projects-edit({projectId: project._id})">
+      <i class="glyphicon glyphicon-edit"></i>
+    </a>
+    <a class="btn btn-primary" ng-click="remove();">
+      <i class="glyphicon glyphicon-trash"></i>
+    </a>
+  </div>
+  <p class="lead" ng-bind="project.description"></p>
 </section>

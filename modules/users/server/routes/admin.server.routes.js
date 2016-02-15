@@ -33,7 +33,7 @@ module.exports = function (app) {
     .post(adminPolicy.isAllowed, project.create);
   // Single project routes
   app.route('/api/projects/:projectId')
-    .get(adminPolicy.isAllowed, project.projectByID)
+    .get(adminPolicy.isAllowed, project.read)
     .put(adminPolicy.isAllowed, project.update)
     .delete(adminPolicy.isAllowed, project.delete);
 

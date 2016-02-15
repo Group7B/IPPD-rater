@@ -8,6 +8,12 @@ angular.module('users').factory('Projects', ['$resource',
     }, {
       create: {
         method: 'PUT'
+      },
+      update: {
+        method: 'PUT'
+      },
+      findOne: {
+        method: 'GET'
       }
     });
   }

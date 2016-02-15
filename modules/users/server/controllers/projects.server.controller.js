@@ -102,6 +102,7 @@ exports.projectByID = function (req, res, next, id) {
     if (err) {
       return next(err);
     } else if (!project) {
+      console.log('We couldnt find your project');
       return res.status(404).send({
         message: 'No project with that identifier has been found'
       });
