@@ -43,13 +43,13 @@ angular.module('users.admin.routes').config(['$stateProvider',
         }
       })
       .state('admin.create-project', {
-          url: '/projects/create',
-          templateUrl: 'modules/users/client/views/admin/create-project.client.view.html',
-          controller: 'AdminProjectController',
-          data: {
-            roles: ['user', 'admin']
-          }
-        })
+        url: '/projects/create',
+        templateUrl: 'modules/users/client/views/admin/create-project.client.view.html',
+        controller: 'AdminProjectController',
+        data: {
+          roles: ['user', 'admin']
+        }
+      })
       .state('admin.project', {
         url: '/projects/:projectId',
         templateUrl: 'modules/users/client/views/admin/view-project.client.view.html',

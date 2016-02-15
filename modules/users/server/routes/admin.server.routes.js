@@ -22,16 +22,17 @@ module.exports = function (app) {
     .put(adminPolicy.isAllowed, admin.updateUser)
     .delete(adminPolicy.isAllowed, admin.deleteUser);
 
+  // List project route
   app.route('/api/projects')
-    .get(adminPolicy.isAllowed, project.list);
+    .get(adminPolicy.isAllowed, project.list)
+    .post(adminPolicy.isAllowed, project.create);
 
   // Create project route
   app.route('/api/projects/create')
     .get(adminPolicy.isAllowed, project.list)
     .post(adminPolicy.isAllowed, project.create);
-
+  // Single project routes
   app.route('/api/projects/:projectId')
-        // temporary test to see if project.projectById is the problem
     .get(adminPolicy.isAllowed, project.projectByID)
     .put(adminPolicy.isAllowed, project.update)
     .delete(adminPolicy.isAllowed, project.delete);
