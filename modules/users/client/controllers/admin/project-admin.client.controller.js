@@ -8,7 +8,7 @@ angular.module('users.admin').controller('AdminProjectController', ['$scope', '$
       $scope.error = null;
 
       if (!isValid) {
-        $scope.$broadcast('show-errors-check-validity', 'createProjectForm');
+        $scope.$broadcast('show-errors-check-validity', 'projectForm');
         return false;
       }
 
@@ -47,7 +47,7 @@ angular.module('users.admin').controller('AdminProjectController', ['$scope', '$
         }
       } else {
         $scope.project.$remove(function () {
-          $location.path('admin/projects');
+          $location.path('admin/projects/list');
         });
       }
     };
@@ -57,12 +57,12 @@ angular.module('users.admin').controller('AdminProjectController', ['$scope', '$
       $scope.error = null;
 
       if (!isValid) {
-        $scope.$broadcast('show-errors-check-validity', 'createProjectForm');
-
+        $scope.$broadcast('show-errors-check-validity', 'projectForm');
         return false;
       }
 
       var project = $scope.project;
+      console.log("The project is " + project.teamName);
 
       project.$update(function () {
         $location.path('admin/projects/' + project._id);
@@ -77,13 +77,10 @@ angular.module('users.admin').controller('AdminProjectController', ['$scope', '$
     };
 
     // Find existing project
-
     $scope.findOne = function () {
       $scope.project = Projects.get({
         projectId: $stateParams.projectId
       });
     };
-
-
   }
 ]);
