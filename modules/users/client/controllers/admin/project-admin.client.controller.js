@@ -62,6 +62,8 @@ angular.module('users.admin').controller('AdminProjectController', ['$scope', '$
       }
 
       var project = $scope.project;
+      if ($scope.teamName) project.teamName = $scope.teamName;
+      if ($scope.description) project.description = $scope.description;
       console.log("The project is " + project.teamName);
 
       project.$update(function () {
@@ -78,7 +80,7 @@ angular.module('users.admin').controller('AdminProjectController', ['$scope', '$
         $scope.buildPager();
       });
     };
-      
+
     $scope.buildPager = function () {
       $scope.pagedItems = [];
       $scope.itemsPerPage = 15;
