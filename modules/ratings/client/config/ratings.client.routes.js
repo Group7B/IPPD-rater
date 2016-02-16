@@ -12,7 +12,7 @@ angular.module('ratings').config(['$stateProvider',
       })
       .state('ratings.list', {
         url: '',
-        templateUrl: 'modules/ratings/client/views/list-ratings.client.view.html'
+        templateUrl: 'modules/ratings/client/views/list-rating.client.view.html'
       })
       .state('ratings.create', {
         url: '/create',
