@@ -3,7 +3,7 @@
     <h1 ng-bind="project.teamName"></h1>
   </div>
   <div class="pull-right">
-    <a class="btn btn-primary" ui-sref="admin.projects-edit({projectId: project._id})">
+    <a class="btn btn-primary" ui-sref="admin.edit-project({projectId: project._id})">
       <i class="glyphicon glyphicon-edit"></i>
     </a>
     <a class="btn btn-primary" ng-click="remove();">
