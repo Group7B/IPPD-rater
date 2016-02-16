@@ -1,30 +1,34 @@
 <section>
-  <div class="page-header">
-    <h1>Create Project<span ng-bind="user.username"></span></h1>
-  </div>
-  <div class="col-md-12">
-    <form name="projectForm" ng-submit="create(projectForm.$valid)" novalidate>
-      <fieldset>
-        <div class="form-group" show-errors>
-          <label for="teamName">Project Name</label>
-          <input type="text" id="name" name="name" class="form-control" ng-model="name" placeholder="Project Name" required />
-          <div ng-messages="createProjectForm.teamName.$error" role="alert">
-            <p class="help-block error-text" ng-message="required">Project name is required.</p>
-          </div>
-        </div>
+  <div class="container">
+    <div class="col-md-10 col-md-offset-1">
+      <div class="page-header">
+        <h1>Create Project<span ng-bind="user.username"></span></h1>
+      </div>
+      <div class="col-md-12">
+        <form name="projectForm" class="form-horizontal" ng-submit="create(projectForm.$valid)" novalidate>
+          <fieldset>
+            <div class="form-group" show-errors>
+              <label for="teamName">Project Name</label>
+              <input type="text" id="name" name="name" class="form-control" ng-model="name" placeholder="Project Name" required />
+              <div ng-messages="createProjectForm.teamName.$error" role="alert">
+                <p class="help-block error-text" ng-message="required">Project name is required.</p>
+              </div>
+            </div>
 
-        <div class="form-group" show-errors>
-          <label for="projectDescription">Project Description</label>
-          <input type="text" id="description" name="description" class="form-control" ng-model="description" placeholder="Description" />
-        </div>
+            <div class="form-group" show-errors>
+              <label for="projectDescription">Project Description</label>
+              <input type="text" id="description" name="description" class="form-control" ng-model="description" placeholder="Description" />
+            </div>
 
-        <div class="form-group">
-          <input type="submit" value="Create" class="btn btn-default">
-        </div>
-        <div ng-show="error" class="text-danger">
-          <strong ng-bind="error"></strong>
-        </div>
-      </fieldset>
-    </form>
+            <div class="form-group">
+              <input type="submit" value="Create" class="btn btn-default">
+            </div>
+            <div ng-show="error" class="text-danger">
+              <strong ng-bind="error"></strong>
+            </div>
+          </fieldset>
+        </form>
+      </div>
+    </div>
   </div>
 </section>
