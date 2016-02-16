@@ -57,6 +57,14 @@ angular.module('users.admin.routes').config(['$stateProvider',
         data: {
           roles: ['user', 'admin']
         }
+      })
+      .state('admin.edit-project', {
+        url: '/projects/:projectId/edit',
+        templateUrl: 'modules/users/client/views/admin/edit-project.client.view.html',
+        controller: 'AdminProjectController',
+        data: {
+          roles: ['user', 'admin']
+        }
       });
 
       /*  TODO: add states using:

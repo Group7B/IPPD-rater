@@ -44,6 +44,7 @@ exports.update = function (req, res) {
   project.teamName = req.body.teamName;
   project.description = req.body.description;
 
+  console.log ("Server side: " + project.teamName + ", " + project.description);
   project.save(function (err) {
     if (err) {
       return res.status(400).send({
