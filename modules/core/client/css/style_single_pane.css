@@ -1,0 +1,104 @@
+html,body {
+    margin: 0;
+    padding: 0;
+    background: #79B8F5;
+}
+
+td {
+    font-family: 'Open Sans',Helvetica,Arial,sans-serif;
+    font-size: 30px;
+
+}
+
+label {
+    font-size: 20px;
+    font-weight: normal !important;
+}
+
+.navbar-default {
+    /*color: #FFFFFF;*/
+    border-color: #D1D1D1;
+    background-color: #D1D1D1;
+}
+
+.navbar-default .navbar-nav > li {
+    background-color: #D1D1D1;
+}
+
+.navbar-title {
+    font-family: 'Open Sans',Helvetica,Arial,sans-serif;
+    font-size: 30px;
+    color: #15A3FF;
+    float: center;
+    padding: 15px;
+    text-align: center;
+    width: 100%;
+}
+
+.glyphicon {
+    font-size: 30px;
+    color: #15A3FF;
+}
+
+.center-block {
+    display: block;
+    /*margin-top: 20px;*/
+    margin-left: middle;
+    margin-right: middle;
+    margin-bottom: 20px;
+ }
+
+button {
+    -webkit-appearance: none;
+    outline: none;
+    border: 0;
+    background-color: #D1D1D1;
+    
+    vertical-align: center;
+}
+
+.glyphicon:hover {
+    font-size: 30px;
+    color: #7CC8FA;
+}
+
+.rate {
+    float: center;
+    height: 46px;
+    padding: 0 10px;
+}
+.rate:not(:checked) > input {
+    position:absolute;
+    visibility: hidden;
+}
+.rate:not(:checked) > label {
+    float:right;
+    width:1em;
+    overflow:hidden;
+    white-space:nowrap;
+    cursor:pointer;
+    font-size:50px;
+    color:#DBDCDE;
+}
+.rate:not(:checked) > label:before {
+    content: '★ ';
+}
+.rate > input:checked ~ label {
+    color: #FF8000;
+
+}
+.rate:not(:checked) > label:hover,
+.rate:not(:checked) > label:hover ~ label {
+   color: #FA9E42;
+
+}
+.rate > input:checked + label:hover,
+.rate > input:checked + label:hover ~ label,
+.rate > input:checked ~ label:hover,
+.rate > input:checked ~ label:hover ~ label,
+.rate > label:hover ~ input:checked ~ label {
+      color:  #FA9E42;
+}
+
+
+
