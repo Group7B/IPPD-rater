@@ -1,0 +1,18 @@
+<section class="container-fluid">
+  <div class="row">
+    <div class="col-sm-3 col-md-3 col-lg-2 sidebar">
+      <ul class="nav nav-sidebar">
+         <div id="topLogo">
+            <img class="logo" src="modules/core/client/img/brand/logo.png">
+        </div>
+        <div class="adminListButton notLast"><a ui-sref="admin.users">Users</a></div>
+        <div class="adminListButton notLast"><a ui-sref="admin.projects">Projects</a></div>
+        <div class="adminListButton notLast"><a ui-sref="admin.ratings">Ratings</a></div>
+        <div class="adminListButton notLast"><a ui-sref="admin.theme">Theme</a></div>
+      </ul>
+    </div>
+    <div class="col-sm-9 col-md-9 col-lg-10">
+      <section ui-view></section>
+    </div>
+  </div>
+</section>
