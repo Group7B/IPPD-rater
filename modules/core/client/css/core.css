@@ -39,3 +39,44 @@ a:hover .header-profile-image {
 .has-error .help-inline.error-text {
   display: inline;
 }
+.post_thumb {
+  float: left;
+}
+.list-group-item{
+  clear:both;
+}
+.list-group-item-heading{
+  display:inline-block;
+  font-weight: bold;
+  font-size: 200%;
+  padding: 9px;
+}
+.list-group-item-text{
+  display:inline-block
+}
+.cf:before,
+.cf:after {
+    content: " "; /* 1 */
+    display: table; /* 2 */
+}
+
+.cf:after {
+    clear: both;
+}
+.rating {
+  unicode-bidi: bidi-override;
+  direction: rtl;
+  height: 16px;
+
+}
+.rating > span {
+  display: inline-block;
+  position: relative;
+  width: 1.1em;
+}
+.rating > span:hover:before,
+.rating > span:hover ~ span:before {
+   content: "\2605";
+   position: absolute;
+   color:gold;
+}
