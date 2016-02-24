@@ -49,3 +49,40 @@
     </div>
   </div>
 </section>
+
+<section ng-controller="RatingsController" ng-init="find()">
+  <div class="container">
+    <div class="col-md-10">
+      <div class="page-header">
+        <div class="row">
+          <div class="col-md-4">
+            <h1>Ratings</h1>
+          </div>
+        </div>
+      </div>
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th>Project</th>
+        <th>Demo</th>
+        <th>Poster</th>
+        <th>Presentation</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="rating in ratings">
+        <td ng-bind="rating.project.teamName"></td>
+        <td ng-bind="rating.demoRating"></td>
+        <td ng-bind="rating.posterRating"></td>
+        <td ng-bind="rating.presentationRating"></td>
+      </tr>
+    </tbody>
+  </table>
+
+      <pagination boundary-links="true" max-size="8" items-per-page="itemsPerPage" total-items="filterLength" ng-model="currentPage" ng-change="pageChanged()"></pagination>
+      <div class="alert alert-warning text-center" ng-if="ratings.$resolved && !ratings.length">
+        No ratings yet!
+      </div>
+    </div>
+  </div>
+</section>

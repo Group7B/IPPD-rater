@@ -1,0 +1,139 @@
+<section ng-controller="AdminProjectController" ng-init="findOne()">
+    <div class="page-header">
+        <h1 ng-bind="project.teamName"></h1>
+    </div>
+    <div class="pull-right">
+        <a class="btn btn-primary" ui-sref="admin.edit-project({projectId: project._id})">
+            <i class="glyphicon glyphicon-edit"></i>
+        </a>
+        <a class="btn btn-primary" ng-click="remove();">
+            <i class="glyphicon glyphicon-trash"></i>
+        </a>
+    </div>
+    <p class="lead" ng-bind="project.description"></p>
+</section>
+<section ng-controller="RatingsController" ng-init="find()">
+    <div class="page-header">
+        <div class="row">
+            <div class="col-md-4">
+                <h1>Ratings</h1>
+            </div>
+        </div>
+        <p>The amount of people that have rated this project a certain rating.</p>
+    </div>
+    <br>
+    <p>Non-judge Ratings:</p>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Rating</th>
+                <th>Demo</th>
+                <th>Poster</th>
+                <th>Presentation</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>5</td>
+                <td ng-bind="rating.presentationRating"></td>
+                <td ng-bind="rating.posterRating"></td>
+                <td ng-bind="rating.demoRating"></td>
+            </tr>
+            <tr>
+                <td>4</td>
+                <td ng-bind="rating.presentationRating"></td>
+                <td ng-bind="rating.posterRating"></td>
+                <td ng-bind="rating.demoRating"></td>
+            </tr>
+            <tr>
+                <td>3</td>
+                <td ng-bind="rating.presentationRating"></td>
+                <td ng-bind="rating.posterRating"></td>
+                <td ng-bind="rating.demoRating"></td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td ng-bind="rating.presentationRating"></td>
+                <td ng-bind="rating.posterRating"></td>
+                <td ng-bind="rating.demoRating"></td>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td ng-bind="rating.presentationRating"></td>
+                <td ng-bind="rating.posterRating"></td>
+                <td ng-bind="rating.demoRating"></td>
+            </tr>
+            <tr>
+                <td>0</td>
+                <td ng-bind="rating.presentationRating"></td>
+                <td ng-bind="rating.posterRating"></td>
+                <td ng-bind="rating.demoRating"></td>
+            </tr>
+            <tr>
+                <td>Unrated</td>
+                <td ng-bind="rating.presentationRating"></td>
+                <td ng-bind="rating.posterRating"></td>
+                <td ng-bind="rating.demoRating"></td>
+            </tr>
+        </tbody>
+    </table>
+    <p>Judge Ratings:</p>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Rating</th>
+                <th>Presentation</th>
+                <th>Poster</th>
+                <th>Demo</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>5</td>
+                <td ng-bind="rating.presentationRating"></td>
+                <td ng-bind="rating.posterRating"></td>
+                <td ng-bind="rating.demoRating"></td>
+            </tr>
+            <tr>
+                <td>4</td>
+                <td ng-bind="rating.presentationRating"></td>
+                <td ng-bind="rating.posterRating"></td>
+                <td ng-bind="rating.demoRating"></td>
+            </tr>
+            <tr>
+                <td>3</td>
+                <td ng-bind="rating.presentationRating"></td>
+                <td ng-bind="rating.posterRating"></td>
+                <td ng-bind="rating.demoRating"></td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td ng-bind="rating.presentationRating"></td>
+                <td ng-bind="rating.posterRating"></td>
+                <td ng-bind="rating.demoRating"></td>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td ng-bind="rating.presentationRating"></td>
+                <td ng-bind="rating.posterRating"></td>
+                <td ng-bind="rating.demoRating"></td>
+            </tr>
+            <tr>
+                <td>0</td>
+                <td ng-bind="rating.presentationRating"></td>
+                <td ng-bind="rating.posterRating"></td>
+                <td ng-bind="rating.demoRating"></td>
+            </tr>
+            <tr>
+                <td>Unrated</td>
+                <td ng-bind="rating.presentationRating"></td>
+                <td ng-bind="rating.posterRating"></td>
+                <td ng-bind="rating.demoRating"></td>
+            </tr>
+        </tbody>
+    </table>
+    <pagination boundary-links="true" max-size="8" items-per-page="itemsPerPage" total-items="filterLength" ng-model="currentPage" ng-change="pageChanged()"></pagination>
+    <div class="alert alert-warning text-center" ng-if="ratings.$resolved && !ratings.length">
+        No ratings yet!
+    </div>
+</section>

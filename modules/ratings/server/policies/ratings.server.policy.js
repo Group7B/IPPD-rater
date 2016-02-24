@@ -9,38 +9,49 @@ var acl = require('acl');
 acl = new acl(new acl.memoryBackend());
 
 /**
- * Invoke Admin Permissions
+ * Invoke Ratings Permissions
  */
 exports.invokeRolesPolicies = function () {
   acl.allow([{
     roles: ['admin'],
     allows: [{
-      resources: '/api/users',
+      resources: '/api/ratings',
       permissions: '*'
     }, {
-      resources: '/api/users/:userId',
+      resources: '/api/ratings/:ratingId',
       permissions: '*'
-    },
-    {
-      resources: '/api/projects',
-      permissions: '*'
-    },
-    {
-      resources: '/api/projects/create',
-      permissions: '*'
-    },
-    {
-      resources: '/api/projects/:projectId',
-      permissions: '*'
+    }]
+  }, {
+    roles: ['user'],
+    allows: [{
+      resources: '/api/ratings',
+      permissions: ['get', 'post']
+    }, {
+      resources: '/api/ratings/:ratingId',
+      permissions: ['get']
+    }]
+  }, {
+    roles: ['guest'],
+    allows: [{
+      resources: '/api/ratings',
+      permissions: ['get']
+    }, {
+      resources: '/api/ratings/:ratingId',
+      permissions: ['get']
     }]
   }]);
 };
 
 /**
- * Check If Admin Policy Allows
+ * Check If Ratings Policy Allows
  */
 exports.isAllowed = function (req, res, next) {
   var roles = (req.user) ? req.user.roles : ['guest'];
+
+  // If an rating is being processed and the current user created it then allow any manipulation
+  if (req.rating && req.user && req.rating.user.id === req.user.id) {
+    return next();
+  }
 
   // Check for user roles
   acl.areAnyRolesAllowed(roles, req.route.path, req.method.toLowerCase(), function (err, isAllowed) {

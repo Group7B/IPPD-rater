@@ -1,6 +1,10 @@
 .content {
   margin-top: 50px;
 }
+
+.img-center {
+  margin: auto;
+}
 .undecorated-link:hover {
   text-decoration: none;
 }

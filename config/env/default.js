@@ -2,8 +2,8 @@
 
 module.exports = {
   app: {
-    title: 'IPPD Rater Thing',
-    description: 'Rate all the awesome projects!',
+    title: 'IPPD Rater',
+    description: 'Rate Projects at the IPPD Showcase',
     keywords: 'mongodb, express, angularjs, node.js, mongoose, passport',
     googleAnalyticsTrackingID: process.env.GOOGLE_ANALYTICS_TRACKING_ID || 'GOOGLE_ANALYTICS_TRACKING_ID'
   },
