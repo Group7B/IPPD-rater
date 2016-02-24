@@ -10,6 +10,39 @@ var mongoose = require('mongoose'),
  * Rating Schema
  */
 var RatingSchema = new Schema({
+  isJudge: {
+    type: Boolean,
+    default: false
+  },
+  project: {
+    type: Schema.ObjectId,
+    ref: 'Project',
+    required: true
+  },
+  user: {
+    type: Schema.ObjectId,
+    ref: 'User',
+    required: true
+  },
+  posterRating: {
+    type: Number,
+    default: 0,
+    min: 0,
+    max: 5
+  },
+  presentationRating: {
+    type: Number,
+    default: 0,
+    min: 0,
+    max: 5
+  },
+  demoRating: {
+    type: Number,
+    default: 0,
+    min: 0,
+    max: 5
+  }
+  /* Old things from Articles module:
   created: {
     type: Date,
     default: Date.now
@@ -29,6 +62,7 @@ var RatingSchema = new Schema({
     type: Schema.ObjectId,
     ref: 'User'
   }
+  */
 });
 
 mongoose.model('Rating', RatingSchema);
