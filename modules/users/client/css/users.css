@@ -51,16 +51,16 @@
 }
 
 .adminListButton:hover {
-    box-shadow: 1px 0px 4px rgba(0, 0, 0, 0.5);
+    box-shadow: 1px 0 4px rgba(0, 0, 0, 0.5);
 }
 
 .adminListButton a {
     margin: auto;
     position: absolute;
-    top: 0px;
-    bottom: 0px;
-    left: 0px;
-    right: 0px;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
     line-height: 80px;
     text-decoration: none;
     color: #40514E;
