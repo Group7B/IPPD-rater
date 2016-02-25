@@ -35,9 +35,9 @@ angular.module('users.admin.routes').config(['$stateProvider',
         }
       })
       .state('admin.projects', {
-        url: '/projects/list',
+        url: '/projects/listadmin',
         templateUrl: 'modules/users/client/views/admin/list-project.client.view.html',
-        controller: 'AdminProjectController',
+        controller: 'ProjectController',
         data: {
           roles: ['user', 'admin']
         }
@@ -45,7 +45,7 @@ angular.module('users.admin.routes').config(['$stateProvider',
       .state('admin.create-project', {
         url: '/projects/create',
         templateUrl: 'modules/users/client/views/admin/create-project.client.view.html',
-        controller: 'AdminProjectController',
+        controller: 'ProjectController',
         data: {
           roles: ['user', 'admin']
         }
@@ -53,7 +53,7 @@ angular.module('users.admin.routes').config(['$stateProvider',
       .state('admin.project', {
         url: '/projects/:projectId',
         templateUrl: 'modules/users/client/views/admin/view-project.client.view.html',
-        controller: 'AdminProjectController',
+        controller: 'ProjectController',
         data: {
           roles: ['user', 'admin']
         }
@@ -61,7 +61,7 @@ angular.module('users.admin.routes').config(['$stateProvider',
       .state('admin.edit-project', {
         url: '/projects/:projectId/edit',
         templateUrl: 'modules/users/client/views/admin/edit-project.client.view.html',
-        controller: 'AdminProjectController',
+        controller: 'ProjectController',
         data: {
           roles: ['user', 'admin']
         }

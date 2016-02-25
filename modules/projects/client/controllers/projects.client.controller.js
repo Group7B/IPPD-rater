@@ -1,41 +1,40 @@
 'use strict';
 
-// Ratings controller
-angular.module('projects').controller('ProjectsController', ['$scope', '$stateParams', '$location', 'Authentication', 'Projects',
-  function ($scope, $stateParams, $location, Authentication, Projects) {
+angular.module('projects').controller('ProjectController', ['$scope', '$filter', '$stateParams', '$location', 'Authentication', 'Projects',
+  function ($scope, $filter, $stateParams, $location, Authentication, Projects) {
     $scope.authentication = Authentication;
 
-    // Create new Rating
     $scope.create = function (isValid) {
       $scope.error = null;
-
+        
       if (!isValid) {
         $scope.$broadcast('show-errors-check-validity', 'projectForm');
-
         return false;
       }
 
-      // Create new Rating object
+      // Create new project object
       var project = new Projects({
-        title: this.title,
-        content: this.content,
-        teamName: this.teamName,
+        teamName: this.name,
         description: this.description
+        //,logo: this.logo
       });
+
 
       // Redirect after save
       project.$save(function (response) {
-        $location.path('projects/' + response._id);
+        console.log ('Adding ' + project.teamName + ', ' + project.description);
+        $location.path('admin/projects/listadmin');
 
         // Clear form fields
-        $scope.title = '';
-        $scope.content = '';
+        $scope.name = '';
+        $scope.description = '';
+        //$scope.logo = '';
       }, function (errorResponse) {
         $scope.error = errorResponse.data.message;
       });
     };
 
-    // Remove existing Rating
+    // Remove existing project
     $scope.remove = function (project) {
       if (project) {
         project.$remove();
@@ -47,39 +46,65 @@ angular.module('projects').controller('ProjectsController', ['$scope', '$statePa
         }
       } else {
         $scope.project.$remove(function () {
-          $location.path('projects');
+          $location.path('admin/projects/listadmin');
         });
       }
     };
 
-    // Update existing Rating
+    // Update existing project
     $scope.update = function (isValid) {
       $scope.error = null;
 
       if (!isValid) {
         $scope.$broadcast('show-errors-check-validity', 'projectForm');
-
         return false;
       }
 
       var project = $scope.project;
+      if ($scope.teamName) project.teamName = $scope.teamName;
+      if ($scope.description) project.description = $scope.description;
+      console.log('The project is ' + project.teamName);
 
       project.$update(function () {
-        $location.path('projects/' + project._id);
+        $location.path('admin/projects/listadmin');
       }, function (errorResponse) {
         $scope.error = errorResponse.data.message;
       });
     };
 
-    // Find a list of Ratings
+    // Find a list of projects
     $scope.find = function () {
-      $scope.projects = Projects.query();
+      Projects.query(function (data) {
+        $scope.projects = data;
+        $scope.buildPager();
+      });
     };
 
-    // Find existing Rating
+    $scope.buildPager = function () {
+      $scope.pagedItems = [];
+      $scope.itemsPerPage = 15;
+      $scope.currentPage = 1;
+      $scope.figureOutItemsToDisplay();
+    };
+
+    $scope.figureOutItemsToDisplay = function () {
+      $scope.filteredItems = $filter('filter')($scope.projects, {
+        $: $scope.search
+      });
+      $scope.filterLength = $scope.filteredItems.length;
+      var begin = (($scope.currentPage - 1) * $scope.itemsPerPage);
+      var end = begin + $scope.itemsPerPage;
+      $scope.pagedItems = $scope.filteredItems.slice(begin, end);
+    };
+
+    $scope.pageChanged = function () {
+      $scope.figureOutItemsToDisplay();
+    };
+
+    // Find existing project
     $scope.findOne = function () {
       $scope.project = Projects.get({
-        projectId: $stateParams.projectIdr
+        projectId: $stateParams.projectId
       });
     };
   }

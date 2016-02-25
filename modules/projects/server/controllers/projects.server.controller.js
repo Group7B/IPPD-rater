@@ -9,11 +9,12 @@ var path = require('path'),
   errorHandler = require(path.resolve('./modules/core/server/controllers/errors.server.controller'));
 
 /**
- * Create a rating
+ * Create a project
  */
 exports.create = function (req, res) {
   var project = new Project(req.body);
-  project.user = req.user;
+  project.teamName = req.body.teamName;
+  project.description = req.body.description;
 
   project.save(function (err) {
     if (err) {
@@ -27,21 +28,22 @@ exports.create = function (req, res) {
 };
 
 /**
- * Show the current rating
+ * Show the current project
  */
 exports.read = function (req, res) {
   res.json(req.project);
 };
 
 /**
- * Update a rating
+ * Update a project
  */
 exports.update = function (req, res) {
   var project = req.project;
 
-  project.title = req.body.title;
-  project.content = req.body.content;
+  project.teamName = req.body.teamName;
+  project.description = req.body.description;
 
+  console.log ('Server side: ' + project.teamName + ', ' + project.description);
   project.save(function (err) {
     if (err) {
       return res.status(400).send({
@@ -54,7 +56,7 @@ exports.update = function (req, res) {
 };
 
 /**
- * Delete an rating
+ * Delete an project
  */
 exports.delete = function (req, res) {
   var project = req.project;
@@ -71,10 +73,10 @@ exports.delete = function (req, res) {
 };
 
 /**
- * List of Ratings
+ * List of Projects
  */
 exports.list = function (req, res) {
-  Project.find().sort('-created').populate('user', 'displayName').exec(function (err, projects) {
+  Project.find().sort('-teamName').exec(function (err, projects) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
@@ -86,20 +88,21 @@ exports.list = function (req, res) {
 };
 
 /**
- * Rating middleware
+ * Project middleware
  */
 exports.projectByID = function (req, res, next, id) {
 
   if (!mongoose.Types.ObjectId.isValid(id)) {
     return res.status(400).send({
-      message: 'project is invalid'
+      message: 'Project is invalid'
     });
   }
 
-  Project.findById(id).populate('user', 'displayName').exec(function (err, project) {
+  Project.findById(id).exec(function (err, project) {
     if (err) {
       return next(err);
     } else if (!project) {
+      console.log('We couldnt find your project');
       return res.status(404).send({
         message: 'No project with that identifier has been found'
       });

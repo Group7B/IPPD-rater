@@ -1,6 +1,6 @@
 'use strict';
 
-//Ratings service used for communicating with the ratings REST endpoints
+//Ratings service used for communicating with the projects REST endpoints
 angular.module('projects').factory('Projects', ['$resource',
   function ($resource) {
     return $resource('api/projects/:projectId', {

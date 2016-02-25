@@ -10,7 +10,10 @@ module.exports = function (app) {
   // Ratings collection routes
   app.route('/api/projects').all(projectsPolicy.isAllowed)
     .get(projects.list)
-    .post(projects.create);
+    .post(projectsPolicy.isAllowed, projects.create);
+    
+  app.route('/api/projects/create').all(projectsPolicy.isAllowed)
+    .post(projectsPolicy.isAllowed, projects.create);
 
   // Single rating routes
   app.route('/api/projects/:projectId').all(projectsPolicy.isAllowed)

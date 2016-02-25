@@ -16,7 +16,10 @@ exports.invokeRolesPolicies = function () {
     roles: ['admin'],
     allows: [{
       resources: '/api/projects',
-      permissions: '*'
+      permissions: ['*']
+    }, {
+      resources: '/api/projects/create',
+      permissions: ['*']
     }, {
       resources: '/api/projects/:projectId',
       permissions: '*'
@@ -25,7 +28,10 @@ exports.invokeRolesPolicies = function () {
     roles: ['user'],
     allows: [{
       resources: '/api/projects',
-      permissions: ['get', 'post']
+      permissions: ['get']
+    }, {
+      resources: '/api/projects/create',
+      permissions: []
     }, {
       resources: '/api/projects/:projectId',
       permissions: ['get']
@@ -35,6 +41,9 @@ exports.invokeRolesPolicies = function () {
     allows: [{
       resources: '/api/projects',
       permissions: ['get']
+    }, {
+      resources: '/api/projects/create',
+      permissions: []
     }, {
       resources: '/api/projects/:projectId',
       permissions: ['get']

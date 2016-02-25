@@ -1,11 +1,11 @@
-<section ng-controller="ProjectsController" ng-init="find()">
+<section ng-controller="ProjectController" ng-init="find()">
   <div class="page-header">
     <h1>Projects</h1>
    <label>Search Projects: <input ng-model="searchText"></label>
   <input type="submit">
   </div>
   <div class="list-group">
-    <a ng-repeat="project in projects" ui-sref="projects.view({projectId: project._id})" class="list-group-item">
+    <a ng-repeat="project in projects" ui-sref="projects.rate({projectId: project._id})" class="list-group-item">
       <div class="post-thumb"><img style="float: left; margin: 0px 15px 15px 0px;" src='modules/core/client/img/projects/test.png' alt="No img"></div>
       <p  class="list-group-item-heading" ng-bind="project.teamName"></p><br>
       <div class="list-group-item-text" ng-bind="project.description"></div>
