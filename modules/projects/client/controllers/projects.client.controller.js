@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('users.admin').controller('AdminProjectController', ['$scope', '$filter', '$stateParams', '$location', 'Authentication', 'Projects',
+angular.module('projects').controller('ProjectController', ['$scope', '$filter', '$stateParams', '$location', 'Authentication', 'Projects',
   function ($scope, $filter, $stateParams, $location, Authentication, Projects) {
     $scope.authentication = Authentication;
 
@@ -15,21 +15,20 @@ angular.module('users.admin').controller('AdminProjectController', ['$scope', '$
       // Create new project object
       var project = new Projects({
         teamName: this.name,
-        description: this.description
-        //,logo: this.logo
+        description: this.description,
+        logo: this.logo
       });
 
 
       // Redirect after save
       project.$save(function (response) {
         console.log ('Adding ' + project.teamName + ', ' + project.description);
-        $location.path('admin/projects/' + response._id);
-        //$location.path('admin/projects/create');
+        $location.path('admin/projects/listadmin');
 
         // Clear form fields
         $scope.name = '';
         $scope.description = '';
-        //$scope.logo = '';
+        $scope.logo = '';
       }, function (errorResponse) {
         $scope.error = errorResponse.data.message;
       });
@@ -47,7 +46,7 @@ angular.module('users.admin').controller('AdminProjectController', ['$scope', '$
         }
       } else {
         $scope.project.$remove(function () {
-          $location.path('admin/projects/list');
+          $location.path('admin/projects/listadmin');
         });
       }
     };
@@ -64,10 +63,11 @@ angular.module('users.admin').controller('AdminProjectController', ['$scope', '$
       var project = $scope.project;
       if ($scope.teamName) project.teamName = $scope.teamName;
       if ($scope.description) project.description = $scope.description;
-      console.log("The project is " + project.teamName);
+      if ($scope.logo) project.logo = $scope.logo;
+      console.log('The project is ' + project.teamName);
 
       project.$update(function () {
-        $location.path('admin/projects/' + project._id);
+        $location.path('admin/projects/listadmin');
       }, function (errorResponse) {
         $scope.error = errorResponse.data.message;
       });

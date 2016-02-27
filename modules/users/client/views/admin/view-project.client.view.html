@@ -1,4 +1,4 @@
-<section ng-controller="AdminProjectController" ng-init="findOne()">
+<section ng-controller="ProjectController" ng-init="findOne()">
     <div class="page-header">
         <h1 ng-bind="project.teamName"></h1>
     </div>
@@ -10,7 +10,13 @@
             <i class="glyphicon glyphicon-trash"></i>
         </a>
     </div>
-    <p class="lead" ng-bind="project.description"></p>
+    <h3> Description: </h3>
+    <p ng-bind="project.description"></p>
+    <h3> Logo: </h3>
+    <img style="width: 400px; height: auto;" ng-if="project.logo" src='modules/projects/client/img/logos/{{project.logo}}' alt="No img">
+    <img style="width: 400px; height: auto;" ng-if="!project.logo" src='modules/projects/client/img/logos/default.jpg' alt="No img">
+    <p ng-if="project.logo"> Filename: {{ project.logo }} </p>
+    <p ng-if="!project.logo"> No file specified as logo </p>
 </section>
 <section ng-controller="RatingsController" ng-init="find()">
     <div class="page-header">
