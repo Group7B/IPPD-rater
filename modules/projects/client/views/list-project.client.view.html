@@ -6,10 +6,11 @@
   </div>
   <div class="list-group">
     <a ng-repeat="project in projects" ui-sref="projects.rate({projectId: project._id})" class="list-group-item">
-      <div class="post-thumb"><img style="float: left; margin: 0px 15px 15px 0px;" src='modules/core/client/img/projects/test.png' alt="No img"></div>
+      <div class="post-thumb"><img style="float: left; margin: 0px 15px 15px 0px; width: 64px; height: auto" ng-if="project.logo" src='modules/projects/client/img/logos/{{project.logo}}' alt="No img"></div>
+      <div class="post-thumb"><img style="float: left; margin: 0px 15px 15px 0px;" ng-if="!project.logo" src='modules/core/client/img/projects/test.png' alt="No img"></div>
       <p  class="list-group-item-heading" ng-bind="project.teamName"></p><br>
       <div class="list-group-item-text" ng-bind="project.description"></div>
-    
+
       <div class="rate">
               <input type="radio" id="star6" name="rate1" value="5" /><label for="star6" title="text">5 stars</label>
               <input type="radio" id="star7" name="rate1" value="4" /><label for="star7" title="text">4 stars</label>
