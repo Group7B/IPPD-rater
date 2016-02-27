@@ -6,8 +6,8 @@
   </div>
   <div class="list-group">
     <a ng-repeat="project in projects" ui-sref="projects.rate({projectId: project._id})" class="list-group-item">
-      <div class="post-thumb"><img style="float: left; margin: 0px 15px 15px 0px; width: 64px; height: auto" ng-if="project.logo" src='modules/projects/client/img/logos/{{project.logo}}' alt="No img"></div>
-      <div class="post-thumb"><img style="float: left; margin: 0px 15px 15px 0px;" ng-if="!project.logo" src='modules/core/client/img/projects/test.png' alt="No img"></div>
+      <div class="post-thumb"><img style="float: left; margin: 0px 15px 15px 0px; width: 64px; height: auto;" ng-if="project.logo" src='modules/projects/client/img/logos/{{project.logo}}' alt="No img"></div>
+      <div class="post-thumb"><img style="float: left; margin: 0px 15px 15px 0px; width: 64px; height: auto;" ng-if="!project.logo" src='modules/projects/client/img/logos/default.jpg' alt="No img"></div>
       <p  class="list-group-item-heading" ng-bind="project.teamName"></p><br>
       <div class="list-group-item-text" ng-bind="project.description"></div>
 
