@@ -1,28 +1,13 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset= "UTF-8">
-    <title>IPPD Rater</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="style_rate.css">
-</head>
-<body>
-  <nav class="navbar navbar-default">
-      <ul class="nav navbar-nav">
-        <li class="active">
-          <a href="#"> <button class="glyphicon glyphicon-menu-left" aria-hidden="true"></button> </a>
-          </li>
-      </ul>
-      <div class="navbar-title"> Team Name </div>
-  </nav>
-  <!-- <div class="jumbotron vertical-center"> -->
+<section ng-controller="ProjectController" ng-init="findOne()">
   <div class="container">
-  <img class="center-block" src="team.jpg" alt="Project Poster"></img>
+  <img class="center-block logo-large" ng-if="project.logo" ng-src="modules/projects/client/img/logos/{{project.logo}}" alt="Project Poster"></img>
+  <!-- <img class="center-block logo-large" ng-if="!project.logo" src="modules/projects/client/img/logos/default.jpg" alt="Project Poster"></img> -->
+  <h2 ng-if="!project.logo">{{project.teamName}}</h2>
     <table class="table">
       <tbody>
-        <tr>  
+        <tr>
           <td> Poster </td>
-          <td> 
+          <td>
             <div class="rate">
               <input type="radio" id="star5" name="rate" value="5" /><label for="star5" title="text">5 stars</label>
               <input type="radio" id="star4" name="rate" value="4" /><label for="star4" title="text">4 stars</label>
@@ -32,9 +17,9 @@
             </div>
           </td>
         </tr>
-        <tr>  
+        <tr>
           <td> Presentation </td>
-          <td> 
+          <td>
             <div class="rate">
               <input type="radio" id="star6" name="rate1" value="5" /><label for="star6" title="text">5 stars</label>
               <input type="radio" id="star7" name="rate1" value="4" /><label for="star7" title="text">4 stars</label>
@@ -44,9 +29,9 @@
             </div>
           </td>
         </tr>
-        <tr>  
+        <tr>
           <td> Technical Demonstration </td>
-          <td> 
+          <td>
             <div class="rate">
               <input type="radio" id="star11" name="rate2" value="5" /><label for="star11" title="text">5 stars</label>
               <input type="radio" id="star12" name="rate2" value="4" /><label for="star12" title="text">4 stars</label>
@@ -60,13 +45,9 @@
           <td class="form-group">
             <label for="comment">Comments:</label>
             <textarea class="form-control" rows="5" id="comment"></textarea>
-          </td> 
+          </td>
         </tr>
       </tbody>
     </table>
   </div>
-  <!-- </div> -->
- 
-</body>
-
-</html>
+</section>
