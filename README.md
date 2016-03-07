@@ -1,5 +1,7 @@
-## IPPD Rater
+IPPD Rater
+----------
 
+### Setup
 In order to setup this repository, first clone the project then run
 
 ```bash
