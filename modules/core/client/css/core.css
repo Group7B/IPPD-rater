@@ -33,6 +33,13 @@
   height: auto;
   max-height: 64px;
 }
+
+.logo-large{
+  margin: 10px;
+  width: 400px;
+  height: auto;
+}
+
 [ng\:cloak],
 [ng-cloak],
 [x-ng-cloak],

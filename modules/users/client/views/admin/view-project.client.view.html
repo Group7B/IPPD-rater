@@ -13,7 +13,7 @@
     <h3> Description: </h3>
     <p ng-bind="project.description"></p>
     <h3> Logo: </h3>
-    <img style="width: 400px; height: auto;" ng-if="project.logo" ng-src='modules/projects/client/img/logos/{{project.logo}}' alt="No img">
+    <img class="logo-large" ng-if="project.logo" ng-src='modules/projects/client/img/logos/{{project.logo}}' alt="No img">
     <p ng-if="project.logo"> Filename: {{ project.logo }} </p>
     <p ng-if="!project.logo"> No file specified as logo </p>
 </section>

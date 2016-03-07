@@ -1,7 +1,8 @@
 <section ng-controller="ProjectController" ng-init="findOne()">
   <div class="container">
-  <img class="center-block" ng-if="project.logo" style="margin: 10px; width: 400px; height: auto;" ng-src="modules/projects/client/img/logos/{{project.logo}}" alt="Project Poster"></img>
-  <img class="center-block" ng-if="!project.logo" style="margin: 10px; width: 400px; height: auto;"src="modules/projects/client/img/logos/default.jpg" alt="Project Poster"></img>
+  <img class="center-block logo-large" ng-if="project.logo" ng-src="modules/projects/client/img/logos/{{project.logo}}" alt="Project Poster"></img>
+  <!-- <img class="center-block logo-large" ng-if="!project.logo" src="modules/projects/client/img/logos/default.jpg" alt="Project Poster"></img> -->
+  <h2 ng-if="!project.logo">{{project.teamName}}</h2>
     <table class="table">
       <tbody>
         <tr>
