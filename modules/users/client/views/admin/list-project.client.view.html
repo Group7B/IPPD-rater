@@ -12,7 +12,7 @@
     <div class="list-group">
         <a ng-repeat="project in pagedItems" ui-sref="admin.project({projectId: project._id})" class="list-group-item" style="height: 100px">
           <div class="col-sm-2">
-            <div class="post-thumb"><img class="logo-icon" ng-if="project.logo" src='modules/projects/client/img/logos/{{project.logo}}' alt="No img"></div>
+            <div class="post-thumb"><img class="logo-icon" ng-if="project.logo" ng-src='modules/projects/client/img/logos/{{project.logo}}' alt="No img"></div>
             <div class="post-thumb"><img class="logo-icon" ng-if="!project.logo" src='modules/projects/client/img/logos/default.jpg' alt="No img"></div>
           </div>
           <div class="col-sm-10">
