@@ -2,11 +2,36 @@
   margin-top: 50px;
 }
 
+.error-text {
+  display: none;
+}
+
+.has-error .help-block.error-text {
+  display: block;
+}
+
+.has-error .help-inline.error-text {
+  display: inline;
+}
+
+.header-profile-image {
+  opacity: 0.8;
+  height: 28px;
+  width: 28px;
+  border-radius: 50%;
+  margin-right: 5px;
+}
+
 .img-center {
   margin: auto;
 }
-.undecorated-link:hover {
-  text-decoration: none;
+
+.logo-icon{
+  float: left;
+  margin: 0px 15px 15px 0px;
+  width: 64px;
+  height: auto;
+  max-height: 64px;
 }
 [ng\:cloak],
 [ng-cloak],
@@ -15,27 +40,17 @@
 .x-ng-cloak {
   display: none !important;
 }
-.header-profile-image {
-  opacity: 0.8;
-  height: 28px;
-  width: 28px;
-  border-radius: 50%;
-  margin-right: 5px;
-}
+
 .open .header-profile-image,
 a:hover .header-profile-image {
   opacity: 1;
 }
+
+.undecorated-link:hover {
+  text-decoration: none;
+}
+
 .user-header-dropdown-toggle {
   padding-top: 11px !important;
   padding-bottom: 11px !important;
-}
-.error-text {
-  display: none;
-}
-.has-error .help-block.error-text {
-  display: block;
-}
-.has-error .help-inline.error-text {
-  display: inline;
 }
