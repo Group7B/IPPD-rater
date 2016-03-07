@@ -10,7 +10,11 @@
             <i class="glyphicon glyphicon-trash"></i>
         </a>
     </div>
-    <p class="lead" ng-bind="project.description"></p>
+    <h3> Description: </h3>
+    <p ng-bind="project.description"></p>
+    <h3> Logo: </h3>
+    <img class="logo-large" ng-if="project.logo" ng-src='modules/projects/client/img/logos/{{project.logo}}' alt="No img">
+    <p ng-if="!project.logo"> No file specified as logo </p>
 </section>
 <section ng-controller="RatingsController" ng-init="find()">
     <div class="page-header">
