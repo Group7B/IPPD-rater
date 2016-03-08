@@ -2,7 +2,7 @@
 
 td {
     font-family: 'Open Sans',Helvetica,Arial,sans-serif;
-    font-size: 30px;
+    font-size: 15px;
 
 }
 
@@ -11,24 +11,27 @@ label {
     font-weight: normal !important;
 }
 
-.navbar-default {
-    /*color: #FFFFFF;*/
+/*.navbar-default {
+    
     border-color: #D1D1D1;
     background-color: #D1D1D1;
 }
 
 .navbar-default .navbar-nav > li {
     background-color: #D1D1D1;
-}
+}*/
 
 .navbar-title {
+    position: absolute;
     font-family: 'Open Sans',Helvetica,Arial,sans-serif;
-    font-size: 30px;
+    font-size: 25px;
     color: #15A3FF;
     float: center;
-    padding: 15px;
+    padding: 10px;
     text-align: center;
+    left: 0;
     width: 100%;
+    background-color: #D1D1D1;
 }
 
 .glyphicon {
@@ -60,8 +63,8 @@ button {
 
 .rate {
     float: center;
-    height: 46px;
-    padding: 0 10px;
+    height: 25px;
+    padding: 0 5px;
 }
 .rate:not(:checked) > input {
     position:absolute;
@@ -73,7 +76,7 @@ button {
     overflow:hidden;
     white-space:nowrap;
     cursor:pointer;
-    font-size:50px;
+    font-size:30px;
     color:#DBDCDE;
 }
 .rate:not(:checked) > label:before {
