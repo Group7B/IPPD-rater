@@ -1,23 +1,10 @@
 
-/*table {
-    padding: 2px;
-}*/
-
-/*
-td {
-    padding-top: 500px;
-    border-top: 30px;
-}*/
 
 th, td {
     font-family: 'Open Sans',Helvetica,Arial,sans-serif;
     font-size: 20px;
     border-bottom: 1px solid #ddd;
     text-align: center;
-    /*margin-left: auto;
-    margin-right: auto;*/
-    /*display: inline-block;*/
-
     padding: 5px;
 }
 
@@ -41,13 +28,19 @@ th, td {
     font-family: 'Open Sans',Helvetica,Arial,sans-serif;
     font-size: 25px;
     color: #15A3FF;
-    float: center;
-    padding: 13px;
+    /*float: middle;*/
+    padding: 7px;
     text-align: center;
     left: 0;
     width: 100%;
     background-color: #D1D1D1;
 }
+
+.image {
+    padding-top: 50px;
+    /*padding-bottom: 10px;*/
+}
+
 
 /*.singleposter {
     position: absolute;
@@ -64,6 +57,7 @@ img {
     margin-left: auto;
     margin-right: auto;
     padding: 5px;
+    padding-top: 5px;
 }
 
 /*.glyphicon {
@@ -71,13 +65,13 @@ img {
     color: #15A3FF;
 }*/
 
-.center-block {
+/*.center-block {
     display: block;
-    /*margin-top: 20px;*/
+    margin-top: 20px;
     margin-left: middle;
     margin-right: middle;
     margin-bottom: 20px;
- }
+ }*/
 
 /*button {
     -webkit-appearance: none;
@@ -99,10 +93,12 @@ img {
     height: 35px;
     padding: 0 2px;
 }
+
 .rate:not(:checked) > input {
     position: absolute;
     visibility: hidden;
 }
+
 .rate:not(:checked) > label {
     float: right;
     width: 1em;
@@ -112,9 +108,11 @@ img {
     font-size: 35px;
     color: #DBDCDE;
 }
+
 .rate:not(:checked) > label:before {
     content: '★';
 }
+
 .rate > input:checked ~ label {
     color: #FF8000;
 
@@ -129,7 +127,7 @@ img {
 .rate > input:checked ~ label:hover,
 .rate > input:checked ~ label:hover ~ label,
 .rate > label:hover ~ input:checked ~ label {
-      color:  #FA9E42;
+    color:  #FA9E42;
 }
 
 

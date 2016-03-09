@@ -2,9 +2,9 @@
   <div class="container">
   <!-- <img class="center-block logo-large" ng-if="!project.logo" src="modules/projects/client/img/logos/default.jpg" alt="Project Poster"></img> -->
   <div class="navbar-title">
-    <h2 ng-if="!project.logo">{{project.teamName}}</h2>
+    <ng-if="project.logo">{{project.teamName}}</h2>
   </div>
-  <div>
+  <div class="image">
     <img ng-if="project.logo" ng-src="modules/projects/client/img/logos/{{project.logo}}" alt="Project Poster"></img>
   </div>
     <table class="table">
