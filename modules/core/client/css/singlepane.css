@@ -3,15 +3,16 @@
 th, td {
     font-family: 'Open Sans',Helvetica,Arial,sans-serif;
     font-size: 20px;
-    border-bottom: 1px solid #ddd;
+    /*border-bottom: 1px solid #ddd;*/
     text-align: center;
     padding: 5px;
+    border-bottom:none;
 }
 
-/*label {
+label {
     font-size: 20px;
     font-weight: normal !important;
-}*/
+}
 
 /*.navbar-default {
     
