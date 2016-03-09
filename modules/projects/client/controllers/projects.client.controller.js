@@ -6,7 +6,7 @@ angular.module('projects').controller('ProjectController', ['$scope', '$filter',
 
     $scope.create = function (isValid) {
       $scope.error = null;
-        
+
       if (!isValid) {
         $scope.$broadcast('show-errors-check-validity', 'projectForm');
         return false;
@@ -15,8 +15,8 @@ angular.module('projects').controller('ProjectController', ['$scope', '$filter',
       // Create new project object
       var project = new Projects({
         teamName: this.name,
-        description: this.description
-        //,logo: this.logo
+        description: this.description,
+        logo: this.logo
       });
 
 
@@ -28,7 +28,7 @@ angular.module('projects').controller('ProjectController', ['$scope', '$filter',
         // Clear form fields
         $scope.name = '';
         $scope.description = '';
-        //$scope.logo = '';
+        $scope.logo = '';
       }, function (errorResponse) {
         $scope.error = errorResponse.data.message;
       });
@@ -63,6 +63,7 @@ angular.module('projects').controller('ProjectController', ['$scope', '$filter',
       var project = $scope.project;
       if ($scope.teamName) project.teamName = $scope.teamName;
       if ($scope.description) project.description = $scope.description;
+      if ($scope.logo) project.logo = $scope.logo;
       console.log('The project is ' + project.teamName);
 
       project.$update(function () {
