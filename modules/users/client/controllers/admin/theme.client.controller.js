@@ -1,9 +1,10 @@
 'use strict';
 
-angular.module('users.admin').controller('ThemeController', ['$scope', '$timeout', 'FileUploader',
+angular.module('users.admin').controller('UploadController', ['$scope', '$timeout', 'FileUploader',
   function ($scope, $timeout, FileUploader) {
     $scope.uploader = new FileUploader({
-      url: 'upload'
+      url: 'upload',
+      removeAfterUpload: true
     });
 
     $scope.uploader.filters.push({

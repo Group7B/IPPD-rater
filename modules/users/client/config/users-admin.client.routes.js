@@ -77,7 +77,7 @@ angular.module('users.admin.routes').config(['$stateProvider',
       .state('admin.theme', {
         url: '/theme',
         templateUrl: 'modules/users/client/views/admin/theme.client.view.html',
-        controller: 'ThemeController',
+        controller: 'UploadController',
         data: {
           roles: ['user', 'admin']
         }
