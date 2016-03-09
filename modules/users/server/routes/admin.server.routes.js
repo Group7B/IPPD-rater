@@ -6,7 +6,8 @@
 var adminPolicy = require('../policies/admin.server.policy'),
   admin = require('../controllers/admin.server.controller'),
   project = require('../../../projects/server/controllers/projects.server.controller'),
-  rating= require('../../../ratings/server/controllers/ratings.server.controller');
+  rating = require('../../../ratings/server/controllers/ratings.server.controller'),
+  upload = require('../controllers/upload.server.controller');
 
 module.exports = function (app) {
   // User route registration first. Ref: #713
@@ -21,6 +22,9 @@ module.exports = function (app) {
     .get(adminPolicy.isAllowed, admin.readUser)
     .put(adminPolicy.isAllowed, admin.updateUser)
     .delete(adminPolicy.isAllowed, admin.deleteUser);
+
+  app.route('/upload')
+    .post(upload.postImage);
 
   /* TODO: add routes as follows:
         app.route('/api/LOGICAL/PATH')

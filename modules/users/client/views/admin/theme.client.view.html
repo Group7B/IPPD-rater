@@ -1,3 +1,31 @@
 <section>
-  Themes Y'all!
+  <div class="page-header">
+    <div class="row">
+      <div class="col-md-4">
+        <h1>Theme Options</h1>
+      </div>
+    </div>
+  </div>
+
+  <div class="uploadLogo">
+    <h3> Logo Upload </h3>
+    
+    <input type="file" nv-file-select uploader="uploader"/>
+
+    <button type="button" ng-click="uploader.uploadAll()" ng-disabled="!uploader.getNotUploadedItems().length" disabled="disabled">
+      Upload File
+    </button>
+    
+    <button type="button" ng-click="uploader.clearQueue()" ng-disabled="!uploader.queue.length">
+      Remove File
+    </button>
+  </div>
+
+  <div>
+    <h3>Primary Color Picker</h3>
+  </div>
+
+  <div>
+    <h3>Secondary Color Picker</h3>
+  </div>
 </section>
