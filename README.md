@@ -1,5 +1,7 @@
 IPPD Rater
 ----------
+### About
+This project is intended for use by IPPD to rate projects during the end-of-year showcase.
 
 ### Setup
 In order to setup this repository, first clone the project then run
