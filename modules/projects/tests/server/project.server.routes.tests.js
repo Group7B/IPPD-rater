@@ -5,18 +5,18 @@ var should = require('should'),
   path = require('path'),
   mongoose = require('mongoose'),
   User = mongoose.model('User'),
-  Rating = mongoose.model('Rating'),
+  Project = mongoose.model('Project'),
   express = require(path.resolve('./config/lib/express'));
 
 /**
  * Globals
  */
-var app, agent, credentials, user, rating;
+var app, agent, credentials, adminCredentials, user, admin, project;
 
 /**
- * Rating routes tests
+ * Project routes tests
  */
-describe('Rating CRUD tests', function () {
+describe('Project CRUD tests', function () {
 
   before(function (done) {
     // Get application
@@ -44,20 +44,38 @@ describe('Rating CRUD tests', function () {
       provider: 'local'
     });
 
-    // Save a user to the test db and create new rating
+    adminCredentials = {
+      username: 'adminUsername',
+      password: 'M3@n.jsI$Aw3$0m3'
+    };
+
+    // Create a new admin
+    admin = new User({
+      firstName: 'Ad',
+      lastName: 'Min',
+      displayName: 'Ad Min',
+      email: 'admin@test.com',
+      username: adminCredentials.username,
+      password: adminCredentials.password,
+      provider: 'local',
+      roles: ['admin', 'user']
+    });
+
+    // Save a user to the test db and create new project
     user.save(function () {
-      rating = {
-        title: 'Rating Title',
-        content: 'Rating Content'
+      project = {
+        teamName: 'Super Duper Project',
+        description: 'The best project never',
+        logo: 'test.png'
       };
 
       done();
     });
   });
 
-  it('should be able to save an rating if logged in', function (done) {
+  it('should be able to save an project if logged in as an admin', function (done) {
     agent.post('/api/auth/signin')
-      .send(credentials)
+      .send(adminCredentials)
       .expect(200)
       .end(function (signinErr, signinRes) {
         // Handle signin error
@@ -68,30 +86,32 @@ describe('Rating CRUD tests', function () {
         // Get the userId
         var userId = user.id;
 
-        // Save a new rating
-        agent.post('/api/ratings')
-          .send(rating)
+        // Save a new project
+        agent.post('/api/projects')
+          .send(project)
           .expect(200)
-          .end(function (ratingSaveErr, ratingSaveRes) {
-            // Handle rating save error
-            if (ratingSaveErr) {
-              return done(ratingSaveErr);
+          .end(function (projectSaveErr, projectSaveRes) {
+            // Handle project save error
+            if (projectSaveErr) {
+              return done(projectSaveErr);
             }
 
-            // Get a list of ratings
-            agent.get('/api/ratings')
-              .end(function (ratingsGetErr, ratingsGetRes) {
-                // Handle rating save error
-                if (ratingsGetErr) {
-                  return done(ratingsGetErr);
+            // Get a list of projects
+            agent.get('/api/projects')
+              .end(function (projectsGetErr, projectsGetRes) {
+                // Handle project save error
+                if (projectsGetErr) {
+                  return done(projectsGetErr);
                 }
 
-                // Get ratings list
-                var ratings = ratingsGetRes.body;
+                // Get projects list
+                var projects = projectsGetRes.body;
 
                 // Set assertions
-                (ratings[0].user._id).should.equal(userId);
-                (ratings[0].title).should.match('Rating Title');
+                (projects[0].user._id).should.equal(userId);
+                (projects[0].teamName).should.match('Super Duper Project');
+                (projects[0].description).should.match('The best project never');
+                (projects[0].logo).should.match('test.png');
 
                 // Call the assertion callback
                 done();
@@ -100,19 +120,24 @@ describe('Rating CRUD tests', function () {
       });
   });
 
-  it('should not be able to save an rating if not logged in', function (done) {
-    agent.post('/api/ratings')
-      .send(rating)
+
+/*                     Everything below is NOT UPDATED                        */
+/* ---------------------------------------------------------------------------*/
+
+
+  it('should not be able to save an project if not logged in', function (done) {
+    agent.post('/api/projects')
+      .send(project)
       .expect(403)
-      .end(function (ratingSaveErr, ratingSaveRes) {
+      .end(function (projectSaveErr, projectSaveRes) {
         // Call the assertion callback
-        done(ratingSaveErr);
+        done(projectSaveErr);
       });
   });
 
-  it('should not be able to save an rating if no title is provided', function (done) {
+  it('should not be able to save an project if no title is provided', function (done) {
     // Invalidate title field
-    rating.title = '';
+    project.title = '';
 
     agent.post('/api/auth/signin')
       .send(credentials)
@@ -126,21 +151,21 @@ describe('Rating CRUD tests', function () {
         // Get the userId
         var userId = user.id;
 
-        // Save a new rating
-        agent.post('/api/ratings')
-          .send(rating)
+        // Save a new project
+        agent.post('/api/projects')
+          .send(project)
           .expect(400)
-          .end(function (ratingSaveErr, ratingSaveRes) {
+          .end(function (projectSaveErr, projectSaveRes) {
             // Set message assertion
-            (ratingSaveRes.body.message).should.match('Title cannot be blank');
+            (projectSaveRes.body.message).should.match('Title cannot be blank');
 
-            // Handle rating save error
-            done(ratingSaveErr);
+            // Handle project save error
+            done(projectSaveErr);
           });
       });
   });
 
-  it('should be able to update an rating if signed in', function (done) {
+  it('should be able to update an project if signed in', function (done) {
     agent.post('/api/auth/signin')
       .send(credentials)
       .expect(200)
@@ -153,32 +178,32 @@ describe('Rating CRUD tests', function () {
         // Get the userId
         var userId = user.id;
 
-        // Save a new rating
-        agent.post('/api/ratings')
-          .send(rating)
+        // Save a new project
+        agent.post('/api/projects')
+          .send(project)
           .expect(200)
-          .end(function (ratingSaveErr, ratingSaveRes) {
-            // Handle rating save error
-            if (ratingSaveErr) {
-              return done(ratingSaveErr);
+          .end(function (projectSaveErr, projectSaveRes) {
+            // Handle project save error
+            if (projectSaveErr) {
+              return done(projectSaveErr);
             }
 
-            // Update rating title
-            rating.title = 'WHY YOU GOTTA BE SO MEAN?';
+            // Update project title
+            project.title = 'WHY YOU GOTTA BE SO MEAN?';
 
-            // Update an existing rating
-            agent.put('/api/ratings/' + ratingSaveRes.body._id)
-              .send(rating)
+            // Update an existing project
+            agent.put('/api/projects/' + projectSaveRes.body._id)
+              .send(project)
               .expect(200)
-              .end(function (ratingUpdateErr, ratingUpdateRes) {
-                // Handle rating update error
-                if (ratingUpdateErr) {
-                  return done(ratingUpdateErr);
+              .end(function (projectUpdateErr, projectUpdateRes) {
+                // Handle project update error
+                if (projectUpdateErr) {
+                  return done(projectUpdateErr);
                 }
 
                 // Set assertions
-                (ratingUpdateRes.body._id).should.equal(ratingSaveRes.body._id);
-                (ratingUpdateRes.body.title).should.match('WHY YOU GOTTA BE SO MEAN?');
+                (projectUpdateRes.body._id).should.equal(projectSaveRes.body._id);
+                (projectUpdateRes.body.title).should.match('WHY YOU GOTTA BE SO MEAN?');
 
                 // Call the assertion callback
                 done();
@@ -187,14 +212,14 @@ describe('Rating CRUD tests', function () {
       });
   });
 
-  it('should be able to get a list of ratings if not signed in', function (done) {
-    // Create new rating model instance
-    var ratingObj = new Rating(rating);
+  it('should be able to get a list of projects if not signed in', function (done) {
+    // Create new project model instance
+    var projectObj = new Project(project);
 
-    // Save the rating
-    ratingObj.save(function () {
-      // Request ratings
-      request(app).get('/api/ratings')
+    // Save the project
+    projectObj.save(function () {
+      // Request projects
+      request(app).get('/api/projects')
         .end(function (req, res) {
           // Set assertion
           res.body.should.be.instanceof(Array).and.have.lengthOf(1);
@@ -206,16 +231,16 @@ describe('Rating CRUD tests', function () {
     });
   });
 
-  it('should be able to get a single rating if not signed in', function (done) {
-    // Create new rating model instance
-    var ratingObj = new Rating(rating);
+  it('should be able to get a single project if not signed in', function (done) {
+    // Create new project model instance
+    var projectObj = new Project(project);
 
-    // Save the rating
-    ratingObj.save(function () {
-      request(app).get('/api/ratings/' + ratingObj._id)
+    // Save the project
+    projectObj.save(function () {
+      request(app).get('/api/projects/' + projectObj._id)
         .end(function (req, res) {
           // Set assertion
-          res.body.should.be.instanceof(Object).and.have.property('title', rating.title);
+          res.body.should.be.instanceof(Object).and.have.property('title', project.title);
 
           // Call the assertion callback
           done();
@@ -223,31 +248,31 @@ describe('Rating CRUD tests', function () {
     });
   });
 
-  it('should return proper error for single rating with an invalid Id, if not signed in', function (done) {
+  it('should return proper error for single project with an invalid Id, if not signed in', function (done) {
     // test is not a valid mongoose Id
-    request(app).get('/api/ratings/test')
+    request(app).get('/api/projects/test')
       .end(function (req, res) {
         // Set assertion
-        res.body.should.be.instanceof(Object).and.have.property('message', 'Rating is invalid');
+        res.body.should.be.instanceof(Object).and.have.property('message', 'Project is invalid');
 
         // Call the assertion callback
         done();
       });
   });
 
-  it('should return proper error for single rating which doesnt exist, if not signed in', function (done) {
-    // This is a valid mongoose Id but a non-existent rating
-    request(app).get('/api/ratings/559e9cd815f80b4c256a8f41')
+  it('should return proper error for single project which doesnt exist, if not signed in', function (done) {
+    // This is a valid mongoose Id but a non-existent project
+    request(app).get('/api/projects/559e9cd815f80b4c256a8f41')
       .end(function (req, res) {
         // Set assertion
-        res.body.should.be.instanceof(Object).and.have.property('message', 'No rating with that identifier has been found');
+        res.body.should.be.instanceof(Object).and.have.property('message', 'No project with that identifier has been found');
 
         // Call the assertion callback
         done();
       });
   });
 
-  it('should be able to delete an rating if signed in', function (done) {
+  it('should be able to delete an project if signed in', function (done) {
     agent.post('/api/auth/signin')
       .send(credentials)
       .expect(200)
@@ -260,28 +285,28 @@ describe('Rating CRUD tests', function () {
         // Get the userId
         var userId = user.id;
 
-        // Save a new rating
-        agent.post('/api/ratings')
-          .send(rating)
+        // Save a new project
+        agent.post('/api/projects')
+          .send(project)
           .expect(200)
-          .end(function (ratingSaveErr, ratingSaveRes) {
-            // Handle rating save error
-            if (ratingSaveErr) {
-              return done(ratingSaveErr);
+          .end(function (projectSaveErr, projectSaveRes) {
+            // Handle project save error
+            if (projectSaveErr) {
+              return done(projectSaveErr);
             }
 
-            // Delete an existing rating
-            agent.delete('/api/ratings/' + ratingSaveRes.body._id)
-              .send(rating)
+            // Delete an existing project
+            agent.delete('/api/projects/' + projectSaveRes.body._id)
+              .send(project)
               .expect(200)
-              .end(function (ratingDeleteErr, ratingDeleteRes) {
-                // Handle rating error error
-                if (ratingDeleteErr) {
-                  return done(ratingDeleteErr);
+              .end(function (projectDeleteErr, projectDeleteRes) {
+                // Handle project error error
+                if (projectDeleteErr) {
+                  return done(projectDeleteErr);
                 }
 
                 // Set assertions
-                (ratingDeleteRes.body._id).should.equal(ratingSaveRes.body._id);
+                (projectDeleteRes.body._id).should.equal(projectSaveRes.body._id);
 
                 // Call the assertion callback
                 done();
@@ -290,24 +315,24 @@ describe('Rating CRUD tests', function () {
       });
   });
 
-  it('should not be able to delete an rating if not signed in', function (done) {
-    // Set rating user
-    rating.user = user;
+  it('should not be able to delete an project if not signed in', function (done) {
+    // Set project user
+    project.user = user;
 
-    // Create new rating model instance
-    var ratingObj = new Rating(rating);
+    // Create new project model instance
+    var projectObj = new Project(project);
 
-    // Save the rating
-    ratingObj.save(function () {
-      // Try deleting rating
-      request(app).delete('/api/ratings/' + ratingObj._id)
+    // Save the project
+    projectObj.save(function () {
+      // Try deleting project
+      request(app).delete('/api/projects/' + projectObj._id)
         .expect(403)
-        .end(function (ratingDeleteErr, ratingDeleteRes) {
+        .end(function (projectDeleteErr, projectDeleteRes) {
           // Set message assertion
-          (ratingDeleteRes.body.message).should.match('User is not authorized');
+          (projectDeleteRes.body.message).should.match('User is not authorized');
 
-          // Handle rating error error
-          done(ratingDeleteErr);
+          // Handle project error error
+          done(projectDeleteErr);
         });
 
     });
@@ -315,7 +340,7 @@ describe('Rating CRUD tests', function () {
 
   afterEach(function (done) {
     User.remove().exec(function () {
-      Rating.remove().exec(done);
+      Project.remove().exec(done);
     });
   });
 });
