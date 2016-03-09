@@ -3,12 +3,17 @@
     padding: 2px;
 }*/
 
-
+/*
 td {
+    padding-top: 500px;
+    border-top: 30px;
+}*/
+
+th, td {
     font-family: 'Open Sans',Helvetica,Arial,sans-serif;
     font-size: 15px;
-    /*padding-top: 500px;*/
-    border-top: 30px;
+    border-bottom: 1px solid #ddd;
+    text-align: center;
 }
 
 /*label {
@@ -53,6 +58,7 @@ img {
     display: block;
     margin-left: auto;
     margin-right: auto;
+    padding: 5px;
 }
 
 .glyphicon {
@@ -97,7 +103,7 @@ button {
     overflow:hidden;
     white-space:nowrap;
     cursor:pointer;
-    font-size:30px;
+    font-size:25px;
     color:#DBDCDE;
 }
 .rate:not(:checked) > label:before {
