@@ -65,6 +65,14 @@ angular.module('users.admin.routes').config(['$stateProvider',
         data: {
           roles: ['user', 'admin']
         }
+      })
+      .state('admin.ratings', {
+        url: '/ratings',
+        templateUrl: 'modules/users/client/views/admin/list-rating.client.view.html',
+        controller: 'RatingsController',
+        data: {
+          roles: ['user', 'admin']
+        }
       });
 
       /*  TODO: add states using:
