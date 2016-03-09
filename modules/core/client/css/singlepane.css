@@ -32,11 +32,23 @@ td {
     font-size: 25px;
     color: #15A3FF;
     float: center;
-    padding: 5px;
+    padding: 13px;
     text-align: center;
     left: 0;
     width: 100%;
     background-color: #D1D1D1;
+}
+
+/*.singleposter {
+    position: absolute;
+    float: center;
+    width: 100%;
+}*/
+
+img {
+    max-width: 100%;
+    height: auto;
+    width: auto\9; /* ie8 */
 }
 
 .glyphicon {
