@@ -11,9 +11,14 @@ td {
 
 th, td {
     font-family: 'Open Sans',Helvetica,Arial,sans-serif;
-    font-size: 15px;
+    font-size: 20px;
     border-bottom: 1px solid #ddd;
     text-align: center;
+    /*margin-left: auto;
+    margin-right: auto;*/
+    /*display: inline-block;*/
+
+    padding: 5px;
 }
 
 /*label {
@@ -61,10 +66,10 @@ img {
     padding: 5px;
 }
 
-.glyphicon {
+/*.glyphicon {
     font-size: 30px;
     color: #15A3FF;
-}
+}*/
 
 .center-block {
     display: block;
@@ -74,10 +79,10 @@ img {
     margin-bottom: 20px;
  }
 
-button {
+/*button {
     -webkit-appearance: none;
     -moz-appearance: none;
-    /*outline: none;*/
+    outline: none;
     border: 0;
     background-color: #D1D1D1;
     vertical-align: center;
@@ -86,28 +91,29 @@ button {
 .glyphicon:hover {
     font-size: 30px;
     color: #7CC8FA;
-}
+}*/
 
 .rate {
+    display: inline-block;
     float: center;
-    height: 25px;
+    height: 35px;
     padding: 0 2px;
 }
 .rate:not(:checked) > input {
-    position:absolute;
+    position: absolute;
     visibility: hidden;
 }
 .rate:not(:checked) > label {
-    float:right;
-    width:1em;
-    overflow:hidden;
-    white-space:nowrap;
-    cursor:pointer;
-    font-size:25px;
-    color:#DBDCDE;
+    float: right;
+    width: 1em;
+    overflow: hidden;
+    white-space: nowrap;
+    cursor: pointer;
+    font-size: 35px;
+    color: #DBDCDE;
 }
 .rate:not(:checked) > label:before {
-    content: '★ ';
+    content: '★';
 }
 .rate > input:checked ~ label {
     color: #FF8000;
