@@ -6,18 +6,18 @@
 var should = require('should'),
   mongoose = require('mongoose'),
   User = mongoose.model('User'),
-  Rating = mongoose.model('Rating');
+  Rating = mongoose.model('Rating'),
+  Project = mongoose.model('Project');
 
 /**
  * Globals
  */
-var user, rating;
+var user, rating, project;
 
 /**
  * Unit tests
  */
 describe('Rating Model Unit Tests:', function () {
-
   beforeEach(function (done) {
     user = new User({
       firstName: 'Full',
@@ -28,28 +28,51 @@ describe('Rating Model Unit Tests:', function () {
       password: 'M3@n.jsI$Aw3$0m3'
     });
 
+    project = new Project({
+      teamName: 'Project Title',
+      description: 'Project Description',
+      logo: 'test.png'
+    });
+
     user.save(function () {
       rating = new Rating({
-        title: 'Rating Title',
-        content: 'Rating Content',
-        user: user
+        isJudge: false,
+        project: project,
+        user: user,
+        posterRating: 5,
+        presentationRating: 3,
+        demoRating: 4
       });
-
-      done();
     });
+
+    project.save(function (err) {
+      should.not.exist(err);
+    });
+
+    done();
   });
 
   describe('Method Save', function () {
     it('should be able to save without problems', function (done) {
       this.timeout(10000);
+
       return rating.save(function (err) {
         should.not.exist(err);
         done();
       });
     });
 
-    it('should be able to show an error when try to save without title', function (done) {
-      rating.title = '';
+    it('should be able to show an error when try to save without project', function (done) {
+      rating.project = '';
+
+      return rating.save(function (err) {
+        should.exist(err);
+        done();
+      });
+    });
+
+    it('should be able to show an error when try to save without user', function (done) {
+      rating.user = '';
 
       return rating.save(function (err) {
         should.exist(err);
@@ -60,7 +83,10 @@ describe('Rating Model Unit Tests:', function () {
 
   afterEach(function (done) {
     Rating.remove().exec(function () {
-      User.remove().exec(done);
+      User.remove().exec(function () {
+        Project.remove().exec(done);
+      });
     });
   });
+
 });
