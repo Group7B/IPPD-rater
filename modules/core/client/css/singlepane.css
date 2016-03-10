@@ -81,6 +81,11 @@ img {
     color: #7CC8FA;
 }*/
 
+#submit_rating {
+    background-color: #5cb85c;
+    border-color: #4cae4c;
+}
+
 #singlelabel {
     font-size: 15px;
 }
