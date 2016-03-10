@@ -80,7 +80,7 @@ describe('Project CRUD tests', function () {
     });
   });
 
-  it('should not be able to save an project if logged in as a user only', function (done) {
+  it('should not be able to save a project if logged in as a user only', function (done) {
     agent.post('/api/auth/signin')
       .send(credentials)
       .expect(200)
@@ -104,7 +104,7 @@ describe('Project CRUD tests', function () {
       });
   });
 
-  it('should be able to save an project if logged in as an admin', function (done) {
+  it('should be able to save a project if logged in as an admin', function (done) {
     agent.post('/api/auth/signin')
       .send(adminCredentials)
       .expect(200)
@@ -147,7 +147,7 @@ describe('Project CRUD tests', function () {
       });
   });
 
-  it('should not be able to save an project if not logged in', function (done) {
+  it('should not be able to save a project if not logged in', function (done) {
     agent.post('/api/projects')
       .send(project)
       .expect(403)
@@ -157,7 +157,7 @@ describe('Project CRUD tests', function () {
       });
   });
 
-  it('should not be able to save an project if no project name is provided', function (done) {
+  it('should not be able to save a project if no project name is provided', function (done) {
     // Invalidate title field
     project.teamName = '';
 
@@ -187,7 +187,7 @@ describe('Project CRUD tests', function () {
       });
   });
 
-  it('should not be able to save an project if a project with the same name already exists', function (done) {
+  it('should not be able to save a project if a project with the same name already exists', function (done) {
     agent.post('/api/auth/signin')
       .send(adminCredentials)
       .expect(200)
@@ -221,7 +221,7 @@ describe('Project CRUD tests', function () {
       });
   });
 
-  it('should be able to update an project if signed in as an admin', function (done) {
+  it('should be able to update a project if signed in as an admin', function (done) {
     agent.post('/api/auth/signin')
       .send(adminCredentials)
       .expect(200)
@@ -328,7 +328,7 @@ describe('Project CRUD tests', function () {
       });
   });
 
-  it('should be able to delete an project if signed in as an admin', function (done) {
+  it('should be able to delete a project if signed in as an admin', function (done) {
     agent.post('/api/auth/signin')
       .send(adminCredentials)
       .expect(200)
@@ -371,7 +371,7 @@ describe('Project CRUD tests', function () {
       });
   });
 
-  it('should not be able to delete an project if signed in as a user only', function (done) {
+  it('should not be able to delete a project if signed in as a user only', function (done) {
     agent.post('/api/auth/signin')
       .send(credentials)
       .expect(200)
@@ -397,7 +397,7 @@ describe('Project CRUD tests', function () {
       });
   });
 
-  it('should not be able to delete an project if not signed in', function (done) {
+  it('should not be able to delete a project if not signed in', function (done) {
     // Set project user
     project.user = user;
 
