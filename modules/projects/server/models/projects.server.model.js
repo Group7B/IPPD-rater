@@ -9,8 +9,8 @@ var mongoose = require('mongoose'),
 var ProjectSchema = new Schema({
   teamName: {
     type: String,
-    required: true,
-    unique: true
+    required: 'Project Title is required',
+    unique: 'A Project with that name already exists!'
   },
   description: {
     type: String

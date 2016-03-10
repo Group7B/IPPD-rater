@@ -68,14 +68,21 @@ describe('Project CRUD tests', function () {
         description: 'The best project never',
         logo: 'test.png'
       };
+    });
 
+    admin.save(function () {
+      project = {
+        teamName: 'Super Awesome Project',
+        description: 'The best project never',
+        logo: 'test.png'
+      };
       done();
     });
   });
 
-  it('should be able to save an project if logged in as an admin', function (done) {
+  it('should not be able to save an project if logged in as a user only', function (done) {
     agent.post('/api/auth/signin')
-      .send(adminCredentials)
+      .send(credentials)
       .expect(200)
       .end(function (signinErr, signinRes) {
         // Handle signin error
@@ -89,13 +96,34 @@ describe('Project CRUD tests', function () {
         // Save a new project
         agent.post('/api/projects')
           .send(project)
+          .expect(403)
+          .end(function (projectSaveErr, projectSaveRes) {
+            // Call the assertion callback
+            done(projectSaveErr);
+          });
+      });
+  });
+
+  it('should be able to save an project if logged in as an admin', function (done) {
+    agent.post('/api/auth/signin')
+      .send(adminCredentials)
+      .expect(200)
+      .end(function (signinErr, signinRes) {
+        // Handle signin error
+        if (signinErr) {
+          return done(signinErr);
+        }
+        // Get the userId
+        var userId = admin.id;
+        // Save a new project
+        agent.post('/api/projects')
+          .send(project)
           .expect(200)
           .end(function (projectSaveErr, projectSaveRes) {
             // Handle project save error
             if (projectSaveErr) {
               return done(projectSaveErr);
             }
-
             // Get a list of projects
             agent.get('/api/projects')
               .end(function (projectsGetErr, projectsGetRes) {
@@ -108,8 +136,7 @@ describe('Project CRUD tests', function () {
                 var projects = projectsGetRes.body;
 
                 // Set assertions
-                (projects[0].user._id).should.equal(userId);
-                (projects[0].teamName).should.match('Super Duper Project');
+                (projects[0].teamName).should.match('Super Awesome Project');
                 (projects[0].description).should.match('The best project never');
                 (projects[0].logo).should.match('test.png');
 
@@ -119,11 +146,6 @@ describe('Project CRUD tests', function () {
           });
       });
   });
-
-
-/*                     Everything below is NOT UPDATED                        */
-/* ---------------------------------------------------------------------------*/
-
 
   it('should not be able to save an project if not logged in', function (done) {
     agent.post('/api/projects')
@@ -135,12 +157,12 @@ describe('Project CRUD tests', function () {
       });
   });
 
-  it('should not be able to save an project if no title is provided', function (done) {
+  it('should not be able to save an project if no project name is provided', function (done) {
     // Invalidate title field
-    project.title = '';
+    project.teamName = '';
 
     agent.post('/api/auth/signin')
-      .send(credentials)
+      .send(adminCredentials)
       .expect(200)
       .end(function (signinErr, signinRes) {
         // Handle signin error
@@ -149,7 +171,7 @@ describe('Project CRUD tests', function () {
         }
 
         // Get the userId
-        var userId = user.id;
+        var userId = admin.id;
 
         // Save a new project
         agent.post('/api/projects')
@@ -157,7 +179,7 @@ describe('Project CRUD tests', function () {
           .expect(400)
           .end(function (projectSaveErr, projectSaveRes) {
             // Set message assertion
-            (projectSaveRes.body.message).should.match('Title cannot be blank');
+            (projectSaveRes.body.message).should.match('Project Title is required');
 
             // Handle project save error
             done(projectSaveErr);
@@ -165,9 +187,45 @@ describe('Project CRUD tests', function () {
       });
   });
 
-  it('should be able to update an project if signed in', function (done) {
+/* ------------------ everything above this line should work ---------------- */
+
+/*it('should not be able to save an project if a project with the same name already exists', function (done) {
     agent.post('/api/auth/signin')
-      .send(credentials)
+      .send(adminCredentials)
+      .expect(200)
+      .end(function (signinErr, signinRes) {
+        // Handle signin error
+        if (signinErr) {
+          return done(signinErr);
+        }
+        // Get the userId
+        var userId = admin.id;
+        // Save a new project
+        agent.post('/api/projects')
+          .send(project)
+          .expect(400)
+          .end(function (projectSaveErr, projectSaveRes) {
+            // catch errors
+            if (projectSaveErr) {
+              return done(projectSaveErr);
+            }
+          });
+        // Try to save the same project again
+        agent.post('/api/projects')
+          .send(project)
+          .expect(400)
+          .end(function (projectSaveErr, projectSaveRes) {
+            // Set message assertion
+            (projectSaveRes.body.message).should.match('A Project with that name already exists!');
+            // Handle project save error
+            done(projectSaveErr);
+          });
+      });
+  }); */
+
+  it('should be able to update an project if signed in as an admin', function (done) {
+    agent.post('/api/auth/signin')
+      .send(adminCredentials)
       .expect(200)
       .end(function (signinErr, signinRes) {
         // Handle signin error
@@ -176,7 +234,7 @@ describe('Project CRUD tests', function () {
         }
 
         // Get the userId
-        var userId = user.id;
+        var userId = admin.id;
 
         // Save a new project
         agent.post('/api/projects')
@@ -203,7 +261,7 @@ describe('Project CRUD tests', function () {
 
                 // Set assertions
                 (projectUpdateRes.body._id).should.equal(projectSaveRes.body._id);
-                (projectUpdateRes.body.title).should.match('WHY YOU GOTTA BE SO MEAN?');
+                (projectUpdateRes.body.teamName).should.match('WHY YOU GOTTA BE SO MEAN?');
 
                 // Call the assertion callback
                 done();
@@ -211,6 +269,8 @@ describe('Project CRUD tests', function () {
           });
       });
   });
+
+  /* -----------------  Everything below is NOT UPDATED  ---------------------*/
 
   it('should be able to get a list of projects if not signed in', function (done) {
     // Create new project model instance
