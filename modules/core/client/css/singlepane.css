@@ -24,7 +24,7 @@ label {
     background-color: #D1D1D1;
 }*/
 
-.navbar-title {
+.title-bar {
     position: absolute;
     font-family: 'Open Sans',Helvetica,Arial,sans-serif;
     font-size: 25px;
@@ -34,7 +34,7 @@ label {
     text-align: center;
     left: 0;
     width: 100%;
-    background-color: #D1D1D1;
+    background-color: #DDD;
 }
 
 .image {
@@ -86,6 +86,14 @@ img {
     border-color: #4cae4c;
 }
 
+#submit_rating:disabled {
+    border-color: #4cae4c;
+    color: #4cae4c;
+    font-style: #4cae4c;
+    background-color: white;
+
+}
+
 #singlelabel {
     font-size: 15px;
 }
@@ -99,7 +107,7 @@ img {
     display: inline-block;
     /*float: center;*/
     height: 35px;
-    padding: 0 2px;
+    /*padding: 0 2px;*/
 }
 
 .rate:not(:checked) > input {

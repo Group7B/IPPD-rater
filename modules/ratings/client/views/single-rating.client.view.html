@@ -1,6 +1,6 @@
 <section ng-controller="ProjectController" ng-init="findOne()">
   <div class="container">
-  <div class="navbar-title">
+  <div class="title-bar">
     <ng-if="project.logo">{{project.teamName}}</h2>
   </div>
   <div class="image">
@@ -65,7 +65,8 @@
                   <button type="button" class="btn btn-success-outline"> Submit Rating </button>
               </div> -->
               <div>
-                  <button id="submit_rating" type="button" class="btn btn-primary btn-lg btn-block"> Submit Rating </button>
+                  <button id="submit_rating" type="button" class="btn btn-primary btn-lg btn-block" > Submit Rating </button>
+                  <!-- disabled="disabled"  for disable-->
               </div>
             </td>
         </tr>
