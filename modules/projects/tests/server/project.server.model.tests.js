@@ -6,17 +6,17 @@
 var should = require('should'),
   mongoose = require('mongoose'),
   User = mongoose.model('User'),
-  Rating = mongoose.model('Rating');
+  Project = mongoose.model('Project');
 
 /**
  * Globals
  */
-var user, rating;
+var user, project;
 
 /**
  * Unit tests
  */
-describe('Rating Model Unit Tests:', function () {
+describe('Project Model Unit Tests:', function () {
 
   beforeEach(function (done) {
     user = new User({
@@ -29,10 +29,10 @@ describe('Rating Model Unit Tests:', function () {
     });
 
     user.save(function () {
-      rating = new Rating({
-        title: 'Rating Title',
-        content: 'Rating Content',
-        user: user
+      project = new Project({
+        teamName: 'Project Title',
+        description: 'Project Description',
+        logo: 'test.png'
       });
 
       done();
@@ -42,16 +42,16 @@ describe('Rating Model Unit Tests:', function () {
   describe('Method Save', function () {
     it('should be able to save without problems', function (done) {
       this.timeout(10000);
-      return rating.save(function (err) {
+      return project.save(function (err) {
         should.not.exist(err);
         done();
       });
     });
 
     it('should be able to show an error when try to save without title', function (done) {
-      rating.title = '';
+      project.teamName = '';
 
-      return rating.save(function (err) {
+      return project.save(function (err) {
         should.exist(err);
         done();
       });
@@ -59,7 +59,7 @@ describe('Rating Model Unit Tests:', function () {
   });
 
   afterEach(function (done) {
-    Rating.remove().exec(function () {
+    Project.remove().exec(function () {
       User.remove().exec(done);
     });
   });
