@@ -187,9 +187,7 @@ describe('Project CRUD tests', function () {
       });
   });
 
-/* ------------------ everything above this line should work ---------------- */
-
-/*it('should not be able to save an project if a project with the same name already exists', function (done) {
+  it('should not be able to save an project if a project with the same name already exists', function (done) {
     agent.post('/api/auth/signin')
       .send(adminCredentials)
       .expect(200)
@@ -203,25 +201,25 @@ describe('Project CRUD tests', function () {
         // Save a new project
         agent.post('/api/projects')
           .send(project)
-          .expect(400)
+          .expect(200)
           .end(function (projectSaveErr, projectSaveRes) {
             // catch errors
             if (projectSaveErr) {
               return done(projectSaveErr);
             }
-          });
-        // Try to save the same project again
-        agent.post('/api/projects')
-          .send(project)
-          .expect(400)
-          .end(function (projectSaveErr, projectSaveRes) {
-            // Set message assertion
-            (projectSaveRes.body.message).should.match('A Project with that name already exists!');
-            // Handle project save error
-            done(projectSaveErr);
+            // Try to save another copy
+            agent.post('/api/projects')
+              .send(project)
+              .expect(400)
+              .end(function (projectSaveErr, projectSaveRes) {
+                // Set message assertion
+                (projectSaveRes.body.message).should.match('TeamName already exists');
+                // Handle project save error
+                done(projectSaveErr);
+              });
           });
       });
-  }); */
+  });
 
   it('should be able to update an project if signed in as an admin', function (done) {
     agent.post('/api/auth/signin')
@@ -247,7 +245,7 @@ describe('Project CRUD tests', function () {
             }
 
             // Update project title
-            project.title = 'WHY YOU GOTTA BE SO MEAN?';
+            project.teamName = 'WHY YOU GOTTA BE SO MEAN?';
 
             // Update an existing project
             agent.put('/api/projects/' + projectSaveRes.body._id)
@@ -269,8 +267,6 @@ describe('Project CRUD tests', function () {
           });
       });
   });
-
-  /* -----------------  Everything below is NOT UPDATED  ---------------------*/
 
   it('should be able to get a list of projects if not signed in', function (done) {
     // Create new project model instance
@@ -300,7 +296,7 @@ describe('Project CRUD tests', function () {
       request(app).get('/api/projects/' + projectObj._id)
         .end(function (req, res) {
           // Set assertion
-          res.body.should.be.instanceof(Object).and.have.property('title', project.title);
+          res.body.should.be.instanceof(Object).and.have.property('teamName', project.teamName);
 
           // Call the assertion callback
           done();
@@ -332,9 +328,9 @@ describe('Project CRUD tests', function () {
       });
   });
 
-  it('should be able to delete an project if signed in', function (done) {
+  it('should be able to delete an project if signed in as an admin', function (done) {
     agent.post('/api/auth/signin')
-      .send(credentials)
+      .send(adminCredentials)
       .expect(200)
       .end(function (signinErr, signinRes) {
         // Handle signin error
@@ -343,7 +339,7 @@ describe('Project CRUD tests', function () {
         }
 
         // Get the userId
-        var userId = user.id;
+        var userId = admin.id;
 
         // Save a new project
         agent.post('/api/projects')
@@ -371,6 +367,32 @@ describe('Project CRUD tests', function () {
                 // Call the assertion callback
                 done();
               });
+          });
+      });
+  });
+
+  it('should not be able to delete an project if signed in as a user only', function (done) {
+    agent.post('/api/auth/signin')
+      .send(credentials)
+      .expect(200)
+      .end(function (signinErr, signinRes) {
+        // Handle signin error
+        if (signinErr) {
+          return done(signinErr);
+        }
+
+        // Get the userId
+        var userId = user.id;
+
+        agent.post('/api/projects')
+          .send(project)
+          .expect(403)
+          .end(function (projectDeleteErr, projectDeleteRes) {
+            // Set message assertion
+            (projectDeleteRes.body.message).should.match('User is not authorized');
+
+            // Handle project error error
+            done(projectDeleteErr);
           });
       });
   });
