@@ -1,6 +1,5 @@
 <section ng-controller="ProjectController" ng-init="findOne()">
   <div class="container">
-  <!-- <img class="center-block logo-large" ng-if="!project.logo" src="modules/projects/client/img/logos/default.jpg" alt="Project Poster"></img> -->
   <div class="navbar-title">
     <ng-if="project.logo">{{project.teamName}}</h2>
   </div>
@@ -10,12 +9,10 @@
     <table class="table">
       <tbody>
         <tr>
-          <td> <!-- Poster  -->
-        
+          <td> 
             <div>
-                Poster
+                <b> Poster </b> 
             </div>
-
             <div class="rate">
               <input type="radio" id="star5" name="rate" value="5" /><label for="star5" title="text">5 stars</label>
               <input type="radio" id="star4" name="rate" value="4" /><label for="star4" title="text">4 stars</label>
@@ -23,17 +20,13 @@
               <input type="radio" id="star2" name="rate" value="2" /><label for="star2" title="text">2 stars</label>
               <input type="radio" id="star1" name="rate" value="1" /><label for="star1" title="text">1 star</label>
             </div>
-
           </td>
-          
         </tr>
         <tr>
           <td> 
-
             <div>
-                Presentation
+                <b> Presentation </b>
             </div>
-          
             <div class="rate">
               <input type="radio" id="star6" name="rate1" value="5" /><label for="star6" title="text">5 stars</label>
               <input type="radio" id="star7" name="rate1" value="4" /><label for="star7" title="text">4 stars</label>
@@ -45,11 +38,9 @@
         </tr>
         <tr>
           <td> 
-          
             <div>
-                Technical Demonstration
+                <b> Technical Demonstration </b>
             </div>
-
             <div class="rate">
               <input type="radio" id="star11" name="rate2" value="5" /><label for="star11" title="text">5 stars</label>
               <input type="radio" id="star12" name="rate2" value="4" /><label for="star12" title="text">4 stars</label>
@@ -61,8 +52,8 @@
         </tr>
         <tr>
           <td class="form-group">
-            <label for="comment">Comments</label>
-            <textarea class="form-control" rows="5" id="comment"></textarea>
+            <label id="singlelabel" for="comment">Comments</label>
+            <textarea class="form-control" rows="3" id="comment" placeholder="Put optional comments or notes here"></textarea>
           </td>
         </tr>
       </tbody>

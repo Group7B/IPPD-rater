@@ -81,9 +81,18 @@ img {
     color: #7CC8FA;
 }*/
 
+#singlelabel {
+    font-size: 15px;
+}
+
+#comment {
+    font-size: 10px;
+    text-align: center;
+}
+
 .rate {
     display: inline-block;
-    float: center;
+    /*float: center;*/
     height: 35px;
     padding: 0 2px;
 }
