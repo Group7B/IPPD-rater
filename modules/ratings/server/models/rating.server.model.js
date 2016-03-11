@@ -17,7 +17,7 @@ var RatingSchema = new Schema({
   project: {
     type: Schema.ObjectId,
     ref: 'Project',
-    required: true
+    required: 'All ratings must relate to a project'
   },
   user: {
     type: Schema.ObjectId,
