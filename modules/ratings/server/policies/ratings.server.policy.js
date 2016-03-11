@@ -28,16 +28,16 @@ exports.invokeRolesPolicies = function () {
       permissions: ['get', 'post']
     }, {
       resources: '/api/ratings/:ratingId',
-      permissions: ['get']
+      permissions: []
     }]
   }, {
     roles: ['guest'],
     allows: [{
       resources: '/api/ratings',
-      permissions: ['get']
+      permissions: []
     }, {
       resources: '/api/ratings/:ratingId',
-      permissions: ['get']
+      permissions: []
     }]
   }]);
 };
@@ -48,8 +48,10 @@ exports.invokeRolesPolicies = function () {
 exports.isAllowed = function (req, res, next) {
   var roles = (req.user) ? req.user.roles : ['guest'];
 
+  //console.log(req.rating + ' ' + req.user + ' ' + req.rating.user);
+
   // If an rating is being processed and the current user created it then allow any manipulation
-  if (req.rating && req.user && req.rating.user.id === req.user.id) {
+  if (req.rating && req.user && req.rating.user === req.user.id) {
     return next();
   }
 
