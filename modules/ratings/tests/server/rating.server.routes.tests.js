@@ -6,12 +6,13 @@ var should = require('should'),
   mongoose = require('mongoose'),
   User = mongoose.model('User'),
   Rating = mongoose.model('Rating'),
+  Project = mongoose.model('Project'),
   express = require(path.resolve('./config/lib/express'));
 
 /**
  * Globals
  */
-var app, agent, credentials, user, rating;
+var app, agent, credentials, user, rating, project;
 
 /**
  * Rating routes tests
@@ -33,6 +34,17 @@ describe('Rating CRUD tests', function () {
       password: 'M3@n.jsI$Aw3$0m3'
     };
 
+    // Create a project to rate
+    project = new Project({
+      teamName: 'Project Title',
+      description: 'Project Description',
+      logo: 'test.png'
+    });
+
+    project.save(function (err) {
+      should.not.exist(err);
+    });
+
     // Create a new user
     user = new User({
       firstName: 'Full',
@@ -46,16 +58,21 @@ describe('Rating CRUD tests', function () {
 
     // Save a user to the test db and create new rating
     user.save(function () {
-      rating = {
-        title: 'Rating Title',
-        content: 'Rating Content'
-      };
+      rating = new Rating({
+        isJudge: false,
+        project: project,
+        user: user,
+        posterRating: 5,
+        presentationRating: 3,
+        demoRating: 4
+      });
 
       done();
     });
   });
 
-  it('should be able to save an rating if logged in', function (done) {
+
+  it('should be able to save a rating if logged in', function (done) {
     agent.post('/api/auth/signin')
       .send(credentials)
       .expect(200)
@@ -90,8 +107,12 @@ describe('Rating CRUD tests', function () {
                 var ratings = ratingsGetRes.body;
 
                 // Set assertions
-                (ratings[0].user._id).should.equal(userId);
-                (ratings[0].title).should.match('Rating Title');
+                (ratings[0].user).should.equal(userId);
+                (ratings[0].isJudge).should.equal(false);
+                (ratings[0].project).should.equal(project.id);
+                (ratings[0].posterRating).should.equal(5);
+                (ratings[0].presentationRating).should.equal(3);
+                (ratings[0].demoRating).should.equal(4);
 
                 // Call the assertion callback
                 done();
@@ -100,7 +121,7 @@ describe('Rating CRUD tests', function () {
       });
   });
 
-  it('should not be able to save an rating if not logged in', function (done) {
+  it('should not be able to save a rating if not logged in', function (done) {
     agent.post('/api/ratings')
       .send(rating)
       .expect(403)
@@ -110,9 +131,9 @@ describe('Rating CRUD tests', function () {
       });
   });
 
-  it('should not be able to save an rating if no title is provided', function (done) {
+  it('should not be able to save a rating if no project is specified', function (done) {
     // Invalidate title field
-    rating.title = '';
+    rating.project = null;
 
     agent.post('/api/auth/signin')
       .send(credentials)
@@ -132,15 +153,15 @@ describe('Rating CRUD tests', function () {
           .expect(400)
           .end(function (ratingSaveErr, ratingSaveRes) {
             // Set message assertion
-            (ratingSaveRes.body.message).should.match('Title cannot be blank');
-
+            (ratingSaveRes.body.message).should.match('All ratings must relate to a project');
             // Handle rating save error
             done(ratingSaveErr);
           });
       });
   });
 
-  it('should be able to update an rating if signed in', function (done) {
+    // TODO: currently getting a 403 "Forbidden"
+  it('should be able to update a rating if signed in', function (done) {
     agent.post('/api/auth/signin')
       .send(credentials)
       .expect(200)
@@ -164,7 +185,9 @@ describe('Rating CRUD tests', function () {
             }
 
             // Update rating title
-            rating.title = 'WHY YOU GOTTA BE SO MEAN?';
+            rating.posterRating = 1;
+            rating.presentationRating = 1;
+            rating.demoRating = 2;
 
             // Update an existing rating
             agent.put('/api/ratings/' + ratingSaveRes.body._id)
@@ -178,7 +201,9 @@ describe('Rating CRUD tests', function () {
 
                 // Set assertions
                 (ratingUpdateRes.body._id).should.equal(ratingSaveRes.body._id);
-                (ratingUpdateRes.body.title).should.match('WHY YOU GOTTA BE SO MEAN?');
+                (ratingUpdateRes.body.posterRating).should.equal(1);
+                (ratingUpdateRes.body.presentationRating).should.equal(1);
+                (ratingUpdateRes.body.demoRating).should.equal(2);
 
                 // Call the assertion callback
                 done();
@@ -187,7 +212,7 @@ describe('Rating CRUD tests', function () {
       });
   });
 
-  it('should be able to get a list of ratings if not signed in', function (done) {
+  it('should not be able to get a list of ratings if not signed in', function (done) {
     // Create new rating model instance
     var ratingObj = new Rating(rating);
 
@@ -195,10 +220,8 @@ describe('Rating CRUD tests', function () {
     ratingObj.save(function () {
       // Request ratings
       request(app).get('/api/ratings')
+        .expect(403)
         .end(function (req, res) {
-          // Set assertion
-          res.body.should.be.instanceof(Array).and.have.lengthOf(1);
-
           // Call the assertion callback
           done();
         });
@@ -206,17 +229,15 @@ describe('Rating CRUD tests', function () {
     });
   });
 
-  it('should be able to get a single rating if not signed in', function (done) {
+  it('should not be able to get a single rating if not signed in', function (done) {
     // Create new rating model instance
     var ratingObj = new Rating(rating);
 
     // Save the rating
     ratingObj.save(function () {
       request(app).get('/api/ratings/' + ratingObj._id)
+        .expect(403)
         .end(function (req, res) {
-          // Set assertion
-          res.body.should.be.instanceof(Object).and.have.property('title', rating.title);
-
           // Call the assertion callback
           done();
         });
@@ -247,7 +268,8 @@ describe('Rating CRUD tests', function () {
       });
   });
 
-  it('should be able to delete an rating if signed in', function (done) {
+    // TODO: currently getting a 403 "Forbidden"
+  it('should be able to delete a rating if signed in', function (done) {
     agent.post('/api/auth/signin')
       .send(credentials)
       .expect(200)
@@ -290,7 +312,7 @@ describe('Rating CRUD tests', function () {
       });
   });
 
-  it('should not be able to delete an rating if not signed in', function (done) {
+  it('should not be able to delete a rating if not signed in', function (done) {
     // Set rating user
     rating.user = user;
 
@@ -315,7 +337,9 @@ describe('Rating CRUD tests', function () {
 
   afterEach(function (done) {
     User.remove().exec(function () {
-      Rating.remove().exec(done);
+      Project.remove().exec(function () {
+        Rating.remove().exec(done);
+      });
     });
   });
 });

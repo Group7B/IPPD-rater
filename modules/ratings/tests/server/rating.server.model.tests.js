@@ -53,6 +53,9 @@ describe('Rating Model Unit Tests:', function () {
   });
 
   describe('Method Save', function () {
+
+    // TODO: No negative ratings
+
     it('should be able to save without problems', function (done) {
       this.timeout(10000);
 
