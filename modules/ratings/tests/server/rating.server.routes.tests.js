@@ -191,7 +191,7 @@ describe('Rating CRUD tests', function () {
 
             // Update an existing rating
             agent.put('/api/ratings/' + ratingSaveRes.body._id)
-              .send(rating)
+              .send(user)
               .expect(200)
               .end(function (ratingUpdateErr, ratingUpdateRes) {
                 // Handle rating update error
