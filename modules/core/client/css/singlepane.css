@@ -13,23 +13,16 @@ label {
 }
 
 .title-bar {
-    position: absolute;
+    position: fixed;
     font-family: 'Open Sans',Helvetica,Arial,sans-serif;
     font-size: 25px;
-    /*color: #15A3FF;*/
     color: black;
-    /*opacity: .9;*/
-    /*float: middle;*/
     padding: 7px;
-    /*float: center;*/
-    /*overflow: hidden;*/
     text-align: center;
     left: 0;
     width: 100%;
-    /*background-color: #DDD;*/
     background: #DDD;
     background: rgba(221,221,221,0.92);
-    /*background-color: #15A3FF;*/
 }
 
 .image {
