@@ -7,37 +7,57 @@
     </div>
   </div>
 
-  <div class="uploadLogo">
+  <div class="uploadLogo row">
     <h3> Logo Upload </h3>
     
-    <input type="file" nv-file-select uploader="uploader"/>
-
-    <button type="button" ng-click="uploader.uploadAll()" ng-disabled="!uploader.getNotUploadedItems().length" disabled="disabled">
-      Upload File
-    </button>
+    <center>
+      <input type="file" nv-file-select uploader="uploader"/>
+    </center>
     
-    <button type="button" ng-click="uploader.clearQueue()" ng-disabled="!uploader.queue.length">
-      Remove File
-    </button>
+    <br>
+
+    <center>
+      <button type="button" ng-click="uploader.uploadAll()" ng-disabled="!uploader.getNotUploadedItems().length" disabled="disabled">
+        Upload File
+      </button>
+
+      <button type="button" ng-click="uploader.clearQueue()" ng-disabled="!uploader.queue.length">
+        Remove File
+      </button>
+    </center>
   </div>
+  
+  <hr>
 
-  <div ng-controller="ThemeController">
-    <div>
-      <h3>Background Color Picker</h3>
-      <input colorpicker type="text" ng-model="backgroundColor" />
+  <div class="row" ng-controller="ThemeController">
+    <h3>Theme Colors</h3>
+    
+    <div class="row">
+      <div class="col-md-4">
+        Background Color: <input colorpicker type="text" placeholder="{{theme.backgroundColor}}" ng-model="backgroundColor" />
+      </div>
+
+      <div class="col-md-4">
+        Accent Color: <input colorpicker type="text" placeholder="{{theme.accentColor}}" ng-model="accentColor" />
+      </div>
+      
+      <div class="col-md-4">
+        Text Color: <input colorpicker type="text" placeholder="{{theme.textColor}}" ng-model="textColor" />
+      </div>
     </div>
     
-    <div>
-      <h3>Accent Color Picker</h3>
-      <input colorpicker type="text" ng-model="accentColor" />
-    </div>
-
-    <div>
-      <h3>Text Color Picker</h3>
-      <input colorpicker type="text" ng-model="textColor" />
-    </div> 
+    <br>
     
-    <button type="button" ng-click="updateStoredColors()" ng-disabled="!(backgroundColor || accentColor || textColor)">Save Colors</button>
-    <button type="button" ng-click="clearFields()" ng-disabled="!(backgroundColor || accentColor || textColor)">Clear Fields</button>
+    <div class="row">
+      <center>
+        <button class="" type="button" ng-click="updateStoredColors()" ng-disabled="!(backgroundColor || accentColor || textColor)">
+          Save Colors
+        </button>
+        
+        <button type="button" ng-click="clearFields()" ng-disabled="!(backgroundColor || accentColor || textColor)">
+          Clear Fields
+        </button>
+      </center>
+    </div>
   </div>
 </section>

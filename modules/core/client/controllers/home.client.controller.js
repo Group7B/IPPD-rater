@@ -21,9 +21,9 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
     };
     
     $scope.updateStoredColors = function(backgroundColor, accentColor, textColor) {
-      $scope.addCSSRule(document.styleSheets[4], '.backgroundColor', 'background-color: ' + backgroundColor, 0);
-      $scope.addCSSRule(document.styleSheets[4], '.accentColor', 'background-color: ' + accentColor, 1);
-      $scope.addCSSRule(document.styleSheets[4], '.textColor', 'color: ' + textColor, 2);
+      $scope.addCSSRule(document.styleSheets[5], '.backgroundColor', 'background-color: ' + backgroundColor, 0);
+      $scope.addCSSRule(document.styleSheets[5], '.accentColor', 'background-color: ' + accentColor, 1);
+      $scope.addCSSRule(document.styleSheets[5], '.textColor', 'color: ' + textColor, 2);
     };  
   }
 ]);

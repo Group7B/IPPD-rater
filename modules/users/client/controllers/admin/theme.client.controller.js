@@ -2,7 +2,9 @@
 
 angular.module('users.admin').controller('ThemeController', ['$scope', 'Theme',
   function ($scope, Theme) {
-    console.log(document.styleSheets);
+    Theme.get(function (data) {
+      $scope.theme = data;
+    });
 
     $scope.addCSSRule = function (sheet, selector, rules, index) {
       sheet.deleteRule(index);
@@ -14,26 +16,22 @@ angular.module('users.admin').controller('ThemeController', ['$scope', 'Theme',
     };
 
     $scope.updateDatabase = function () {
-      Theme.get(function (data) {
-        var theme = data;
-        
-        if ($scope.backgroundColor) {
-          theme.backgroundColor = $scope.backgroundColor;
-        }
+      if ($scope.backgroundColor) {
+        $scope.theme.backgroundColor = $scope.backgroundColor;
+      }
 
-        if ($scope.accentColor) {
-          theme.accentColor = $scope.accentColor;
-        }
+      if ($scope.accentColor) {
+        $scope.theme.accentColor = $scope.accentColor;
+      }
 
-        if ($scope.textColor) {
-          theme.textColor = $scope.textColor;
-        }
+      if ($scope.textColor) {
+        $scope.theme.textColor = $scope.textColor;
+      }
 
-        theme.$update(function () {
-          console.log('theme updated');
-        }, function (errorResponse) {
-          $scope.error = errorResponse.data.message;
-        });
+      $scope.theme.$update(function () {
+        console.log('theme updated');
+      }, function (errorResponse) {
+        $scope.error = errorResponse.data.message;
       });
     };
 
