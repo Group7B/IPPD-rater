@@ -1,46 +1,28 @@
-<section ng-controller="ProjectController" ng-init="find()">
+<section ng-controller="ProjectRankingController" ng-init="find()">
   <div class="page-header">
     <h1>Project Ranking</h1>
    <label>Search Project: <input ng-model="searchText"></label>
   <input type="submit">
   </div>
   <div class="list-group">
-    <a ng-repeat="project in projects" ui-sref="projects.rate({projectId: project._id})" class="list-group-item">
-      <div class="row">
+    <div ng-repeat="project in projects" class="list-group-item">
+      <div class = "row">
         <div class="col-sm-2">
           <div class="post-thumb"><img class="logo-icon" ng-if="project.logo" ng-src='modules/projects/client/img/logos/{{project.logo}}' alt="No img"></div>
-          <div class="post-thumb"><img class="logo-icon" ng-if="!project.logo" src='modules/projects/client/img/logos/default.jpg' alt="No img"></div>
+          <div class="post-thumb"><img class="logo-icon" ng-if="!project.logo" ng-src='modules/projects/client/img/logos/default.jpg' alt="No img"></div>
         </div>
-        <div class="col-sm-10">
+        <div class="col-sm-6">
           <p  class="list-group-item-heading" ng-bind="project.teamName"></p><br>
           <div class="list-group-item-text" ng-bind="project.description"></div>
         </div>
-        <div class="row">
-          <section ng-controller="RatingsController" ng-init="findOne()">
-            <div class="page-header">
-              <h1 ng-bind="rating.title"></h1>
-            </div>
-            <div class="pull-right" ng-show="authentication.user._id == rating.user._id">
-              <a class="btn btn-primary" ui-sref="ratings.edit({ratingId: rating._id})">
-                <i class="glyphicon glyphicon-edit"></i>
-              </a>
-              <a class="btn btn-primary" ng-click="remove();">
-                <i class="glyphicon glyphicon-trash"></i>
-              </a>
-            </div>
-            <small>
-              <em class="text-muted">
-                Posted on
-                <span ng-bind="rating.created | date:'mediumDate'"></span>
-                by
-                <span ng-bind="rating.user.displayName"></span>
-              </em>
-            </small>
-            <p class="lead" ng-bind="rating.content"></p>
-          </section>
+        <div class="col-sm-4" ng-repeat="rating in ratings" ng-show="rating.project === project._id && rating.user === authentication.user._id">
+          <label>Poster Rating: <text class="list-group-item-text" ng-bind="rating.posterRating"></text></label><br>
+          <label>Presentation Rating: <text class="list-group-item-text" ng-bind="rating.presentationRating"></text></label><br>
+          <label>Demo Rating: <text class="list-group-item-text" ng-bind="rating.demoRating"></text></label><br>
+          <label>My Comment: <text class="list-group-item-text" ng-bind="rating.comment"></text><label>
         </div>
       </div>
-    </a>
+    </div>
   </div>
   <div class="alert alert-warning text-center" ng-if="projects.$resolved && !projects.length">
     No projects yet, why don't you <a ui-sref="projects.create">create one</a>?
