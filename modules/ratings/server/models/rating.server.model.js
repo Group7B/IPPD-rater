@@ -42,27 +42,10 @@ var RatingSchema = new Schema({
     min: 0,
     max: 5
   }
-  /* Old things from Articles module:
-  created: {
-    type: Date,
-    default: Date.now
-  },
-  title: {
+  comment: {
     type: String,
-    default: '',
-    trim: true,
-    required: 'Title cannot be blank'
-  },
-  content: {
-    type: String,
-    default: '',
-    trim: true
-  },
-  user: {
-    type: Schema.ObjectId,
-    ref: 'User'
+    default: ""
   }
-  */
 });
 
 mongoose.model('Rating', RatingSchema);
