@@ -1,17 +1,54 @@
 <section ng-controller="HomeController">
-    <div class="splashpage">
-        <div class="jumbotron text-center">
-            <div class="row">
-                <div class="col-md-6 col-md-offset-3 col-sm-6 col-sm-offset-3 col-xs-12">
-                    <img alt="IPPD Logo" class="img-responsive text-center img-center" src="modules/core/client/img/brand/IPPD_logo.png" />
-                </div>
-            </div>
-            <div class="splash_h2">
-                <h2> welcomes you to the IPPD Rater </h2>
-            </div>
-            <p ng-hide="authentication.user">
-                <a class="btn btn-primary btn-lg" href="authentication/signin">Sign In</a>
-            </p>
+  <div class="splashpage">
+    <div class="cover text-center signInText">
+      <div class="row">
+        <div class="col-md-4 col-md-offset-4 col-sm-4 col-sm-offset-4 col-xs-12">
+          <img alt="IPPD Logo" class="img-responsive text-center img-center" src="modules/core/client/img/brand/IPPD_logo.png" />
+
+          <span id="appTitle">Demo Day Rater</span>
         </div>
+      </div>
+
+      <center>
+        <form id="signInForm" name="userForm" ng-submit="signin(userForm.$valid)" class="signin signInText" novalidate autocomplete="off">
+          <fieldset>
+            <h3>Sign in with your GatorLink</h3>
+            <div class="form-group" show-errors>
+              <input type="text" id="username" name="username" class="formField" ng-model="credentials.username" placeholder="Username" required>
+              <div ng-messages="userForm.username.$error" role="alert">
+                <p class="help-block error-text" ng-message="required">Username is required.</p>
+              </div>
+            </div>
+            <div class="form-group" show-errors>
+              <input type="password" id="password" name="password" class="formField" ng-model="credentials.password" placeholder="Password" required>
+              <div ng-messages="userForm.password.$error" role="alert">
+                <p class="help-block error-text" ng-message="required">Password is required.</p>
+              </div>
+            </div>
+            <div class="text-center form-group">
+              <button type="submit" id="signInButton" class="buttonHover">Sign In</button>
+            </div>
+            <alert type="danger" ng-show="error" class="text-center text-danger">
+              <span ng-bind="error"></span>
+            </alert>
+          </fieldset>
+        </form>
+        
+        OR
+        
+        <br>
+        
+        <h3>Use a social account</h3>
+        
+        <div id="socialList">
+            <img class="socialImage buttonHover" src="modules/users/client/img/buttons/fbFlat.png"/>
+          
+            <img class="socialImage buttonHover" src="modules/users/client/img/buttons/plusFlat.png"/>
+
+            <img class="socialImage buttonHover" src="modules/users/client/img/buttons/twitterFlat.png"/>
+        </div>
+        
+      </center>
     </div>
+  </div>
 </section>
