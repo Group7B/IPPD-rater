@@ -5,3 +5,7 @@
 // });
 
  // $scope.getBoolean = function() { return ""+$scope.theBoolean; }; 
+
+ // $scope.test = function(value) { 
+ // 	console.log(value);
+ // };

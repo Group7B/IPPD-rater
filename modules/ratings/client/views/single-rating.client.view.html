@@ -11,7 +11,67 @@
   <div class="image">
     <img ng-if="project.logo" ng-src="modules/projects/client/img/logos/{{project.logo}}" alt="Project Poster"></img>
   </div>
-    <table class="table">
+</section>
+
+
+
+
+
+<form name="ratingForm" role="form" ng-controller="RatingsController" ng-submit="create(ratingForm.$valid)" novalidate>
+  <!-- Poster  -->
+  <div class="form-group" id="rate">
+    <input type="radio" id="star5" name="Poster_Rating" value="5" ng-model="posterRating"/><label for="star5">5</label>
+    <input type="radio" id="star4" name="Poster_Rating" value="4" ng-model="posterRating"/><label for="star4">4</label>
+    <input type="radio" id="star3" name="Poster_Rating" value="3" ng-model="posterRating"/><label for="star3">3</label>
+    <input type="radio" id="star2" name="Poster_Rating" value="2" ng-model="posterRating"/><label for="star2">2</label>
+    <input type="radio" id="star1" name="Poster_Rating" value="1" ng-model="posterRating"/><label for="star1">1</label>
+  </div>
+           
+  <div class="form-group" id="rate">
+    <input type="radio" id="star6" name="Presentation_Rating" value="5" ng-model="presentationRating"/><label for="star6">5</label>
+    <input type="radio" id="star7" name="Presentation_Rating" value="4" ng-model="presentationRating"/><label for="star7">4</label>
+    <input type="radio" id="star8" name="Presentation_Rating" value="3" ng-model="presentationRating"/><label for="star8">3</label>
+    <input type="radio" id="star9" name="Presentation_Rating" value="2" ng-model="presentationRating"/><label for="star9">2</label>
+    <input type="radio" id="star10" name="Presentation_Rating" value="1" ng-model="presentationRating"/><label for="star10">1</label>
+  </div>
+            
+  <div class="form-group" id="rate">
+    <input type="radio" id="star11" name="TechDemo_Rating" value="5" ng-model="demoRating"/><label for="star11">5</label>
+    <input type="radio" id="star12" name="TechDemo_Rating" value="4" ng-model="demoRating"/><label for="star12">4</label>
+    <input type="radio" id="star13" name="TechDemo_Rating" value="3" ng-model="demoRating"/><label for="star13">3</label>
+    <input type="radio" id="star14" name="TechDemo_Rating" value="2" ng-model="demoRating"/><label for="star14">2</label>
+    <input type="radio" id="star15" name="TechDemo_Rating" value="1" ng-model="demoRating"/><label for="star15">1</label>
+  </div>
+           
+  <div class="form-group">
+    <label for="comment">Comments</label>
+    <textarea class="form-control" rows="3" id="comment"></textarea>
+  </div>
+           
+  <div class="form-group">
+    <button type="submit" class="btn btn-default">Submit</button>
+  </div>
+
+</form>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--     <table class="table">
       <tbody>
         <tr>
           <td> 
@@ -64,12 +124,11 @@
         <tr>
             <td>
               <div>
-                  <button id="submit_rating" type="button" class="btn btn-primary btn-lg btn-block" > Submit Rating </button>
-                  <!-- disabled="disabled"  for disable-->
+                  <button id="submit_rating" type="button" class="btn btn-primary btn-lg btn-block"> Submit Rating </button>
+                   disabled="disabled"  for disable
               </div>
             </td>
         </tr>
       </tbody>
     </table>
-  </div>
-</section>
+  </div> -->
