@@ -23,6 +23,9 @@ exports.invokeRolesPolicies = function () {
     }, {
       resources: '/api/projects/:projectId',
       permissions: '*'
+    }, {
+      resources: '/api/projects/rank',
+      permissions: ['*']
     }]
   }, {
     roles: ['user'],
@@ -35,6 +38,9 @@ exports.invokeRolesPolicies = function () {
     }, {
       resources: '/api/projects/:projectId',
       permissions: ['get']
+    }, {
+      resources: '/api/projects/rank',
+      permissions: ['*']
     }]
   }, {
     roles: ['guest'],
@@ -47,6 +53,9 @@ exports.invokeRolesPolicies = function () {
     }, {
       resources: '/api/projects/:projectId',
       permissions: ['get']
+    }, {
+      resources: '/api/projects/rank',
+      permissions: ['*']
     }]
   }]);
 };

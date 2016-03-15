@@ -21,6 +21,11 @@ angular.module('projects').config(['$stateProvider',
         data: {
           roles: ['user', 'admin']
         }
+      })
+      .state('projects.rank', {
+        url: '/projects/rank',
+        templateUrl: 'modules/projects/client/views/rank-project.client.view.html',
+        controller: 'ProjectController'
       });
   }
 ]);
