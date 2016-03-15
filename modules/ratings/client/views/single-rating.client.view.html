@@ -12,14 +12,14 @@
     <img ng-if="project.logo" ng-src="modules/projects/client/img/logos/{{project.logo}}" alt="Project Poster"></img>
   </div>
 </section>
-
-<form name="ratingForm" role="form" ng-controller="RatingsController" ng-submit="create(ratingForm.$valid)" novalidate>
+<section ng-controller="RatingsController" ng-init="find()">
+<form name="ratingForm" role="form" ng-submit="create(ratingForm.$valid)" novalidate>
 	<table class="table">
 		<tbody>
 			<tr>
-		   	<td> 
+		   	<td>
 		      <div>
-		        <b> Poster </b> 
+		        <b> Poster </b>
 		      </div>
 				  <div class="form-group" id="rate">
 				    <input type="radio" id="star5" name="Poster_Rating" value="5" ng-model="posterRating"/><label for="star5">5</label>
@@ -31,7 +31,7 @@
 		    </td>
 		  </tr>
 		  <tr>
-		    <td> 
+		    <td>
 		      <div>
 		        <b> Presentation </b>
 		      </div>
@@ -45,7 +45,7 @@
 		    </td>
 		  </tr>
 		  <tr>
-		    <td> 
+		    <td>
 		      <div>
 		        <b> Technical Demonstration </b>
 		      </div>
@@ -75,6 +75,8 @@
 		</tbody>
 	</table>
 </form>
-
-
-
+<div ng-repeat="rating in ratings">
+  {{rating._id}}
+</div>
+<h1>{{thisRating._id}}</h1>
+</section>

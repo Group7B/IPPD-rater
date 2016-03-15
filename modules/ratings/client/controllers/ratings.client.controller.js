@@ -1,9 +1,12 @@
 'use strict';
 
 // Ratings controller
-angular.module('ratings').controller('RatingsController', ['$scope', '$stateParams', '$location', 'Authentication', 'Ratings',
-  function ($scope, $stateParams, $location, Authentication, Ratings) {
+angular.module('ratings').controller('RatingsController', ['$scope', '$filter', '$stateParams', '$location', 'Authentication', 'Ratings',
+  function ($scope, $filter, $stateParams, $location, Authentication, Ratings) {
     $scope.authentication = Authentication;
+    Ratings.query(function(data) {
+      $scope.ratings = data;
+    });
 
     // Create new Rating
     $scope.create = function (isValid) {
@@ -38,10 +41,10 @@ angular.module('ratings').controller('RatingsController', ['$scope', '$statePara
       rating.$save(function (response) {
         $location.path('projects');
 
-        // Clear form fields
-        $scope.posterRating = '';
-        $scope.presentationRating = '';
-        $scope.demoRating = '';
+        // No need to clear form fields
+        //$scope.posterRating = '';
+        //$scope.presentationRating = '';
+        //$scope.demoRating = '';
       }, function (errorResponse) {
         $scope.error = errorResponse.data.message;
       });
@@ -76,6 +79,9 @@ angular.module('ratings').controller('RatingsController', ['$scope', '$statePara
       }
 
       var rating = $scope.rating;
+      rating.posterRating = $scope.posterRating;
+      rating.presentationRating = $scope.presentationRating;
+      rating.demoRating = $scope.demoRating;
 
       rating.$update(function () {
         $location.path('ratings/' + rating._id);
@@ -86,14 +92,28 @@ angular.module('ratings').controller('RatingsController', ['$scope', '$statePara
 
     // Find a list of Ratings
     $scope.find = function () {
-      $scope.ratings = Ratings.query();
+      //$scope.ratings = Ratings.query();
+
+      $scope.findRatingByProjectAndUser();
     };
 
     // Find existing Rating
-    $scope.findOne = function () {
+    $scope.findRatingByID = function () {
       console.log('find one');
       $scope.rating = Ratings.get({
         ratingId: $stateParams.ratingId
+      });
+    };
+
+    $scope.findRatingByProjectAndUser = function () {
+      /*$scope.thisRating = $filter('filter')(
+        $scope.ratings, {
+          project: $stateParams.projectId,
+          user: Authentication.user._id
+        });*/
+      $scope.thisRating = Ratings.get({
+        project: $stateParams.projectId,
+        user: Authentication.user._id
       });
     };
   }
