@@ -6,7 +6,7 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
     $scope.authentication = Authentication;
     
     // TODO: Retrieve and set theme colors here
-    Theme.query(function (data) {
+    Theme.get(function (data) {
       var theme = data;
       $scope.updateStoredColors(theme.backgroundColor, theme.accentColor, theme.textColor);
     });
