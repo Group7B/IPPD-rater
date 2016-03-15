@@ -44,7 +44,7 @@ var RatingSchema = new Schema({
   },
   comment: {
     type: String,
-    default: ""
+    default: ''
   }
 });
 
