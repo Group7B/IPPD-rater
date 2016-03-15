@@ -7,30 +7,45 @@ angular.module('ratings').controller('RatingsController', ['$scope', '$statePara
 
     // Create new Rating
     $scope.create = function (isValid) {
+      console.log('create');
       $scope.error = null;
-
+      console.log('error');
       if (!isValid) {
         $scope.$broadcast('show-errors-check-validity', 'ratingForm');
 
         return false;
       }
-
+      console.log('create object');
       // Create new Rating object
+      /*
+      console.log($stateParams.projectId);
+      console.log($stateParams.userId);
+      console.log(this.posterRating);
+      console.log(this.presentationRating);
+      console.log(this.demoRating);
+      */
+
       var rating = new Ratings({
-        title: this.title,
-        content: this.content
+        project: $stateParams.projectId,
+        posterRating : this.posterRating,
+        presentationRating: this.presentationRating,
+        demoRating: this.demoRating,
+        comment: this.comment
       });
+      console.log('object created');
 
       // Redirect after save
       rating.$save(function (response) {
-        $location.path('ratings/' + response._id);
+        $location.path('projects');
 
         // Clear form fields
-        $scope.title = '';
-        $scope.content = '';
+        $scope.posterRating = '';
+        $scope.presentationRating = '';
+        $scope.demoRating = '';
       }, function (errorResponse) {
         $scope.error = errorResponse.data.message;
       });
+      console.log('create complete');
     };
 
     // Remove existing Rating
@@ -76,6 +91,7 @@ angular.module('ratings').controller('RatingsController', ['$scope', '$statePara
 
     // Find existing Rating
     $scope.findOne = function () {
+      console.log('find one');
       $scope.rating = Ratings.get({
         ratingId: $stateParams.ratingId
       });
