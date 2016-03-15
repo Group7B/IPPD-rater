@@ -21,11 +21,22 @@
     </button>
   </div>
 
-  <div>
-    <h3>Primary Color Picker</h3>
-  </div>
+  <div ng-controller="ThemeController">
+    <div>
+      <h3>Background Color Picker</h3>
+      <input colorpicker type="text" ng-model="bodyColor" />
+    </div>
+    
+    <div>
+      <h3>Accent Color Picker</h3>
+      <input colorpicker type="text" ng-model="accentColor" />
+    </div>
 
-  <div>
-    <h3>Secondary Color Picker</h3>
+    <div>
+      <h3>Text Color Picker</h3>
+      <input colorpicker type="text" ng-model="textColor" />
+    </div> 
+    
+    <button type="button" ng-click="updateStoredColors(bodyColor, accentColor, textColor)">Save Colors</button>
   </div>
 </section>

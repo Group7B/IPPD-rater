@@ -1,15 +1,7 @@
 'use strict';
 
-angular.module('core').controller('HomeController', ['$scope', 'Authentication', 'Theme',
-  function ($scope, Authentication, Theme) {
-    // This provides Authentication context.
-    $scope.authentication = Authentication;
-    
-    // TODO: Retrieve and set theme colors here
-    Theme.query(function (data) {
-      var theme = data;
-      $scope.updateStoredColors(theme.backgroundColor, theme.accentColor, theme.textColor);
-    });
+angular.module('users.admin').controller('ThemeController', ['$scope', 'Theme',
+  function ($scope, Theme) {
     
     $scope.addCSSRule = function(sheet, selector, rules, index) {
       sheet.deleteRule(index);
@@ -20,10 +12,27 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
       }
     };
     
+    $scope.updateDatabase = function (backgroundColor, accentColor, textColor) {
+      var theme = new Theme({
+        ID: '0',
+        backgroundColor: backgroundColor,
+        accentColor: accentColor,
+        textColor: textColor
+      });
+      
+      theme.$update(function () {
+        console.log('theme updated');
+      }, function (errorResponse) {
+        $scope.error = errorResponse.data.message;
+      });
+    };
+    
     $scope.updateStoredColors = function(backgroundColor, accentColor, textColor) {
       $scope.addCSSRule(document.styleSheets[4], '.backgroundColor', 'background-color: ' + backgroundColor, 0);
       $scope.addCSSRule(document.styleSheets[4], '.accentColor', 'background-color: ' + accentColor, 1);
       $scope.addCSSRule(document.styleSheets[4], '.textColor', 'color: ' + textColor, 2);
-    };  
+      
+      $scope.updateDatabase(backgroundColor, accentColor, textColor);
+    };
   }
 ]);

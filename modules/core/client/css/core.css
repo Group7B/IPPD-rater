@@ -1,3 +1,15 @@
+.backgroundColor {
+  background-color: #fff;
+}
+
+.accentColor {
+  background-color: #000;
+}
+
+.textColor {
+  color: #fff;
+}
+
 .content {
   margin-top: 50px;
 }

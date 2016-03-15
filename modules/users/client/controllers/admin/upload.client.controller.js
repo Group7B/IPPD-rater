@@ -3,7 +3,7 @@
 angular.module('users.admin').controller('UploadController', ['$scope', '$timeout', 'FileUploader',
   function ($scope, $timeout, FileUploader) {
     $scope.uploader = new FileUploader({
-      url: 'upload',
+      url: 'api/upload',
       removeAfterUpload: true
     });
 
