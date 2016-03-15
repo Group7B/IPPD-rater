@@ -33,6 +33,8 @@ label {
     /*opacity: .9;*/
     /*float: middle;*/
     padding: 7px;
+    /*float: center;*/
+    /*overflow: hidden;*/
     text-align: center;
     left: 0;
     width: 100%;
@@ -85,6 +87,16 @@ img {
     font-size: 30px;
     color: #7CC8FA;
 }*/
+
+#back-button {
+    /*position: fixed;*/
+    float: left;
+    left: 0;
+    vertical-align: middle;
+    font-size: 30px;
+    color: #15A3FF;
+
+}
 
 #submit_rating {
     background-color: #5cb85c;

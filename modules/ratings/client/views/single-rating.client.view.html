@@ -1,7 +1,10 @@
 <section ng-controller="ProjectController" ng-init="findOne()">
   <div class="container">
   <div class="title-bar">
-    <ng-if="project.logo">{{project.teamName}}</h2>
+    <div>
+      <a id="back-button" class="glyphicon glyphicon-menu-left" aria-hidden="true" href="projects"></a>
+    </div>
+    <ng-if="project.logo">{{project.teamName}}</ng-if="project.logo">
   </div>
   <div class="image">
     <img ng-if="project.logo" ng-src="modules/projects/client/img/logos/{{project.logo}}" alt="Project Poster"></img>
@@ -14,11 +17,11 @@
                 <b> Poster </b> 
             </div>
             <div class="rate">
-              <input type="radio" id="star5" name="rate" value="5" /><label for="star5" title="text">5 stars</label>
-              <input type="radio" id="star4" name="rate" value="4" /><label for="star4" title="text">4 stars</label>
-              <input type="radio" id="star3" name="rate" value="3" /><label for="star3" title="text">3 stars</label>
-              <input type="radio" id="star2" name="rate" value="2" /><label for="star2" title="text">2 stars</label>
-              <input type="radio" id="star1" name="rate" value="1" /><label for="star1" title="text">1 star</label>
+              <input type="radio" id="star5" name="Poster_Rating"/><label for="star5" title="text">5 stars</label>
+              <input type="radio" id="star4" name="Poster_Rating"/><label for="star4" title="text">4 stars</label>
+              <input type="radio" id="star3" name="Poster_Rating"/><label for="star3" title="text">3 stars</label>
+              <input type="radio" id="star2" name="Poster_Rating"/><label for="star2" title="text">2 stars</label>
+              <input type="radio" id="star1" name="Poster_Rating"/><label for="star1" title="text">1 star</label>
             </div>
           </td>
         </tr>
@@ -28,11 +31,11 @@
                 <b> Presentation </b>
             </div>
             <div class="rate">
-              <input type="radio" id="star6" name="rate1" value="5" /><label for="star6" title="text">5 stars</label>
-              <input type="radio" id="star7" name="rate1" value="4" /><label for="star7" title="text">4 stars</label>
-              <input type="radio" id="star8" name="rate1" value="3" /><label for="star8" title="text">3 stars</label>
-              <input type="radio" id="star9" name="rate1" value="2" /><label for="star9" title="text">2 stars</label>
-              <input type="radio" id="star10" name="rate1" value="1" /><label for="star10" title="text">1 star</label>
+              <input type="radio" id="star6" name="Presentation_Rating"/><label for="star6" title="text">5 stars</label>
+              <input type="radio" id="star7" name="Presentation_Rating"/><label for="star7" title="text">4 stars</label>
+              <input type="radio" id="star8" name="Presentation_Rating"/><label for="star8" title="text">3 stars</label>
+              <input type="radio" id="star9" name="Presentation_Rating"/><label for="star9" title="text">2 stars</label>
+              <input type="radio" id="star10" name="Presentation_Rating"/><label for="star10" title="text">1 star</label>
             </div>
           </td>
         </tr>
@@ -42,11 +45,11 @@
                 <b> Technical Demonstration </b>
             </div>
             <div class="rate">
-              <input type="radio" id="star11" name="rate2" value="5" /><label for="star11" title="text">5 stars</label>
-              <input type="radio" id="star12" name="rate2" value="4" /><label for="star12" title="text">4 stars</label>
-              <input type="radio" id="star13" name="rate2" value="3" /><label for="star13" title="text">3 stars</label>
-              <input type="radio" id="star14" name="rate2" value="2" /><label for="star14" title="text">2 stars</label>
-              <input type="radio" id="star15" name="rate2" value="1" /><label for="star15" title="text">1 star</label>
+              <input type="radio" id="star11" name="TechDemo_Rating"/><label for="star11" title="text">5 stars</label>
+              <input type="radio" id="star12" name="TechDemo_Rating"/><label for="star12" title="text">4 stars</label>
+              <input type="radio" id="star13" name="TechDemo_Rating"/><label for="star13" title="text">3 stars</label>
+              <input type="radio" id="star14" name="TechDemo_Rating"/><label for="star14" title="text">2 stars</label>
+              <input type="radio" id="star15" name="TechDemo_Rating"/><label for="star15" title="text">1 star</label>
             </div>
           </td>
         </tr>
