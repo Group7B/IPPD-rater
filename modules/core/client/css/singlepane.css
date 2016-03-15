@@ -89,13 +89,17 @@ img {
 }*/
 
 #back-button {
-    /*position: fixed;*/
-    float: left;
+    position: absolute;
+    padding: 7px;
     left: 0;
     vertical-align: middle;
     font-size: 30px;
     color: #15A3FF;
+}
 
+#title-text {
+    display: block;
+    margin: auto;
 }
 
 #submit_rating {

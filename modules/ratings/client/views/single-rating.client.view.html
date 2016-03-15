@@ -1,10 +1,12 @@
 <section ng-controller="ProjectController" ng-init="findOne()">
   <div class="container">
   <div class="title-bar">
-    <div>
+    <span>
       <a id="back-button" class="glyphicon glyphicon-menu-left" aria-hidden="true" href="projects"></a>
-    </div>
-    <ng-if="project.logo">{{project.teamName}}</ng-if="project.logo">
+    </span>
+    <span id="title-text">
+      <ng-if="project.logo">{{project.teamName}}</ng-if="project.logo">
+    </span>
   </div>
   <div class="image">
     <img ng-if="project.logo" ng-src="modules/projects/client/img/logos/{{project.logo}}" alt="Project Poster"></img>
