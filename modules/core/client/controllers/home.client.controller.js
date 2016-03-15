@@ -14,7 +14,7 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
     $scope.addCSSRule = function(sheet, selector, rules, index) {
       sheet.deleteRule(index);
       if('insertRule' in sheet) {
-        sheet.insertRule(selector + "{" + rules + "}", index);
+        sheet.insertRule(selector + '{' + rules + '}', index);
       } else if ('addRule' in sheet) {
         sheet.addRule(selector, rules, index);
       }

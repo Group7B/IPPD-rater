@@ -54,7 +54,7 @@ exports.updateTheme = function (req, res) {
           res.json(theme);
         });
       } else {
-        return res.status(404).send("No theme found!");
+        return res.status(404).send('No theme found!');
       }
     });
 };
