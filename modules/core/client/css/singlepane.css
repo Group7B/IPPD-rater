@@ -13,7 +13,7 @@ label {
 }
 
 .title-bar {
-    position: fixed;
+    position: absolute;
     font-family: 'Open Sans',Helvetica,Arial,sans-serif;
     font-size: 25px;
     /*color: #15A3FF;*/
@@ -34,6 +34,8 @@ label {
 
 .image {
     padding-top: 50px;
+    vertical-align: bottom;
+    /*position: relative;*/
     /*padding-bottom: 10px;*/
 }
 
