@@ -5,7 +5,7 @@
   <input type="submit">
   </div>
   <div class="list-group">
-    <div ng-repeat="project in projects" class="list-group-item">
+    <div ng-repeat="project in projects" ui-sref="projects.rate({projectId: project._id})" class="list-group-item">
       <div class = "row">
         <div class="col-sm-2">
           <div class="post-thumb"><img class="logo-icon" ng-if="project.logo" ng-src='modules/projects/client/img/logos/{{project.logo}}' alt="No img"></div>

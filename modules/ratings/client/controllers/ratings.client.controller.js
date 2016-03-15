@@ -36,7 +36,7 @@ angular.module('ratings').controller('RatingsController', ['$scope', '$statePara
 
       // Redirect after save
       rating.$save(function (response) {
-        $location.path('projects');
+        $location.path('projects/rank');
 
         // Clear form fields
         $scope.posterRating = '';
