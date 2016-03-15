@@ -15,7 +15,7 @@ angular.module('projects').config(['$stateProvider',
         templateUrl: 'modules/projects/client/views/list-project.client.view.html'
       })
       .state('projects.rate', {
-        url: '/projects/rate/:projectId',
+        url: '/rate/:projectId',
         templateUrl: 'modules/ratings/client/views/single-rating.client.view.html',
         controller: 'ProjectController',
         data: {
@@ -23,7 +23,7 @@ angular.module('projects').config(['$stateProvider',
         }
       })
       .state('projects.rank', {
-        url: '/projects/rank',
+        url: '/rank',
         templateUrl: 'modules/projects/client/views/rank-project.client.view.html',
         controller: 'ProjectController'
       });
