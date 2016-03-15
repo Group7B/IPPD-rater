@@ -27,16 +27,16 @@ angular.module('ratings').controller('RatingsController', ['$scope', '$statePara
 
       var rating = new Ratings({
         project: $stateParams.projectId,
-        //user: $stateParams.userId,
         posterRating : this.posterRating,
         presentationRating: this.presentationRating,
-        demoRating: this.demoRating
+        demoRating: this.demoRating,
+        comment: this.comment
       });
       console.log('object created');
 
       // Redirect after save
       rating.$save(function (response) {
-        $location.path('ratings/' + response._id);
+        $location.path('projects/');
 
         // Clear form fields
         $scope.posterRating = '';
