@@ -10,13 +10,13 @@
       <table class="table table-striped table-hover">
         <tr>
           <th>Logo</th>
-          <th>Team</th>
-          <th>Poster Rating</th>
-          <th>Presentation Rating</th>
-          <th>Demo Rating</th>
-          <th>My Comments</th>
+          <th ng-click="sortType = 'teamName'">Team</th>
+          <th ng-click="sortType = 'posterRating'">Poster Rating</th>
+          <th ng-click="sortType = 'presentationRating'">Presentation Rating</th>
+          <th ng-click="sortType = 'demoRating'">Demo Rating</th>
+          <th ng-click="sortType = 'comment'">My Comments</th>
         </tr>
-        <tr ng-repeat="rating in ratings" ui-sref="projects.rate({projectId: rating.project._id})" ng-show="rating.user._id === authentication.user._id">
+        <tr ng-repeat="rating in ratings | orderBy:sortType:sortReverse" ui-sref="projects.rate({projectId: rating.project._id})" ng-show="rating.user._id === authentication.user._id">
           <td class="">
             <div class="post-thumb"><img class="logo-icon" ng-if="rating.project.logo" ng-src='modules/projects/client/img/logos/{{rating.project.logo}}' alt="No img"></div>
             <div class="post-thumb"><img class="logo-icon" ng-if="!rating.project.logo" ng-src='modules/projects/client/img/logos/default.jpg' alt="No img"></div>

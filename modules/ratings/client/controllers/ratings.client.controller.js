@@ -4,6 +4,8 @@
 angular.module('ratings').controller('RatingsController', ['$scope', '$stateParams', '$location', 'Authentication', 'Ratings',
   function ($scope, $stateParams, $location, Authentication, Ratings) {
     $scope.authentication = Authentication;
+    $scope.sortBy = '_id';
+    $scope.sortReverse = true;
 
     // Create new Rating
     $scope.create = function (isValid) {
