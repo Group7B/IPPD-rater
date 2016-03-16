@@ -78,7 +78,7 @@ angular.module('ratings').controller('RatingsController', ['$scope', '$filter', 
         return false;
       }
 
-      var rating = $scope.rating;
+      var rating = $scope.thisRating;
       rating.posterRating = $scope.posterRating;
       rating.presentationRating = $scope.presentationRating;
       rating.demoRating = $scope.demoRating;
@@ -93,12 +93,13 @@ angular.module('ratings').controller('RatingsController', ['$scope', '$filter', 
     // Find a list of Ratings
     $scope.find = function () {
       //$scope.ratings = Ratings.query();
-
-      $scope.findRatingByProjectAndUser();
+      Ratings.query(function (data) {
+        $scope.ratings = data;
+      });
     };
 
     // Find existing Rating
-    $scope.findRatingByID = function () {
+    $scope.findOne = function () {
       console.log('find one');
       $scope.rating = Ratings.get({
         ratingId: $stateParams.ratingId
@@ -106,15 +107,20 @@ angular.module('ratings').controller('RatingsController', ['$scope', '$filter', 
     };
 
     $scope.findRatingByProjectAndUser = function () {
-      /*$scope.thisRating = $filter('filter')(
+      $scope.find();
+      $scope.thisRating = $filter('filter')(
         $scope.ratings, {
           project: $stateParams.projectId,
           user: Authentication.user._id
-        });*/
-      $scope.thisRating = Ratings.get({
+        });
+      /*$scope.thisRating = Ratings.query({
         project: $stateParams.projectId,
         user: Authentication.user._id
-      });
+      })['0'];*/
+      console.log(Authentication.user._id);
+      console.log($stateParams.projectId);
+      console.log($scope.ratings);
+      console.log($scope.thisRating);
     };
   }
 ]);

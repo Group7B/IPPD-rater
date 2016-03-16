@@ -12,8 +12,8 @@
     <img ng-if="project.logo" ng-src="modules/projects/client/img/logos/{{project.logo}}" alt="Project Poster"></img>
   </div>
 </section>
-<section ng-controller="RatingsController" ng-init="find()">
-<form name="ratingForm" role="form" ng-submit="create(ratingForm.$valid)" novalidate>
+<section ng-controller="RatingsController" ng-init="findRatingByProjectAndUser()">
+<form name="ratingForm" role="form" ng-submit="update(ratingForm.$valid)" novalidate>
 	<table class="table">
 		<tbody>
 			<tr>
@@ -75,8 +75,4 @@
 		</tbody>
 	</table>
 </form>
-<div ng-repeat="rating in ratings">
-  {{rating._id}}
-</div>
-<h1>{{thisRating._id}}</h1>
 </section>
