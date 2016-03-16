@@ -122,5 +122,19 @@ angular.module('ratings').controller('RatingsController', ['$scope', '$filter', 
       console.log($scope.ratings);
       console.log($scope.thisRating);
     };
+
+    $scope.getStars = function(num) {
+      var rating = 'Unrated';
+
+      if (num) {
+        rating = '★';
+
+        var i;
+        for (i = 1; i < num; i++) {
+          rating += '★';
+        }
+      }
+      return rating;
+    };
   }
 ]);

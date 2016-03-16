@@ -107,6 +107,23 @@ angular.module('projects').controller('ProjectController', ['$scope', '$filter',
       $scope.project = Projects.get({
         projectId: $stateParams.projectId
       });
+      var projectId = $stateParams.projectId;
+      console.log('projectId is %s', projectId);
+    };
+    // find existing project by passed in value
+    $scope.findById = function (projectId) {
+      $scope.project = Projects.get({
+        projectId: projectId
+      });
+      console.log('projectId is %s', projectId);
+    };
+    
+    $scope.userIsAdmin = function () {
+      var roles = $scope.authentication.user.roles;
+      for (var i = 0; i < roles.length; ++i) {
+        if (roles[i] === 'admin') { return true; }
+      }
+      return false;
     };
   }
 ]);
