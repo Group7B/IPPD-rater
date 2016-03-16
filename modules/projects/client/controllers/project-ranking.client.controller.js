@@ -8,10 +8,11 @@ angular.module('projects').controller('ProjectRankingController', ['$scope', '$f
     $scope.find = function () {
       Projects.query(function (data) {
         $scope.projects = data;
-        $scope.buildPager();
+        //$scope.buildPager();
       });
       Ratings.query(function (data) {
         $scope.ratings = data;
+        console.log($scope.ratings);
       });
     };
 
@@ -38,10 +39,19 @@ angular.module('projects').controller('ProjectRankingController', ['$scope', '$f
 
     // Find rating associated with project and user
     $scope.findOne = function (pID) {
-      $scope.rating = Ratings.get({
-        projectID: pID,
-        userID: Authentication.user._id
+      $scope.rating = {};
+
+      console.log($scope.ratings);
+      $scope.filteredRating = $filter('filter')($scope.ratings, {
+        project: pID,
+        user: $scope.authentication.user._id
       });
+      console.log($scope.filteredRating);
+      console.log($scope.filteredRating['0']);
+
+      $scope.rating = $scope.filteredRating['0'];
+
+      console.log($scope.rating.posterRating);
     };
   }
 ]);

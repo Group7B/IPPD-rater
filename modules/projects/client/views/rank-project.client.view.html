@@ -5,24 +5,42 @@
   <input type="submit">
   </div>
   <div class="list-group">
-    <div ng-repeat="project in projects" ui-sref="projects.rate({projectId: project._id})" class="list-group-item">
-      <div class = "row">
-        <div class="col-sm-2">
-          <div class="post-thumb"><img class="logo-icon" ng-if="project.logo" ng-src='modules/projects/client/img/logos/{{project.logo}}' alt="No img"></div>
-          <div class="post-thumb"><img class="logo-icon" ng-if="!project.logo" ng-src='modules/projects/client/img/logos/default.jpg' alt="No img"></div>
-        </div>
-        <div class="col-sm-6">
-          <p  class="list-group-item-heading" ng-bind="project.teamName"></p><br>
-          <div class="list-group-item-text" ng-bind="project.description"></div>
-        </div>
-        <div class="col-sm-4" ng-repeat="rating in ratings" ng-show="rating.project === project._id && rating.user === authentication.user._id">
-          <label>Poster Rating: <text class="list-group-item-text" ng-bind="rating.posterRating"></text></label><br>
-          <label>Presentation Rating: <text class="list-group-item-text" ng-bind="rating.presentationRating"></text></label><br>
-          <label>Demo Rating: <text class="list-group-item-text" ng-bind="rating.demoRating"></text></label><br>
-          <label>My Comment: <text class="list-group-item-text" ng-bind="rating.comment"></text><label>
-        </div>
-      </div>
+
+    <div class="tableWrapper">
+      <table class="table table-striped table-hover">
+        <tr>
+          <th>Logo</th>
+          <th>Team</th>
+          <th>Poster Rating</th>
+          <th>Presentation Rating</th>
+          <th>Demo Rating</th>
+          <th>My Comments</th>
+        </tr>
+        <tr ng-repeat="rating in ratings" ui-sref="projects.rate({projectId: rating.project._id})" ng-show="rating.user._id === authentication.user._id">
+          <td class="">
+            <div class="post-thumb"><img class="logo-icon" ng-if="rating.project.logo" ng-src='modules/projects/client/img/logos/{{rating.project.logo}}' alt="No img"></div>
+            <div class="post-thumb"><img class="logo-icon" ng-if="!rating.project.logo" ng-src='modules/projects/client/img/logos/default.jpg' alt="No img"></div>
+          </td>
+          <td>
+            <text  class="list-group-item-heading" ng-bind="rating.project.teamName"></text><br>
+          </td>
+          <td>
+            <text class="list-group-item-text" ng-bind="rating.posterRating"></text>
+          </td>
+          <td>
+            <text class="list-group-item-text" ng-bind="rating.presentationRating"></text>
+          </td>          
+          <td>
+            <text class="list-group-item-text" ng-bind="rating.demoRating"></text>
+          </td>
+          <td>
+            <text class="list-group-item-text" ng-bind="rating.comment"></text>
+          </td>
+        </tr>
+      </table>
     </div>
+
+
   </div>
   <div class="alert alert-warning text-center" ng-if="projects.$resolved && !projects.length">
     No projects yet, why don't you <a ui-sref="projects.create">create one</a>?
