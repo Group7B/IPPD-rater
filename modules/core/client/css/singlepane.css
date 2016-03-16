@@ -1,10 +1,11 @@
 th, td {
-    font-family: 'Open Sans',Helvetica,Arial,sans-serif;
+    /*font-family: 'Open Sans',Helvetica,Arial,sans-serif;*/
     font-size: 20px;
     text-align: center;
     padding: 5px;
     border-bottom:none;
-    /*font-family: 'Quicksand',sans-serif;*/
+    font-family: 'Quicksand',sans-serif;
+    font-weight: bold;
 }
 
 label {
@@ -14,8 +15,9 @@ label {
 
 .title-bar {
     position: fixed;
-    font-family: 'Open Sans',Helvetica,Arial,sans-serif;
-    /*font-family: 'Quicksand',sans-serif;*/
+    /*font-family: 'Open Sans',Helvetica,Arial,sans-serif;*/
+    font-family: 'Quicksand',sans-serif;
+    font-weight: 800;
     font-size: 25px;
     color: black;
     padding: 7px;
@@ -85,7 +87,7 @@ img {
 .rate {
     display: inline-block;
     /*float: center;*/
-    height: 35px;
+    height: 45px;
     /*padding: 0 2px;*/
     padding-bottom: 5px;
 }
@@ -101,7 +103,7 @@ img {
     overflow: hidden;
     white-space: nowrap;
     cursor: pointer;
-    font-size: 35px;
+    font-size: 45px;
     color: #DBDCDE;
 }
 
