@@ -1,5 +1,13 @@
-.content {
-  margin-top: 50px;
+.backgroundColor {
+  background-color: #fff;
+}
+
+.accentColor {
+  background-color: #000;
+}
+
+.textColor {
+  color: #fff;
 }
 
 .error-text {
@@ -26,15 +34,15 @@
   margin: auto;
 }
 
-.logo-icon{
+.logo-icon {
   float: left;
-  margin: 0 15px 15px 0px;
+  margin: 0 15px 15px 0;
   width: 64px;
   height: auto;
   max-height: 64px;
 }
 
-.logo-large{
+.logo-large {
   margin: 10px;
   width: 400px;
   height: auto;
@@ -60,4 +68,30 @@ a:hover .header-profile-image {
 .user-header-dropdown-toggle {
   padding-top: 11px !important;
   padding-bottom: 11px !important;
+}
+
+.ratingTitleCol {
+  text-align: left;
+  min-width: 50px;
+}
+
+.ratingCol {
+  width: 100px;
+}
+
+.userBar {
+  float: right;
+  text-align: right;
+}
+
+.welcomeMessage {
+  font-size: 2rem;
+}
+
+.signOutButton {
+  color: #e60000;
+}
+
+.page-header {
+  font-family: 'Quicksand', sans-serif;
 }

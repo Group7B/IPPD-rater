@@ -96,5 +96,20 @@ angular.module('ratings').controller('RatingsController', ['$scope', '$statePara
         ratingId: $stateParams.ratingId
       });
     };
+    
+    $scope.getStars = function(num) {
+      var rating = 'Unrated';
+      
+      if (num) {
+        rating = '★';
+        
+        var i;
+        for (i = 1; i < num; i++) {
+          rating += '★';
+        }
+      }
+      
+      return rating;
+    };
   }
 ]);

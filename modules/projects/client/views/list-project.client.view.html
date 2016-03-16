@@ -1,4 +1,10 @@
 <section ng-controller="ProjectController" ng-init="find()">
+  <div class="userBar headerFont">
+    <span class="welcomeMessage">Welcome, {{authentication.user.firstName}}!</span> <br>
+    <a class="" ng-show="userIsAdmin()" ui-sref="admin.users">Admin Dashboard</a> <br>
+    <a class="signOutButton" href="/api/auth/signout" target="_self">Signout</a>
+  </div>
+    
   <div class="page-header">
     <h1>Projects</h1>
    <label>Search Projects: <input ng-model="searchText"></label>

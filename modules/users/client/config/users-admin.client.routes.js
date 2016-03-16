@@ -73,6 +73,14 @@ angular.module('users.admin.routes').config(['$stateProvider',
         data: {
           roles: ['user', 'admin']
         }
+      })
+      .state('admin.theme', {
+        url: '/theme',
+        templateUrl: 'modules/users/client/views/admin/theme.client.view.html',
+        controller: 'UploadController',
+        data: {
+          roles: ['user', 'admin']
+        }
       });
 
       /*  TODO: add states using:
