@@ -27,8 +27,12 @@
   background: rgba(255, 255, 255, 0.85);
 }
 
-.signInText {
+.headerFont {
   font-family: 'Quicksand', sans-serif;
+}
+
+.contentFont {
+  font-family: 'Helvetica', sans-serif;
 }
 
 .appTitle {
@@ -77,6 +81,7 @@
   font-size: 2.5rem;
   color: white;
   border-radius: 4px;
+  margin-bottom: 15px;
 }
 .signInButton:focus {
   outline:0 !important;
