@@ -38,7 +38,7 @@
   margin: auto;
 }
 
-.logo-icon{
+.logo-icon {
   float: left;
   margin: 0 15px 15px 0px;
   width: 64px;
@@ -46,7 +46,7 @@
   max-height: 64px;
 }
 
-.logo-large{
+.logo-large {
   margin: 10px;
   width: 400px;
   height: auto;
@@ -72,4 +72,13 @@ a:hover .header-profile-image {
 .user-header-dropdown-toggle {
   padding-top: 11px !important;
   padding-bottom: 11px !important;
+}
+
+.ratingTitleCol {
+  text-align: left;
+  min-width: 50px;
+}
+
+.ratingCol {
+  width: 100px;
 }
