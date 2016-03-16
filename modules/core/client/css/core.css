@@ -10,10 +10,6 @@
   color: #fff;
 }
 
-.content {
-  margin-top: 50px;
-}
-
 .error-text {
   display: none;
 }
@@ -40,7 +36,7 @@
 
 .logo-icon {
   float: left;
-  margin: 0 15px 15px 0px;
+  margin: 0 15px 15px 0;
   width: 64px;
   height: auto;
   max-height: 64px;
@@ -81,4 +77,21 @@ a:hover .header-profile-image {
 
 .ratingCol {
   width: 100px;
+}
+
+.userBar {
+  float: right;
+  text-align: right;
+}
+
+.welcomeMessage {
+  font-size: 2rem;
+}
+
+.signOutButton {
+  color: #e60000;
+}
+
+.page-header {
+  font-family: 'Quicksand', sans-serif;
 }
