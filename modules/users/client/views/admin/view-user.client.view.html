@@ -51,38 +51,29 @@
 </section>
 
 <section ng-controller="RatingsController" ng-init="find()">
-  <div class="container">
-    <div class="col-md-10">
-      <div class="page-header">
-        <div class="row">
-          <div class="col-md-4">
-            <h1>Ratings</h1>
-          </div>
-        </div>
+  <div class="page-header">
+    <div class="row">
+      <div class="col-md-4">
+        <h1>Ratings</h1>
       </div>
-  <table class="table table-bordered">
+    </div>
+  </div>
+  <table class="table">
     <thead>
       <tr>
         <th>Project</th>
-        <th>Demo</th>
+        <th>Demonstration</th>
         <th>Poster</th>
         <th>Presentation</th>
       </tr>
     </thead>
     <tbody>
-      <tr ng-repeat="rating in ratings | filter: {$:user._id}">
-        <td ng-bind="rating.project.teamName"></td>
-        <td ng-bind="rating.demoRating"></td>
-        <td ng-bind="rating.posterRating"></td>
-        <td ng-bind="rating.presentationRating"></td>
+      <tr ng-repeat="rating in ratings | filter: {$:user._id}:true">
+        <td class="ratingCol" ng-bind="rating.project.teamName"></td>
+        <td class="ratingCol" ng-bind="getStars(rating.demoRating)"></td>
+        <td class="ratingCol" ng-bind="getStars(rating.posterRating)"></td>
+        <td class="ratingCol" ng-bind="getStars(rating.presentationRating)"></td>
       </tr>
     </tbody>
   </table>
-
-      <pagination boundary-links="true" max-size="8" items-per-page="itemsPerPage" total-items="filterLength" ng-model="currentPage" ng-change="pageChanged()"></pagination>
-      <div class="alert alert-warning text-center" ng-if="ratings.$resolved && !ratings.length">
-        No ratings yet!
-      </div>
-    </div>
-  </div>
 </section>

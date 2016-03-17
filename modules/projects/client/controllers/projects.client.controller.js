@@ -1,7 +1,7 @@
 'use strict';
 
-angular.module('projects').controller('ProjectController', ['$scope', '$filter', '$stateParams', '$location', 'Authentication', 'Projects',
-  function ($scope, $filter, $stateParams, $location, Authentication, Projects) {
+angular.module('projects').controller('ProjectController', ['$scope', '$filter', '$stateParams', '$location', 'Authentication', 'Projects', 'sharedLogoUrl',
+  function ($scope, $filter, $stateParams, $location, Authentication, Projects, sharedLogoUrl) {
     $scope.authentication = Authentication;
 
     $scope.create = function (isValid) {
@@ -22,7 +22,7 @@ angular.module('projects').controller('ProjectController', ['$scope', '$filter',
 
       // Redirect after save
       project.$save(function (response) {
-        console.log ('Adding ' + project.teamName + ', ' + project.description);
+        console.log('Adding ' + project.teamName + ', ' + project.description);
         $location.path('admin/projects/listadmin');
 
         // Clear form fields
@@ -106,16 +106,26 @@ angular.module('projects').controller('ProjectController', ['$scope', '$filter',
     $scope.findOne = function () {
       $scope.project = Projects.get({
         projectId: $stateParams.projectId
+      }, function () {
+        sharedLogoUrl.setProperty($scope.project.logo);
       });
       var projectId = $stateParams.projectId;
-      console.log("projectId is %s", projectId);
     };
     // find existing project by passed in value
     $scope.findById = function (projectId) {
       $scope.project = Projects.get({
         projectId: projectId
       });
-      console.log("projectId is %s", projectId);
+    };
+
+    $scope.userIsAdmin = function () {
+      var roles = $scope.authentication.user.roles;
+      for (var i = 0; i < roles.length; ++i) {
+        if (roles[i] === 'admin') {
+          return true;
+        }
+      }
+      return false;
     };
   }
 ]);

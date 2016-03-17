@@ -9,9 +9,9 @@ angular.module('ratings').controller('RatingsController', ['$scope', '$statePara
     $scope.create = function (isValid) {
       console.log('create');
       $scope.error = null;
-      console.log('error');
       if (!isValid) {
         $scope.$broadcast('show-errors-check-validity', 'ratingForm');
+        console.log('error');
 
         return false;
       }
@@ -95,6 +95,21 @@ angular.module('ratings').controller('RatingsController', ['$scope', '$statePara
       $scope.rating = Ratings.get({
         ratingId: $stateParams.ratingId
       });
+    };
+    
+    $scope.getStars = function(num) {
+      var rating = 'Unrated';
+      
+      if (num) {
+        rating = '★';
+        
+        var i;
+        for (i = 1; i < num; i++) {
+          rating += '★';
+        }
+      }
+      
+      return rating;
     };
   }
 ]);
