@@ -18,8 +18,6 @@ angular.module('users.admin').controller('UploadController', ['$scope', '$timeou
         uploadingProject = false;
         $scope.uploader.url = 'api/upload';
       }
-      
-      console.info('uploader inited', $scope.uploader);
     };
 
     $scope.uploader.filters.push({

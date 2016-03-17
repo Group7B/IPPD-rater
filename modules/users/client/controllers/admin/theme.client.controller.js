@@ -29,7 +29,6 @@ angular.module('users.admin').controller('ThemeController', ['$scope', 'Theme',
       }
 
       $scope.theme.$update(function () {
-        console.log('theme updated');
       }, function (errorResponse) {
         $scope.error = errorResponse.data.message;
       });
@@ -37,15 +36,15 @@ angular.module('users.admin').controller('ThemeController', ['$scope', 'Theme',
 
     $scope.updateStoredColors = function () {
       if ($scope.backgroundColor) {
-        $scope.addCSSRule(document.styleSheets[5], '.backgroundColor', 'background-color: ' + $scope.backgroundColor, 0);
+        $scope.addCSSRule(document.styleSheets[6], '.backgroundColor', 'background-color: ' + $scope.backgroundColor, 0);
       }
       
       if ($scope.accentColor) {
-        $scope.addCSSRule(document.styleSheets[5], '.accentColor', 'background-color: ' + $scope.accentColor, 1);
+        $scope.addCSSRule(document.styleSheets[6], '.accentColor', 'background-color: ' + $scope.accentColor, 1);
       }
       
       if ($scope.textColor) {
-        $scope.addCSSRule(document.styleSheets[5], '.textColor', 'color: ' + $scope.textColor, 2);
+        $scope.addCSSRule(document.styleSheets[6], '.textColor', 'color: ' + $scope.textColor, 2);
       }
 
       $scope.updateDatabase();
