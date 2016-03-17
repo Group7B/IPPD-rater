@@ -27,6 +27,9 @@ module.exports = function (app) {
   app.route('/api/upload')
     .post(upload.postImage);
   
+  app.route('/api/upload/project')
+    .post(upload.postProjectLogo);
+  
   app.route('/api/theme')
     .get(theme.readTheme)
     .put(theme.updateTheme);
