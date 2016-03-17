@@ -23,3 +23,28 @@ angular.module('users.admin').factory('Admin', ['$resource',
     });
   }
 ]);
+
+angular.module('users.admin').factory('Theme', ['$resource',
+  function ($resource) {
+    return $resource('api/theme', {}, {
+      update: {
+        method: 'PUT'
+      }
+    });
+  }
+]);
+
+angular.module('users').service('sharedLogoUrl', function () {
+    var property = {
+      logoUrl: ''
+    };
+
+    return {
+      getProperty: function () {
+        return property;
+      },
+      setProperty: function (value) {
+        property.logoUrl = value;
+      }
+    };
+});

@@ -1,34 +1,57 @@
-<!-- <section ng-controller="HomeController">
-  <link rel="stylesheet" type="text/css" href="modules/core/client/css/splashpage.css">
-  <div class="jumbotron text-center">
-    <div class="row">
-      <div class="col-md-6 col-md-offset-3 col-sm-6 col-sm-offset-3 col-xs-12">
-        <img alt="IPPD Logo" class="img-responsive text-center img-center" src="modules/core/client/img/brand/logo.png" />
-      </div>
-    </div>
-    <h2> IPPD welcomes you to the Team Rater </h2>
-    <p>
-      <a class="btn btn-primary btn-lg" href="authentication/signin">Sign In</a> 
-    </p>
-  </div>
-</section> -->
-
-
 <section ng-controller="HomeController">
-    <link rel="stylesheet" type="text/css" href="modules/core/client/css/splashpage1.css">
-    <div class="splashpage">
-        <div class="jumbotron text-center">
-            <div class="row">
-                <div class="col-md-6 col-md-offset-3 col-sm-6 col-sm-offset-3 col-xs-12">
-                    <img alt="IPPD Logo" class="img-responsive text-center img-center" src="modules/core/client/img/brand/IPPD_logo.png" />
-                </div>
-            </div>
-            <div class="splash_h2">
-                <h2> welcomes you to the IPPD Rater </h2>
-            </div>
-            <p ng-hide="authentication.user">
-                <a class="btn btn-primary btn-lg" href="authentication/signin">Sign In</a>
-            </p>
+  <div class="splashpage">
+    <div class="cover text-center headerFont">
+      <div class="row">
+        <div class="col-md-4 col-md-offset-4 col-sm-4 col-sm-offset-4 col-xs-12">
+          <img alt="IPPD Logo" class="img-responsive text-center img-center" src="modules/core/client/img/brand/IPPD_logo.png" />
+
+          <span class="appTitle">Demo Day Rater</span>
         </div>
+      </div>
+
+      <center ng-controller="AuthenticationController">
+        <form name="userForm" ng-submit="signin(userForm.$valid)" class="signin headerFont signInForm" novalidate autocomplete="off">
+          <fieldset>
+            <h3>Sign in with your Rater Account</h3>
+            <div class="form-group" show-errors>
+              <input type="text" id="username" name="username" class="formField" ng-model="credentials.username" placeholder="Username" required>
+              <div ng-messages="userForm.username.$error" role="alert">
+                <p class="help-block error-text" ng-message="required">Username is required.</p>
+              </div>
+            </div>
+            <div class="form-group" show-errors>
+              <input type="password" id="password" name="password" class="formField" ng-model="credentials.password" placeholder="Password" required>
+              <div ng-messages="userForm.password.$error" role="alert">
+                <p class="help-block error-text" ng-message="required">Password is required.</p>
+              </div>
+            </div>
+            <div class="text-center form-group">
+              <button type="submit" class="buttonHover signInButton">Sign In</button>
+              <br>
+              <span>No account? <a ui-sref="authentication.signup">Sign up</a></span>
+              <br>
+              <a ui-sref="password.forgot">Forgot your password?</a>
+            </div>
+            <alert type="danger" ng-show="error" class="text-center text-danger">
+              <span ng-bind="error"></span>
+            </alert>
+          </fieldset>
+        </form>
+
+        OR
+
+        <br>
+
+        <h3>Use a social account</h3>
+
+        <div class="socialList">
+          <img class="socialImage buttonHover" src="modules/users/client/img/buttons/fbFlat.png" ng-click="callOauthProvider('/api/auth/facebook')" />
+
+          <img class="socialImage buttonHover" src="modules/users/client/img/buttons/plusFlat.png" ng-click="callOauthProvider('/api/auth/google')" />
+
+          <img class="socialImage buttonHover" src="modules/users/client/img/buttons/twitterFlat.png" ng-click="callOauthProvider('/api/auth/twitter')" />
+        </div>
+      </center>
     </div>
+  </div>
 </section>

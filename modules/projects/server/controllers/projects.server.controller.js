@@ -1,5 +1,4 @@
 'use strict';
-/* Need to update this to represent new schema */
 
 /**
  * Module dependencies.
@@ -16,6 +15,7 @@ exports.create = function (req, res) {
   var project = new Project(req.body);
   project.teamName = req.body.teamName;
   project.description = req.body.description;
+  project.logo = req.body.logo;
 
   project.save(function (err) {
     if (err) {
@@ -43,8 +43,9 @@ exports.update = function (req, res) {
 
   project.teamName = req.body.teamName;
   project.description = req.body.description;
+  project.logo = req.body.logo;
 
-  console.log ("Server side: " + project.teamName + ", " + project.description);
+  console.log ('Server side: ' + project.teamName + ', ' + project.description);
   project.save(function (err) {
     if (err) {
       return res.status(400).send({

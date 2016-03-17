@@ -1,0 +1,132 @@
+th, td {
+    /*font-family: 'Open Sans',Helvetica,Arial,sans-serif;*/
+    font-size: 20px;
+    text-align: center;
+    padding: 5px;
+    border-bottom:none;
+    font-family: 'Quicksand',sans-serif;
+    font-weight: bold;
+}
+
+label {
+    font-size: 20px;
+    font-weight: normal !important;
+}
+
+.title-bar {
+    position: fixed;
+    /*font-family: 'Open Sans',Helvetica,Arial,sans-serif;*/
+    font-family: 'Quicksand',sans-serif;
+    font-weight: 800;
+    font-size: 25px;
+    color: black;
+    padding: 7px;
+    text-align: center;
+    left: 0;
+    width: 100%;
+    background: #DDD;
+    background: rgba(247,247,247,0.94);
+}
+
+.image {
+    padding-top: 50px;
+    vertical-align: bottom;
+    /*position: relative;*/
+    /*padding-bottom: 10px;*/
+}
+
+img {
+    position: center;
+    max-width: 100%;
+    height: auto;
+    width: auto\9; /* ie8 */
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 5px;
+    padding-top: 5px;
+}
+
+#back-button {
+    position: absolute;
+    padding: 7px;
+    left: 0;
+    vertical-align: middle;
+    font-size: 30px;
+    color: #15A3FF;
+    text-decoration: none;
+}
+
+#title-text {
+    display: block;
+    margin: auto;
+}
+
+#submit_rating {
+    background-image: none;
+    background-color: #5cb85c;
+    border-color: #4cae4c;
+}
+
+#submit_rating:disabled {
+    border-color: #4cae4c;
+    color: #4cae4c;
+    font-style: #4cae4c;
+    background-color: white;
+}
+
+#singlelabel {
+    font-size: 15px;
+}
+
+#comment {
+    font-size: 10px;
+    text-align: center;
+}
+
+.rate {
+    display: inline-block;
+    /*float: center;*/
+    height: 45px;
+    /*padding: 0 2px;*/
+    padding-bottom: 5px;
+}
+
+.rate:not(:checked) > input {
+    position: absolute;
+    visibility: hidden;
+}
+
+.rate:not(:checked) > label {
+    float: right;
+    width: 1em;
+    overflow: hidden;
+    white-space: nowrap;
+    cursor: pointer;
+    font-size: 45px;
+    color: #DBDCDE;
+}
+
+.rate:not(:checked) > label:before {
+    content: '★';
+}
+
+.rate > input:checked ~ label {
+    color: #FF8000;
+
+}
+.rate:not(:checked) > label:hover,
+.rate:not(:checked) > label:hover ~ label {
+   color: #FA9E42;
+
+}
+.rate > input:checked + label:hover,
+.rate > input:checked + label:hover ~ label,
+.rate > input:checked ~ label:hover,
+.rate > input:checked ~ label:hover ~ label,
+.rate > label:hover ~ input:checked ~ label {
+    color:  #FA9E42;
+}
+
+
+
