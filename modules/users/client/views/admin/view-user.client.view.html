@@ -70,8 +70,8 @@
       </tr>
     </thead>
     <tbody>
-      <tr ng-repeat="rating in ratings | filter: {user:user._id}:true">
-        <td ng-controller="ProjectController" ng-init="findById(rating.project)" ng-bind="project.teamName"></td>
+      <tr ng-repeat="rating in ratings | filter: {$:user._id}">
+        <td ng-bind="rating.project.teamName"></td>
         <td ng-bind="rating.demoRating"></td>
         <td ng-bind="rating.posterRating"></td>
         <td ng-bind="rating.presentationRating"></td>
