@@ -69,6 +69,7 @@
 }
 .formField:focus {
   outline: 0 !important;
+  border-bottom: solid 4px #005596;
 }
 
 .signInButton {
