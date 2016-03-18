@@ -83,7 +83,7 @@ exports.delete = function (req, res) {
  * List of Ratings
  */
 exports.list = function (req, res) {
-  Rating.find().exec(function (err, ratings) {
+  Rating.find().populate('project').populate('user').exec(function (err, ratings) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
