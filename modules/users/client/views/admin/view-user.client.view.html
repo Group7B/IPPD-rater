@@ -68,8 +68,8 @@
       </tr>
     </thead>
     <tbody>
-      <tr ng-repeat="rating in ratings | filter: {user:user._id}:true">
-        <td class="ratingCol" ng-controller="ProjectController" ng-init="findById(rating.project)" ng-bind="project.teamName"></td>
+      <tr ng-repeat="rating in ratings | filter: {$:user._id}:true">
+        <td class="ratingCol" ng-bind="rating.project.teamName"></td>
         <td class="ratingCol" ng-bind="getStars(rating.demoRating)"></td>
         <td class="ratingCol" ng-bind="getStars(rating.posterRating)"></td>
         <td class="ratingCol" ng-bind="getStars(rating.presentationRating)"></td>

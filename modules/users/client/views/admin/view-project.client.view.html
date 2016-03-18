@@ -37,7 +37,7 @@
         </tr>
       </thead>
       <tbody>
-        <div ng-repeat='rating in njudge = (ratings | filter: {project:project._id} | filter: {isJudge:false} ) '>
+        <div ng-repeat='rating in njudge = (ratings | filter: {$:project._id, isJudge:false} ) '>
           <tr>
             <td class="ratingTitleCol">★★★★★</td>
             <td class="ratingCol" ng-bind='(njudge | filter: {demoRating:5}).length'></td>
@@ -88,7 +88,7 @@
         </tr>
       </thead>
       <tbody>
-        <div ng-repeat='rating in judge = (ratings | filter: {project:project._id} | filter: {isJudge:true} ) '>
+        <div ng-repeat='rating in judge = (ratings | filter: {$:project._id, isJudge:true} ) '>
           <tr>
             <td class="ratingTitleCol">★★★★★</td>
             <td class="ratingCol" ng-bind='(judge | filter: {demoRating:5}).length'></td>
