@@ -1,17 +1,20 @@
 'use strict';
 
 // Ratings controller
-angular.module('ratings').controller('RatingsController', ['$scope', '$stateParams', '$location', 'Authentication', 'Ratings',
-  function ($scope, $stateParams, $location, Authentication, Ratings) {
+angular.module('ratings').controller('RatingsController', ['$scope', '$filter', '$stateParams', '$location', 'Authentication', 'Ratings', 'Projects',
+  function ($scope, $filter, $stateParams, $location, Authentication, Ratings, Projects) {
     $scope.authentication = Authentication;
+    $scope.project = Projects.get({
+      projectId: $stateParams.projectId
+    });
 
     // Create new Rating
     $scope.create = function (isValid) {
       console.log('create');
       $scope.error = null;
+      console.log('error');
       if (!isValid) {
         $scope.$broadcast('show-errors-check-validity', 'ratingForm');
-        console.log('error');
 
         return false;
       }
@@ -38,10 +41,10 @@ angular.module('ratings').controller('RatingsController', ['$scope', '$statePara
       rating.$save(function (response) {
         $location.path('projects');
 
-        // Clear form fields
-        $scope.posterRating = '';
-        $scope.presentationRating = '';
-        $scope.demoRating = '';
+        // No need to clear form fields
+        //$scope.posterRating = '';
+        //$scope.presentationRating = '';
+        //$scope.demoRating = '';
       }, function (errorResponse) {
         $scope.error = errorResponse.data.message;
       });
@@ -67,6 +70,7 @@ angular.module('ratings').controller('RatingsController', ['$scope', '$statePara
 
     // Update existing Rating
     $scope.update = function (isValid) {
+      console.log($scope.thisRating);
       $scope.error = null;
 
       if (!isValid) {
@@ -75,10 +79,14 @@ angular.module('ratings').controller('RatingsController', ['$scope', '$statePara
         return false;
       }
 
-      var rating = $scope.rating;
+      var rating = $scope.thisRating;
+      rating.posterRating = $scope.posterRating;
+      rating.presentationRating = $scope.presentationRating;
+      rating.demoRating = $scope.demoRating;
 
+      console.log(rating);
       rating.$update(function () {
-        $location.path('ratings/' + rating._id);
+        $location.path('projects/rate/' + rating.project);
       }, function (errorResponse) {
         $scope.error = errorResponse.data.message;
       });
@@ -86,7 +94,11 @@ angular.module('ratings').controller('RatingsController', ['$scope', '$statePara
 
     // Find a list of Ratings
     $scope.find = function () {
-      $scope.ratings = Ratings.query();
+      //$scope.ratings = Ratings.query();
+      $scope.ratings = {};
+      Ratings.query(function (data) {
+        $scope.ratings = data;
+      });
     };
 
     // Find existing Rating
@@ -96,19 +108,43 @@ angular.module('ratings').controller('RatingsController', ['$scope', '$statePara
         ratingId: $stateParams.ratingId
       });
     };
-    
+
+    $scope.findRatingByProjectAndUser = function () {
+      $scope.thisRating = {};
+      Ratings.query(function (data) {
+        $scope.ratings = data;
+        $scope.thisRating = $filter('filter')(
+          $scope.ratings, {
+            project: $stateParams.projectId,
+            user: Authentication.user._id
+          });
+        if ($scope.thisRating.length > 0) {
+          $scope.thisRating = $scope.thisRating[0];
+        }
+        else {
+          $scope.create();
+          $scope.ratings = Ratings.query();
+          $scope.thisRating = $filter('filter')(
+            $scope.ratings, {
+              project: $stateParams.projectId,
+              user: Authentication.user._id
+            });
+        }
+        console.log($scope.thisRating);
+      });
+    };
+
     $scope.getStars = function(num) {
       var rating = 'Unrated';
-      
+
       if (num) {
         rating = '★';
-        
+
         var i;
         for (i = 1; i < num; i++) {
           rating += '★';
         }
       }
-      
       return rating;
     };
   }
