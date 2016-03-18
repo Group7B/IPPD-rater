@@ -11,4 +11,11 @@ angular.module('ratings').factory('Ratings', ['$resource',
       }
     });
   }
+  /*function ($resource) {
+    return $resource ('api/rating', {}, {
+      list: {
+        method: 'GET'
+      }
+    });
+  }*/
 ]);

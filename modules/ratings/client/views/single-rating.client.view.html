@@ -1,4 +1,4 @@
-<section ng-controller="ProjectController" ng-init="findOne()">
+<section ng-controller="RatingsController" ng-init="findRatingByProjectAndUser()">
   <div class="container">
   <div class="title-bar">
     <span>
@@ -11,8 +11,7 @@
   <div class="image">
     <img ng-if="project.logo" ng-src="modules/projects/client/img/logos/{{project.logo}}" alt="Project Poster"></img>
   </div>
-</section>
-<section ng-controller="RatingsController" ng-init="findRatingByProjectAndUser()">
+
 <form name="ratingForm" role="form" ng-submit="update(ratingForm.$valid)" novalidate>
 	<table class="table">
 		<tbody>
