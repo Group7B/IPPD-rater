@@ -10,45 +10,28 @@ angular.module('ratings').controller('RatingsController', ['$scope', '$filter', 
 
     // Create new Rating
     $scope.create = function (isValid) {
-      console.log('create');
-      $scope.error = null;
-      console.log('error');
-      if (!isValid) {
-        $scope.$broadcast('show-errors-check-validity', 'ratingForm');
-
-        return false;
-      }
-      console.log('create object');
-      // Create new Rating object
-      /*
-      console.log($stateParams.projectId);
-      console.log($stateParams.userId);
-      console.log(this.posterRating);
-      console.log(this.presentationRating);
-      console.log(this.demoRating);
-      */
-
       var rating = new Ratings({
         project: $stateParams.projectId,
-        posterRating : this.posterRating,
-        presentationRating: this.presentationRating,
-        demoRating: this.demoRating,
-        comment: this.comment
+        posterRating : 0,
+        presentationRating: 0,
+        demoRating: 0,
+        comment: ''
       });
-      console.log('object created');
 
-      // Redirect after save
+      // Find newly saved rating after save
       rating.$save(function (response) {
-        $location.path('projects');
-
-        // No need to clear form fields
-        //$scope.posterRating = '';
-        //$scope.presentationRating = '';
-        //$scope.demoRating = '';
+        Ratings.query(function (data) {
+          $scope.ratings = data;
+          $scope.thisRating = $filter('filter')(
+            $scope.ratings, {
+              project: $stateParams.projectId,
+              user: Authentication.user._id
+            });
+          $scope.thisRating = $scope.thisRating[0];
+          });
       }, function (errorResponse) {
         $scope.error = errorResponse.data.message;
       });
-      console.log('create complete');
     };
 
     // Remove existing Rating
@@ -75,7 +58,6 @@ angular.module('ratings').controller('RatingsController', ['$scope', '$filter', 
 
       if (!isValid) {
         $scope.$broadcast('show-errors-check-validity', 'ratingForm');
-
         return false;
       }
 
@@ -83,10 +65,11 @@ angular.module('ratings').controller('RatingsController', ['$scope', '$filter', 
       rating.posterRating = $scope.posterRating;
       rating.presentationRating = $scope.presentationRating;
       rating.demoRating = $scope.demoRating;
+      rating.comment = $scope.comment;
 
       console.log(rating);
       rating.$update(function () {
-        $location.path('projects/rate/' + rating.project);
+        $location.path('projects');
       }, function (errorResponse) {
         $scope.error = errorResponse.data.message;
       });
@@ -123,12 +106,6 @@ angular.module('ratings').controller('RatingsController', ['$scope', '$filter', 
         }
         else {
           $scope.create();
-          $scope.ratings = Ratings.query();
-          $scope.thisRating = $filter('filter')(
-            $scope.ratings, {
-              project: $stateParams.projectId,
-              user: Authentication.user._id
-            });
         }
         console.log($scope.thisRating);
       });
