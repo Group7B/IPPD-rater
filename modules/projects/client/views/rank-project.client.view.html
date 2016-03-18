@@ -16,7 +16,8 @@
           <th ng-click="sortType = 'demoRating'">Demo Rating</th>
           <th ng-click="sortType = 'comment'">My Comments</th>
         </tr>
-        <tr ng-repeat="rating in ratings | orderBy:sortType:sortReverse" ui-sref="projects.rate({projectId: rating.project._id})" ng-show="rating.user._id === authentication.user._id">
+
+        <tr ng-repeat="rating in ratings | filter: {$: authentication.user._id} : true | orderBy:sortType:sortReverse" ui-sref="projects.rate({projectId: rating.project._id})">
           <td class="">
             <div class="post-thumb"><img class="logo-icon" ng-if="rating.project.logo" ng-src='modules/projects/client/img/logos/{{rating.project.logo}}' alt="No img"></div>
             <div class="post-thumb"><img class="logo-icon" ng-if="!rating.project.logo" ng-src='modules/projects/client/img/logos/default.jpg' alt="No img"></div>
@@ -25,13 +26,13 @@
             <text  class="list-group-item-heading" ng-bind="rating.project.teamName"></text><br>
           </td>
           <td>
-            <text class="list-group-item-text" ng-bind="rating.posterRating"></text>
+            <text class="list-group-item-text" ng-bind="getStars(rating.posterRating)"></text>
           </td>
           <td>
-            <text class="list-group-item-text" ng-bind="rating.presentationRating"></text>
+            <text class="list-group-item-text" ng-bind="getStars(rating.presentationRating)"></text>
           </td>          
           <td>
-            <text class="list-group-item-text" ng-bind="rating.demoRating"></text>
+            <text class="list-group-item-text" ng-bind="getStars(rating.demoRating)"></text>
           </td>
           <td>
             <text class="list-group-item-text" ng-bind="rating.comment"></text>
