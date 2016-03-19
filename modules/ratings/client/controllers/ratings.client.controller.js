@@ -28,7 +28,7 @@ angular.module('ratings').controller('RatingsController', ['$scope', '$filter', 
               user: Authentication.user._id
             });
           $scope.thisRating = $scope.thisRating[0];
-          });
+        });
       }, function (errorResponse) {
         $scope.error = errorResponse.data.message;
       });
@@ -53,7 +53,6 @@ angular.module('ratings').controller('RatingsController', ['$scope', '$filter', 
 
     // Update existing Rating
     $scope.update = function (isValid) {
-      console.log($scope.thisRating);
       $scope.error = null;
 
       if (!isValid) {
@@ -67,7 +66,6 @@ angular.module('ratings').controller('RatingsController', ['$scope', '$filter', 
       rating.demoRating = $scope.demoRating;
       rating.comment = $scope.comment;
 
-      console.log(rating);
       rating.$update(function () {
         $location.path('projects');
       }, function (errorResponse) {
@@ -77,7 +75,6 @@ angular.module('ratings').controller('RatingsController', ['$scope', '$filter', 
 
     // Find a list of Ratings
     $scope.find = function () {
-      //$scope.ratings = Ratings.query();
       $scope.ratings = {};
       Ratings.query(function (data) {
         $scope.ratings = data;
@@ -86,7 +83,6 @@ angular.module('ratings').controller('RatingsController', ['$scope', '$filter', 
 
     // Find existing Rating
     $scope.findOne = function () {
-      console.log('find one');
       $scope.rating = Ratings.get({
         ratingId: $stateParams.ratingId
       });
