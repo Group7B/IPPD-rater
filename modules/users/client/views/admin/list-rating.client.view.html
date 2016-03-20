@@ -4,54 +4,94 @@
             <div class="col-md-4">
                 <h1>Ratings</h1>
             </div>
-            <div class="col-md-offset-4 col-md-4" style="margin-top: 2em">
-                <input class="form-control" type="text" ng-model="search" placeholder="Search" ng-change="figureOutItemsToDisplay()" />
-            </div>
+           <!--  <div class="col-md-offset-4 col-md-4" style="margin-top: 2em">
+                <input class="form-control" type="text" ng-model="search" placeholder="Search" ng-change="figureOutDisplay()" />
+            </div> -->
         </div>
   </div>
-  <!-- <table class="table">
+<!--   <table class="table">
     <thead>
-      <tr> -->
+      <tr>
       <div>
+      <td>
         <button >Project</button>
+      </td>
+      <td>
         <button>Poster</button>
+      </td>
+      <td>
         <button>Presentation</button>
+      </td>
+      <td>
         <button>Demonstration</button>
+      </td>
+      <td>
         <button>User</button>
+      </td>
+      <td>
         <button>Judge</button>
+      </td>
+      
       </div>
-    <!--   </tr>
+      </tr>
     </thead>
 
-  </table> -->
-  
+  </table>
+   -->
 
+  <div class="list-group" style="border: none;">
+
+    <button ng-click="sort='project.teamName'" class="ratingCol" style="display: inline-block; text-align: center; margin-right: 20px;">
+      Project
+    </button>
+    <button ng-click="sort='posterRating'" class="ratingCol" style="display: inline-block;  text-align: center; margin-right: 20px;">
+      Poster
+    </button>
+    <button ng-click="sort='presentationRating'" class="ratingCol" style="display: inline-block;  text-align: center; margin-right: 20px;">
+      Presentation
+    </button>
+    <button ng-click="sort='demoRating'" class="ratingCol" style="display: inline-block;  text-align: center; margin-right: 20px;">
+      Demo
+    </button>
+    <button ng-click="sort='user.username'" class="ratingCol" style="display: inline-block;  text-align: center; margin-right: 20px;">
+      User
+    </button>
+    <button ng-click="sort='user.roles'" class="ratingCol" style="display: inline-block;  text-align: center; margin-right: 20px;">
+      Role
+    </button>
+
+    </div>
   <div class="list-group">
-    <a ng-repeat="rating in ratings | filter: {$:user._id} " class="list-group-item">
+
+    <!-- <ul>
+        <li ng-repeat="option in sortOptions" ng-click="setSort (option)">{{option}}</li>
+    </ul> -->
+
+    <a ng-repeat="rating in ratings | orderBy: sort"  ui-sref="rating.project({project.teamName})" class="list-group-item">
     <div style="display: inline-block;">
-      <div class="ratingCol" style="display: inline-block;" >
+      <div class="ratingCol" style="display: inline-block; margin-right: 20px;" >
       <!-- TEAM -->
         <!-- <a ui-sref="admin.project({projectId: project._id})"> -->
        <span ng-bind="rating.project.teamName">  </span>
        <!-- </a> -->
       </div>
-      <div class="ratingCol" style="display: inline-block;">
+      <div class="ratingCol" style="display: inline-block; margin-right: 20px;">
       <!-- POSTER -->
           <span  ng-bind="getStars(rating.posterRating)"></span> 
       </div>
-      <div class="ratingCol" style="display: inline-block;">
+      <div class="ratingCol" style="display: inline-block; margin-right: 20px;">
       <!-- PRESENTATION -->
           <span  ng-bind="getStars(rating.presentationRating)"></span> 
       </div>
-      <div class="ratingCol" style="display: inline-block;">
+      <div class="ratingCol" style="display: inline-block; margin-right: 20px;">
       <!-- DEMO -->
         <span  ng-bind="getStars(rating.demoRating)"></span> 
       </div>
-      <div class="ratingCol" style="display: inline-block;">
+      <div class="ratingCol" style="display: inline-block; margin-right: 20px;">
       <!-- USERNAME -->
         <span   ng-bind="rating.user.username"></span> 
       </div>
-      <div class="ratingCol" style="display: inline-block;">
+      <div class="ratingCol" style="display: inline-block; margin-right: 20px;">
       <!-- JUDGE -->
         <span ng-bind="rating.user.roles"></span> 
       </div>
