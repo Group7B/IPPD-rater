@@ -11,7 +11,9 @@ angular.module('ratings').controller('RatingsController', ['$scope', '$filter', 
     // Create new Rating
     $scope.create = function (isValid) {
       var rating = new Ratings({
-        project: $stateParams.projectId,
+        project: {
+          _id: $stateParams.projectId
+        },
         posterRating : 0,
         presentationRating: 0,
         demoRating: 0,
@@ -24,8 +26,12 @@ angular.module('ratings').controller('RatingsController', ['$scope', '$filter', 
           $scope.ratings = data;
           $scope.thisRating = $filter('filter')(
             $scope.ratings, {
-              project: $stateParams.projectId,
-              user: Authentication.user._id
+              project:{
+                _id: $stateParams.projectId
+              },
+              user: {
+                _id: Authentication.user._id
+              }
             });
           $scope.thisRating = $scope.thisRating[0];
         });
@@ -84,7 +90,9 @@ angular.module('ratings').controller('RatingsController', ['$scope', '$filter', 
     // Find existing Rating
     $scope.findOne = function () {
       $scope.rating = Ratings.get({
-        ratingId: $stateParams.ratingId
+        ratingId: {
+          _id: $stateParams.ratingId
+        }
       });
     };
 
@@ -92,11 +100,17 @@ angular.module('ratings').controller('RatingsController', ['$scope', '$filter', 
       $scope.thisRating = {};
       Ratings.query(function (data) {
         $scope.ratings = data;
+        console.log($scope.ratings);
         $scope.thisRating = $filter('filter')(
           $scope.ratings, {
-            project: $stateParams.projectId,
-            user: Authentication.user._id
+            project:{
+              _id: $stateParams.projectId
+            },
+            user: {
+              _id: Authentication.user._id
+            }
           });
+        console.log($scope.thisRating);
         if ($scope.thisRating.length > 0) {
           $scope.thisRating = $scope.thisRating[0];
         }
