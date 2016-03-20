@@ -1,4 +1,4 @@
-<section ng-controller="AdminProjectController" ng-init="find()">
+<section ng-controller="ProjectController" ng-init="find()">
     <div class="page-header">
         <div class="row">
             <div class="col-md-4">
@@ -10,9 +10,15 @@
         </div>
     </div>
     <div class="list-group">
-        <a ng-repeat="project in pagedItems" ui-sref="admin.project({projectId: project._id})" class="list-group-item">
+        <a ng-repeat="project in pagedItems" ui-sref="admin.project({projectId: project._id})" class="list-group-item" style="height: 100px">
+          <div class="col-sm-2">
+            <div class="post-thumb"><img class="logo-icon" ng-if="project.logo" ng-src='modules/projects/client/img/logos/{{project.logo}}' alt="No img"></div>
+            <div class="post-thumb"><img class="logo-icon" ng-if="!project.logo" src='modules/projects/client/img/logos/default.jpg' alt="No img"></div>
+          </div>
+          <div class="col-sm-10">
             <h4 class="list-group-item-heading" ng-bind="project.teamName"></h4>
             <p class="list-group-item-text" ng-bind="project.description"></p>
+          </div>
         </a>
     </div>
     <pagination boundary-links="true" max-size="8" items-per-page="itemsPerPage" total-items="filterLength" ng-model="currentPage" ng-change="pageChanged()"></pagination>

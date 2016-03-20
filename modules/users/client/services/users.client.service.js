@@ -23,3 +23,13 @@ angular.module('users.admin').factory('Admin', ['$resource',
     });
   }
 ]);
+
+angular.module('users.admin').factory('Theme', ['$resource',
+  function ($resource) {
+    return $resource('api/theme', {}, {
+      update: {
+        method: 'PUT'
+      }
+    });
+  }
+]);

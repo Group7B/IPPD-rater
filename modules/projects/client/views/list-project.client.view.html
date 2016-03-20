@@ -1,0 +1,39 @@
+<section ng-controller="ProjectController" ng-init="find()">
+  <div class="userBar headerFont">
+    <span class="welcomeMessage">Welcome, {{authentication.user.firstName}}!</span> <br>
+    <a class="" ng-show="userIsAdmin()" ui-sref="admin.users">Admin Dashboard</a> <br>
+    <a class="signOutButton" href="/api/auth/signout" target="_self">Signout</a>
+  </div>
+    
+  <div class="page-header">
+    <h1>Projects</h1>
+   <label>Search Projects: <input ng-model="searchText"></label>
+  <input type="submit">
+  </div>
+  <div class="list-group">
+    <a ng-repeat="project in projects" ui-sref="projects.rate({projectId: project._id})" class="list-group-item">
+      <div class="row">
+        <div class="col-sm-2">
+          <div class="post-thumb"><img class="logo-icon" ng-if="project.logo" ng-src='modules/projects/client/img/logos/{{project.logo}}' alt="No img"></div>
+          <div class="post-thumb"><img class="logo-icon" ng-if="!project.logo" src='modules/projects/client/img/logos/default.jpg' alt="No img"></div>
+        </div>
+        <div class="col-sm-10">
+          <p  class="list-group-item-heading" ng-bind="project.teamName"></p><br>
+          <div class="list-group-item-text" ng-bind="project.description"></div>
+
+          <div class="rate">
+                  <input type="radio" id="star6" name="rate1" value="5" /><label for="star6" title="text">5 stars</label>
+                  <input type="radio" id="star7" name="rate1" value="4" /><label for="star7" title="text">4 stars</label>
+                  <input type="radio" id="star8" name="rate1" value="3" /><label for="star8" title="text">3 stars</label>
+                  <input type="radio" id="star9" name="rate1" value="2" /><label for="star9" title="text">2 stars</label>
+                  <input type="radio" id="star10" name="rate1" value="1" /><label for="star10" title="text">1 star</label>
+                </div>
+          <div class="cf"></div>
+        </div>
+      </div>
+    </a>
+  </div>
+  <div class="alert alert-warning text-center" ng-if="projects.$resolved && !projects.length">
+    No projects yet, why don't you <a ui-sref="projects.create">create one</a>?
+  </div>
+</section>
