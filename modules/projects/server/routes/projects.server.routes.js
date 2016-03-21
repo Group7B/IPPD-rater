@@ -21,6 +21,12 @@ module.exports = function (app) {
     .put(projects.update)
     .delete(projects.delete);
 
+  // Rank projects routes
+  app.route('/api/projects/rank').all(projectsPolicy.isAllowed)
+    .get(projects.read)
+    .put(projects.update)
+    .delete(projects.delete);
+
   // Finish by binding the rating middleware
   app.param('projectId', projects.projectByID);
 };

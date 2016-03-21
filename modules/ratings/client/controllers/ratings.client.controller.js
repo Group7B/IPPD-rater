@@ -4,6 +4,8 @@
 angular.module('ratings').controller('RatingsController', ['$scope', '$filter', '$stateParams', '$location', 'Authentication', 'Ratings', 'Projects',
   function ($scope, $filter, $stateParams, $location, Authentication, Ratings, Projects) {
     $scope.authentication = Authentication;
+	$scope.sortBy = '_id';
+    $scope.sortReverse = true;
     $scope.project = Projects.get({
       projectId: $stateParams.projectId
     });
