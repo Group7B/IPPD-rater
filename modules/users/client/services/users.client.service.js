@@ -47,4 +47,6 @@ angular.module('users').service('sharedLogoUrl', function () {
       property.logoUrl = value;
     }
   };
+
 });
+
