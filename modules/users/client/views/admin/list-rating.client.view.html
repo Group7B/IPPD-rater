@@ -4,9 +4,11 @@
             <div class="col-md-4">
                 <h1>Ratings</h1>
             </div>
-           <!--  <div class="col-md-offset-4 col-md-4" style="margin-top: 2em">
-                <input class="form-control" type="text" ng-model="search" placeholder="Search" ng-change="figureOutDisplay()" />
-            </div> -->
+            <div class="col-md-offset-3 col-md-4" style="margin-top: 2em">
+                <!-- <input class="form-control" type="text" ng-model="search" placeholder="Search" ng-change="figureOutDisplay()" /> -->
+                <!-- <input> </input> -->
+              <!-- Descending Order -->
+            </div>
         </div>
   </div>
 <!--   <table class="table">
@@ -39,28 +41,28 @@
   </table>
    -->
 
-  <div class="list-group" style="border: none;">
+  <!-- <div class="list-group" style="border: none;"> -->
 
-    <button ng-click="sort='project.teamName'" class="ratingCol" style="display: inline-block; text-align: center; margin-right: 20px;">
+    <button type="radio" name="sortOpt" ng-click="sort='project.teamName'" class="ratingCol" style="display: inline-block; text-align: center; margin-right: 20px;">
       Project
     </button>
-    <button ng-click="sort='posterRating'" class="ratingCol" style="display: inline-block;  text-align: center; margin-right: 20px;">
+    <button type="radio" name="sortOpt" ng-click="sort='-posterRating'" class="ratingCol" style="display: inline-block;  text-align: center; margin-right: 20px;">
       Poster
     </button>
-    <button ng-click="sort='presentationRating'" class="ratingCol" style="display: inline-block;  text-align: center; margin-right: 20px;">
+    <button type="radio" name="sortOpt" ng-click="sort='-presentationRating'" class="ratingCol" style="display: inline-block;  text-align: center; margin-right: 20px;">
       Presentation
     </button>
-    <button ng-click="sort='demoRating'" class="ratingCol" style="display: inline-block;  text-align: center; margin-right: 20px;">
+    <button type="radio" name="sortOpt" ng-click="sort='-demoRating'" class="ratingCol" style="display: inline-block;  text-align: center; margin-right: 20px;">
       Demo
     </button>
-    <button ng-click="sort='user.username'" class="ratingCol" style="display: inline-block;  text-align: center; margin-right: 20px;">
+    <button type="radio" name="sortOpt" ng-click="sort='user.username'" class="ratingCol" style="display: inline-block;  text-align: center; margin-right: 20px;">
       User
     </button>
-    <button ng-click="sort='user.roles'" class="ratingCol" style="display: inline-block;  text-align: center; margin-right: 20px;">
+    <button type="radio" name="sortOpt" ng-click="sort='user.roles'" class="ratingCol" style="display: inline-block;  text-align: center; margin-right: 20px;">
       Role
     </button>
 
-    </div>
+    <!-- </div> -->
   <div class="list-group">
 
     <!-- <ul>
@@ -98,6 +100,7 @@
     </div>
     </a>
   </div>
+
   <div class="alert alert-warning text-center" ng-if="ratings.$resolved && !ratings.length">
     No ratings yet, why don't you <a ui-sref="ratings.create">create one</a>?
   </div>
