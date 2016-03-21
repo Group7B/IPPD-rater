@@ -2,10 +2,18 @@
   button {
     -webkit-appearance:none;
     -moz-appearance:none;
+     -webkit-transition: all 200ms linear;
+    -moz-transition: all 200ms linear;
+    -o-transition: all 200ms linear;
+    -ms-transition: all 200ms linear;
+    transition: all 200ms linear;
     border: none;
     color: black;
     border-radius: 4px;
     margin-bottom: 15px;
+    display: inline-block;
+    text-align: center;
+    margin-right: 20px;
   }
   button:focus {
     background-color: #005596;
@@ -21,49 +29,37 @@
                 <h1>Ratings</h1>
             </div>
             <div class="col-md-offset-3 col-md-4" style="margin-top: 2em">
-                <!-- <input class="form-control" type="text" ng-model="search" placeholder="Search" ng-change="figureOutDisplay()" /> -->
-                <!-- <input> </input> -->
-              <!-- Descending Order -->
+             <!--  Descending Order -->
+              <!-- <input type="checkbox" style="font-size: 50px;"></input> -->
             </div>
         </div>
   </div>
 
+  <button type="radio" name="sortOpt" ng-click="sort='project.teamName'" class="ratingCol" >
+    Project
+  </button>
+  <button type="radio" name="sortOpt" ng-click="sort='-posterRating'" class="ratingCol" >
+    Poster
+  </button>
+  <button type="radio" name="sortOpt" ng-click="sort='-presentationRating'" class="ratingCol" >
+    Presentation
+  </button>
+  <button type="radio" name="sortOpt" ng-click="sort='-demoRating'" class="ratingCol" >
+    Demo
+  </button>
+  <button type="radio" name="sortOpt" ng-click="sort='user.username'" class="ratingCol" >
+    User
+  </button>
+  <button type="radio" name="sortOpt" ng-click="sort='user.roles'" class="ratingCol" >
+    Role
+  </button>
 
-
-
-    <button type="radio" name="sortOpt" ng-click="sort='project.teamName'" class="ratingCol" style="display: inline-block; text-align: center; margin-right: 20px;">
-      Project
-    </button>
-    <button type="radio" name="sortOpt" ng-click="sort='-posterRating'" class="ratingCol" style="display: inline-block;  text-align: center; margin-right: 20px;">
-      Poster
-    </button>
-    <button type="radio" name="sortOpt" ng-click="sort='-presentationRating'" class="ratingCol" style="display: inline-block;  text-align: center; margin-right: 20px;">
-      Presentation
-    </button>
-    <button type="radio" name="sortOpt" ng-click="sort='-demoRating'" class="ratingCol" style="display: inline-block;  text-align: center; margin-right: 20px;">
-      Demo
-    </button>
-    <button type="radio" name="sortOpt" ng-click="sort='user.username'" class="ratingCol" style="display: inline-block;  text-align: center; margin-right: 20px;">
-      User
-    </button>
-    <button type="radio" name="sortOpt" ng-click="sort='user.roles'" class="ratingCol" style="display: inline-block;  text-align: center; margin-right: 20px;">
-      Role
-    </button>
-
-    <!-- </div> -->
   <div class="list-group">
-
-    <!-- <ul>
-        <li ng-repeat="option in sortOptions" ng-click="setSort (option)">{{option}}</li>
-    </ul> -->
-
     <a ng-repeat="rating in ratings | orderBy: sort"  ui-sref="rating.project({project.teamName})" class="list-group-item">
     <div style="display: inline-block;">
       <div class="ratingCol" style="display: inline-block; margin-right: 20px;" >
       <!-- TEAM -->
-        <!-- <a ui-sref="admin.project({projectId: project._id})"> -->
        <span ng-bind="rating.project.teamName">  </span>
-       <!-- </a> -->
       </div>
       <div class="ratingCol" style="display: inline-block; margin-right: 20px;">
       <!-- POSTER -->
