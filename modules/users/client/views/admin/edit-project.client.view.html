@@ -1,6 +1,4 @@
 <section ng-controller="ProjectController" ng-init="findOne()">
-  <div class="container">
-    <div class="col-md-10 col-md-offset-1">
       <div class="page-header">
         <h1>Edit {{project.teamName}}</h1>
       </div>
@@ -20,11 +18,26 @@
               <input type="text" id="description" name="description" class="form-control" ng-model="description" placeholder="{{project.description}}" />
             </div>
 
-            <div class="form-group" show-errors>
-              <label for="logo">Project Description</label>
-              <input type="text" id="logo" name="logo" class="form-control" ng-model="logo" placeholder="Logo Filename" />
+            <div class="uploadLogo row" ng-controller="UploadController" ng-init="initUploader(true)">
+              <h3> Logo Upload </h3>
+
+              <center>
+                <input type="file" nv-file-select uploader="uploader" />
+              </center>
+
+              <br>
+
+              <center>
+                <button type="button" ng-click="uploader.uploadAll()" ng-disabled="!uploader.getNotUploadedItems().length" disabled="disabled">
+                  Upload File
+                </button>
+
+                <button type="button" ng-click="uploader.clearQueue()" ng-disabled="!uploader.queue.length">
+                  Remove File
+                </button>
+              </center>
             </div>
-            
+
             <div class="form-group">
               <input type="submit" value="Update" class="btn btn-default">
             </div>
@@ -34,6 +47,4 @@
           </fieldset>
         </form>
       </div>
-    </div>
-  </div>
 </section>

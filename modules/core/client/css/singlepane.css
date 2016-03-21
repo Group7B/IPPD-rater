@@ -1,10 +1,11 @@
 th, td {
-    font-family: 'Open Sans',Helvetica,Arial,sans-serif;
+    /*font-family: 'Open Sans',Helvetica,Arial,sans-serif;*/
     font-size: 20px;
-    /*border-bottom: 1px solid #ddd;*/
     text-align: center;
     padding: 5px;
     border-bottom:none;
+    font-family: 'Quicksand',sans-serif;
+    font-weight: bold;
 }
 
 label {
@@ -14,26 +15,23 @@ label {
 
 .title-bar {
     position: fixed;
-    font-family: 'Open Sans',Helvetica,Arial,sans-serif;
+    /*font-family: 'Open Sans',Helvetica,Arial,sans-serif;*/
+    font-family: 'Quicksand',sans-serif;
+    font-weight: 800;
     font-size: 25px;
-    /*color: #15A3FF;*/
     color: black;
-    /*opacity: .9;*/
-    /*float: middle;*/
     padding: 7px;
-    /*float: center;*/
-    /*overflow: hidden;*/
     text-align: center;
     left: 0;
     width: 100%;
-    /*background-color: #DDD;*/
     background: #DDD;
-    background: rgba(221,221,221,0.92);
-    /*background-color: #15A3FF;*/
+    background: rgba(247,247,247,0.94);
 }
 
 .image {
     padding-top: 50px;
+    vertical-align: bottom;
+    /*position: relative;*/
     /*padding-bottom: 10px;*/
 }
 
@@ -56,7 +54,7 @@ img {
     vertical-align: middle;
     font-size: 30px;
     color: #15A3FF;
-    outline: 0;
+    text-decoration: none;
 }
 
 #title-text {
@@ -65,6 +63,7 @@ img {
 }
 
 #submit_rating {
+    background-image: none;
     background-color: #5cb85c;
     border-color: #4cae4c;
 }
@@ -74,7 +73,6 @@ img {
     color: #4cae4c;
     font-style: #4cae4c;
     background-color: white;
-
 }
 
 #singlelabel {
@@ -86,47 +84,47 @@ img {
     text-align: center;
 }
 
-#rate {
+.rate {
     display: inline-block;
     /*float: center;*/
-    height: 35px;
+    height: 45px;
     /*padding: 0 2px;*/
     padding-bottom: 5px;
 }
 
-#rate:not(:checked) > input {
+.rate:not(:checked) > input {
     position: absolute;
     visibility: hidden;
 }
 
-#rate:not(:checked) > label {
+.rate:not(:checked) > label {
     float: right;
     width: 1em;
     overflow: hidden;
     white-space: nowrap;
     cursor: pointer;
-    font-size: 35px;
+    font-size: 45px;
     color: #DBDCDE;
 }
 
-#rate:not(:checked) > label:before {
+.rate:not(:checked) > label:before {
     content: '★';
 }
 
-#rate > input:checked ~ label {
+.rate > input:checked ~ label {
     color: #FF8000;
 
 }
-#rate:not(:checked) > label:hover,
-#rate:not(:checked) > label:hover ~ label {
+.rate:not(:checked) > label:hover,
+.rate:not(:checked) > label:hover ~ label {
    color: #FA9E42;
 
 }
-#rate > input:checked + label:hover,
-#rate > input:checked + label:hover ~ label,
-#rate > input:checked ~ label:hover,
-#rate > input:checked ~ label:hover ~ label,
-#rate > label:hover ~ input:checked ~ label {
+.rate > input:checked + label:hover,
+.rate > input:checked + label:hover ~ label,
+.rate > input:checked ~ label:hover,
+.rate > input:checked ~ label:hover ~ label,
+.rate > label:hover ~ input:checked ~ label {
     color:  #FA9E42;
 }
 

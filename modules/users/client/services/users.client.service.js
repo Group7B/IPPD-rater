@@ -33,3 +33,18 @@ angular.module('users.admin').factory('Theme', ['$resource',
     });
   }
 ]);
+
+angular.module('users').service('sharedLogoUrl', function () {
+  var property = {
+    logoUrl: ''
+  };
+
+  return {
+    getProperty: function () {
+      return property;
+    },
+    setProperty: function (value) {
+      property.logoUrl = value;
+    }
+  };
+});

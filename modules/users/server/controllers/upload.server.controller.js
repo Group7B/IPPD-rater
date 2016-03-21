@@ -25,3 +25,28 @@ exports.postImage = function (req, res) {
     });
   });
 };
+
+exports.postProjectLogo = function (req, res) {
+  var form = new multiparty.Form();
+  form.parse(req, function (err, fields, files) {
+    var file = files.file[0];
+    console.info(file);
+    var contentType = file.headers['content-type'];
+    
+    var fileName = file.originalFilename;
+    var destPath = 'modules/projects/client/img/logos/' + fileName;
+    
+    // Server side file type checker.
+    if (contentType !== 'image/png' && contentType !== 'image/jpeg') {
+      fs.unlink(file.path);
+      return res.status(400).send('Unsupported file type.');
+    }
+
+    fs.rename(file.path, destPath, function (err) {
+      if (err) {
+        return res.status(400).send('Image is not saved:');
+      }
+      return res.json(destPath);
+    });
+  });
+};
