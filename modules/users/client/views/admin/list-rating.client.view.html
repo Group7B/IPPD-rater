@@ -1,3 +1,19 @@
+<style>
+  button {
+    -webkit-appearance:none;
+    -moz-appearance:none;
+    border: none;
+    color: black;
+    border-radius: 4px;
+    margin-bottom: 15px;
+  }
+  button:focus {
+    background-color: #005596;
+    color: white;
+    outline: 0 !important;
+  }
+</style>
+
 <section ng-controller="RatingsController" ng-init="find()">
   <div class="page-header">
     <div class="row">
@@ -11,37 +27,9 @@
             </div>
         </div>
   </div>
-<!--   <table class="table">
-    <thead>
-      <tr>
-      <div>
-      <td>
-        <button >Project</button>
-      </td>
-      <td>
-        <button>Poster</button>
-      </td>
-      <td>
-        <button>Presentation</button>
-      </td>
-      <td>
-        <button>Demonstration</button>
-      </td>
-      <td>
-        <button>User</button>
-      </td>
-      <td>
-        <button>Judge</button>
-      </td>
-      
-      </div>
-      </tr>
-    </thead>
 
-  </table>
-   -->
 
-  <!-- <div class="list-group" style="border: none;"> -->
+
 
     <button type="radio" name="sortOpt" ng-click="sort='project.teamName'" class="ratingCol" style="display: inline-block; text-align: center; margin-right: 20px;">
       Project
