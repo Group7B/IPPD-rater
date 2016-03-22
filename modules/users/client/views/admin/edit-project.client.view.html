@@ -23,15 +23,12 @@
 
               <center>
                 <input type="file" nv-file-select uploader="uploader" />
+                <p ng-show="invalidFile">Invalid file! {{invalidFileMessage}}</p>
               </center>
 
               <br>
 
               <center>
-                <button type="button" ng-click="uploader.uploadAll()" ng-disabled="!uploader.getNotUploadedItems().length" disabled="disabled">
-                  Upload File
-                </button>
-
                 <button type="button" ng-click="uploader.clearQueue()" ng-disabled="!uploader.queue.length">
                   Remove File
                 </button>

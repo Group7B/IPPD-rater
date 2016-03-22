@@ -1,8 +1,8 @@
 'use strict';
 
 // Ratings controller
-angular.module('ratings').controller('RatingsController', ['$scope', '$filter', '$stateParams', '$location', 'Authentication', 'Ratings', 'Projects',
-  function ($scope, $filter, $stateParams, $location, Authentication, Ratings, Projects) {
+angular.module('ratings').controller('RatingsController', ['$scope', '$filter', '$stateParams', '$location', '$window', '$state', 'Authentication', 'Ratings', 'Projects',
+  function ($scope, $filter, $stateParams, $location, $window, $state, Authentication, Ratings, Projects) {
     $scope.authentication = Authentication;
     $scope.sortBy = '_id';
     $scope.sortReverse = true;
@@ -135,6 +135,23 @@ angular.module('ratings').controller('RatingsController', ['$scope', '$filter', 
         }
       }
       return rating;
+    };
+
+    $scope.deleteAllRatings = function() {
+      //warning message
+      if(confirm("Do you want to delete all ratings from the database?")) {
+        $scope.thisRating = {};
+        Ratings.query(function (data) {
+          $scope.ratings = data;
+        });
+        var i;
+        for (i = 0; i < $scope.ratings.length; i++) {
+          $scope.ratings[i].$remove();  //delete all ratings
+        }
+        console.log("Number of ratings: %d", $scope.ratings.length);
+        $scope.ratings.splice(0, $scope.ratings.length);
+        $scope.success = 'All ratings successfully deleted.';
+      }
     };
   }
 ]);
