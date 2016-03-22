@@ -21,6 +21,7 @@ exports.create = function (req, res) {
   if (req.body.presentationRating) rating.presentationRating = req.body.presentationRating;
   if (req.body.demoRating) rating.demoRating = req.body.demoRating;
   if (req.body.comment) rating.comment = req.body.comment;
+  rating.isJudge = req.body.isJudge;
 
   rating.save(function (err) {
     if (err) {
@@ -52,6 +53,7 @@ exports.update = function (req, res) {
   if (req.body.presentationRating) rating.presentationRating = req.body.presentationRating;
   if (req.body.demoRating) rating.demoRating = req.body.demoRating;
   if (req.body.comment) rating.comment = req.body.comment;
+  rating.isJudge = req.body.isJudge;
 
   rating.save(function (err) {
     if (err) {
