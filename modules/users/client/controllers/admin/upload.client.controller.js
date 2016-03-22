@@ -4,6 +4,7 @@ angular.module('users.admin').controller('UploadController', ['$scope', '$timeou
   function ($scope, $timeout, FileUploader, sharedLogoUrl) {
     
     var uploadingProject = false;
+    $scope.invalidFile = false;
 
     $scope.uploader = new FileUploader({
       url: '',
@@ -27,19 +28,47 @@ angular.module('users.admin').controller('UploadController', ['$scope', '$timeou
         return '|jpg|png|jpeg|'.indexOf(type) !== -1;
       }
     });
+    
+    $scope.uploader.filters.push({
+      name: 'sizeFilter',
+      fn: function (item /*{File|FileLikeObject}*/ , options) {
+        return item.size < 5000000;
+      }
+    });
+    
+    $scope.$on('projectCreated', function () {
+      if ($scope.uploader.getNotUploadedItems().length) {
+        console.log('event received');
+        $scope.uploader.uploadAll();
+      }
+    });
 
     // CALLBACKS
 
     $scope.uploader.onWhenAddingFileFailed = function (item /*{File|FileLikeObject}*/ , filter, options) {
+      $scope.invalidFile = true;
+      
+      if (filter.name === 'sizeFilter') {
+        $scope.invalidFileMessage = 'Files must be less than 5MB.';
+      } else {
+        $scope.invalidFileMessage = 'Files must be of type .png or .jpg.';
+      }
+      
+      $scope.invalidFileMessage += ' Please select another file.';
     };
     $scope.uploader.onAfterAddingFile = function (fileItem) {
+      $scope.invalidFile = false;
+      
       if (uploadingProject) {        
         fileItem.file.name = sharedLogoUrl.getProperty().logoUrl;
       }
     };
     $scope.uploader.onAfterAddingAll = function (addedFileItems) {
     };
-    $scope.uploader.onBeforeUploadItem = function (item) {
+    $scope.uploader.onBeforeUploadItem = function (fileItem) {
+      if (uploadingProject) {        
+        fileItem.file.name = sharedLogoUrl.getProperty().logoUrl;
+      }
     };
     $scope.uploader.onProgressItem = function (fileItem, progress) {
     };

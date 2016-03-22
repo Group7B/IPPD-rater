@@ -16,9 +16,11 @@ angular.module('projects').controller('ProjectController', ['$scope', '$filter',
       var project = new Projects({
         teamName: this.name,
         description: this.description,
-        logo: this.logo
+        logo: $scope.buildLogoName(this.name)
       });
-
+      
+      sharedLogoUrl.setProperty($scope.buildLogoName(this.name));
+      $scope.$broadcast('projectCreated');
 
       // Redirect after save
       project.$save(function (response) {
@@ -32,6 +34,13 @@ angular.module('projects').controller('ProjectController', ['$scope', '$filter',
       }, function (errorResponse) {
         $scope.error = errorResponse.data.message;
       });
+    };
+    
+    $scope.buildLogoName = function (name) {
+      name = name.replace(/\s+/g, '');
+      name += '.jpg';
+      
+      return name;
     };
 
     // Remove existing project
@@ -63,7 +72,7 @@ angular.module('projects').controller('ProjectController', ['$scope', '$filter',
       var project = $scope.project;
       if ($scope.teamName) project.teamName = $scope.teamName;
       if ($scope.description) project.description = $scope.description;
-      if ($scope.logo) project.logo = $scope.logo;
+      $scope.$broadcast('projectCreated');
       console.log('The project is ' + project.teamName);
 
       project.$update(function () {
