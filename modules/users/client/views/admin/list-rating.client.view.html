@@ -1,5 +1,6 @@
 <style>
   button {
+    position: ;
     -webkit-appearance:none;
     -moz-appearance:none;
      -webkit-transition: all 200ms linear;
@@ -18,7 +19,7 @@
     margin-right: 
     padding-right: 50px;
     margin-right: -15px;
-    margin-left: 1;
+    margin-left: 2;
     z-index: -1;
     width: 14%;
     border-radius: 14px;
@@ -26,20 +27,22 @@
 
   }
   button:focus {
+    /*position: relative;*/
     background-color: #005596;
     /*background-color: white;*/
     padding-bottom: 10px;
     color: white;
     outline: 0 !important;
-    z-index: 2;
+    z-index: 0;
     border-color: #005596;
     border-bottom-color: #005596;
     /*border-bottom-color: white;*/
-    height: 50px;
+    height: 52px;
   }
 
   .list-group {
-    z-index: 0;
+    position: absolute;
+    z-index: 1;
   }
 
 </style>
