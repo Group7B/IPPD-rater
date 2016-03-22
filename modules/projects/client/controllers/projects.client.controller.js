@@ -18,7 +18,7 @@ angular.module('projects').controller('ProjectController', ['$scope', '$filter',
         description: this.description,
         logo: $scope.buildLogoName(this.name)
       });
-      
+
       sharedLogoUrl.setProperty($scope.buildLogoName(this.name));
       $scope.$broadcast('projectCreated');
 
@@ -35,11 +35,11 @@ angular.module('projects').controller('ProjectController', ['$scope', '$filter',
         $scope.error = errorResponse.data.message;
       });
     };
-    
+
     $scope.buildLogoName = function (name) {
       name = name.replace(/\s+/g, '');
       name += '.jpg';
-      
+
       return name;
     };
 
@@ -136,5 +136,22 @@ angular.module('projects').controller('ProjectController', ['$scope', '$filter',
       }
       return false;
     };
+
+    $scope.deleteAllProjects = function() {
+      //warning message
+      if(confirm("Do you want to delete all projects from the database?")) {
+        $scope.thisProject = {};
+        Projects.query(function (data) {
+          $scope.projects = data;
+        });
+        var i;
+        for (i = 0; i < $scope.projects.length; i++) {
+          $scope.projects[i].$remove();  //delete all ratings
+        }
+        $scope.projects.splice(0, $scope.projects.length);
+        $scope.success = 'All projects successfully deleted.';
+      }
+    };
+
   }
 ]);
