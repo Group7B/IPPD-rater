@@ -6,4 +6,17 @@
       </div>
     </div>
   </div>
+
+  <div class ="row" ng-controller="RatingsController" ng-init="find()">
+    <h3> Delete All Ratings </h3>
+    <div ng-show="success" class="text-success">
+      <strong ng-bind="success"></strong>
+      <br>
+    </div>
+    <button ng-click="deleteAllRatings()">Delete All Ratings</button>
+  </div>
+
+
+
+
 </section>
