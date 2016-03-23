@@ -2,13 +2,21 @@
   <div class="row">
     <div class="col-sm-3 col-md-3 col-lg-2 sidebar">
       <ul class="nav nav-sidebar headerFont">
-         <div id="topLogo">
-            <img class="logo" src="modules/core/client/img/brand/IPPD_logo.png">
+        <div id="topLogo">
+          <img class="logo" src="modules/core/client/img/brand/IPPD_logo.png">
         </div>
+        
         <div class="adminListButton notLast"><a ui-sref="admin.users">Users</a></div>
         <div class="adminListButton notLast"><a ui-sref="admin.projects">Projects</a></div>
         <div class="adminListButton notLast"><a ui-sref="admin.ratings">Ratings</a></div>
         <div class="adminListButton notLast"><a ui-sref="admin.theme">Theme</a></div>
+        <div class="adminListButton notLast"><a ui-sref="admin.data">Data</a></div>
+        
+        <div class="headerFont">
+          <a class="" ui-sref="projects.list">Project Rating</a>
+          <br>
+          <a class="signOutButton" href="/api/auth/signout" target="_self">Signout</a>
+        </div>
       </ul>
     </div>
     <div class="col-sm-9 col-md-9 col-lg-10">
