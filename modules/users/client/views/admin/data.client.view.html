@@ -16,6 +16,17 @@
     <button ng-click="deleteAllRatings()">Delete All Ratings</button>
   </div>
 
+  <hr>
+
+  <div class ="row" ng-controller="ProjectController" ng-init="find()">
+    <h3> Delete All Projects </h3>
+    <div ng-show="success" class="text-success">
+      <strong ng-bind="success"></strong>
+      <br>
+    </div>
+    <button ng-click="deleteAllProjects()">Delete All Projects</button>
+  </div>
+
 
 
 
