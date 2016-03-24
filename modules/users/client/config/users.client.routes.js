@@ -29,12 +29,7 @@ angular.module('users').config(['$stateProvider',
         url: '/picture',
         templateUrl: 'modules/users/client/views/settings/change-profile-picture.client.view.html'
       })
-      .state('authentication', {
-        abstract: true,
-        url: '/authentication',
-        templateUrl: 'modules/users/client/views/authentication/authentication.client.view.html'
-      })
-      .state('authentication.signup', {
+      .state('signup', {
         url: '/signup',
         templateUrl: 'modules/users/client/views/authentication/signup.client.view.html'
       })
