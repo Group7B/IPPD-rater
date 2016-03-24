@@ -1,3 +1,15 @@
+.backgroundColor {
+  background-color: #fff;
+}
+
+.accentColor {
+  background-color: #005596;
+}
+
+.textColor {
+  color: #fff;
+}
+
 img {
   position: center;
   max-width: 100%;
@@ -25,18 +37,6 @@ td {
 label {
   font-size: 20px;
   font-weight: normal !important;
-}
-
-.backgroundColor {
-  background-color: #fff;
-}
-
-.accentColor {
-  background-color: #000;
-}
-
-.textColor {
-  color: #fff;
 }
 
 .error-text {
@@ -209,21 +209,61 @@ a:hover .header-profile-image {
   border-bottom: solid 4px #005596;
 }
 
-.signInButton {
+.allButton {
   -webkit-appearance: none;
   -moz-appearance: none;
   border: none;
-  width: 80%;
-  line-height: 40px;
-  background-color: #005596;
-  font-size: 2.5rem;
-  color: white;
   border-radius: 4px;
+  font-size: 2rem;
+  line-height: 40px;
+  color: white;
   margin-bottom: 15px;
 }
 
-.signInButton:focus {
+.allButton:focus {
   outline: 0 !important;
+}
+
+.destructiveButton {
+  background-color: #ff0007;
+}
+
+.signInButton {
+  width: 80%;
+  background-color: #005596;
+}
+
+.adminListButton {
+  text-align: center;
+  height: 60px;
+  transition: all .5s;
+  margin-bottom: 10px;
+  border-right: solid gold 4px;
+}
+
+.adminListButton:hover {
+  height: 65px;
+}
+
+.adminButtonActive {
+  height: 65px;
+}
+
+.adminListButton a {
+  margin: auto;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  line-height: 60px;
+  text-decoration: none;
+  color: #f4f4f4;
+  font-size: 2rem;
+}
+
+.backToRatingsButton {
+  font-size: 1rem;
 }
 
 .socialList {

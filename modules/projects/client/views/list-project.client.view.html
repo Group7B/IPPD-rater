@@ -1,14 +1,21 @@
 <section ng-controller="ProjectController" ng-init="find()">
   <div class="userBar headerFont">
-    <span class="welcomeMessage">Welcome, {{authentication.user.firstName}}!</span> <br>
-    <a class="" ng-show="userIsAdmin()" ui-sref="admin.users">Admin Dashboard</a> <br>
+    <span class="welcomeMessage">Welcome, {{authentication.user.firstName}}!</span>
+    <br>
+    <a class="" ng-show="userIsAdmin()" ui-sref="admin.users">Admin Dashboard</a>
+    <br>
     <a class="signOutButton" href="/api/auth/signout" target="_self">Signout</a>
   </div>
-    
+
   <div class="page-header">
-    <h1>Projects</h1>
-   <label>Search Projects: <input ng-model="searchText"></label>
-  <input type="submit">
+    <div class="row">
+      <div class="col-md-4">
+        <h1>Projects</h1>
+      </div>
+      <div class="col-md-4" style="margin-top: 2em">
+        <input class="formField" type="text" ng-model="searchText" placeholder="Search" />
+      </div>
+    </div>
   </div>
   <div class="list-group">
     <a ng-repeat="project in projects | filter:searchText" ui-sref="projects.rate({projectId: project._id})" class="list-group-item">
@@ -18,7 +25,8 @@
           <div class="post-thumb"><img class="logo-icon" ng-if="!project.logo" src='modules/projects/client/img/logos/default.jpg' alt="No img"></div>
         </div>
         <div class="col-sm-10">
-          <p  class="list-group-item-heading" ng-bind="project.teamName"></p><br>
+          <p class="list-group-item-heading" ng-bind="project.teamName"></p>
+          <br>
           <div class="list-group-item-text" ng-bind="project.description"></div>
 
           <div class="cf"></div>

@@ -39,30 +39,3 @@
     padding: 10px;
     width: 100%;
 }
-
-.adminListButton {
-    text-align: center;
-    display: block;
-    position: relative;
-    height: 80px;
-    background-color: #E4F9F5;
-    transition: all .5s;
-    margin-bottom: 10px;
-}
-
-.adminListButton:hover {
-    box-shadow: 1px 0 4px rgba(0, 0, 0, 0.5);
-}
-
-.adminListButton a {
-    margin: auto;
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    line-height: 80px;
-    text-decoration: none;
-    color: #40514E;
-    font-size: 30px;
-}

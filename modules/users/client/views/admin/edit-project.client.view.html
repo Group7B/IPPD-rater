@@ -7,7 +7,7 @@
           <fieldset>
             <div class="form-group" show-errors>
               <label for="teamName">Project Name</label>
-              <input type="text" id="teamName" name="teamName" class="form-control" ng-model="teamName" placeholder="{{project.teamName}}" required />
+              <input type="text" id="teamName" name="teamName" class="formField" ng-model="teamName" placeholder="{{project.teamName}}" required />
               <div ng-messages="createProjectForm.teamName.$error" role="alert">
                 <p class="help-block error-text" ng-message="required">Project name is required.</p>
               </div>
@@ -15,7 +15,7 @@
 
             <div class="form-group" show-errors>
               <label for="description">Project Description</label>
-              <input type="text" id="description" name="description" class="form-control" ng-model="description" placeholder="{{project.description}}" />
+              <input type="text" id="description" name="description" class="formField" ng-model="description" placeholder="{{project.description}}" />
             </div>
 
             <div class="uploadLogo row" ng-controller="UploadController" ng-init="initUploader(true)">
