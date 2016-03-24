@@ -1,7 +1,9 @@
 'use strict';
 
 var multiparty = require('multiparty'),
-  fs = require('fs');
+  fs = require('fs'),
+  json2csv = require('json2csv'),
+  spawn = require('child_process').spawn;
 
 exports.postImage = function (req, res) {
   var form = new multiparty.Form();
@@ -49,4 +51,22 @@ exports.postProjectLogo = function (req, res) {
       return res.json(destPath);
     });
   });
+};
+
+exports.exportRatings = function (req, res) {
+//  json2csv({
+//    data: data,
+//    fields: fields
+//  }, function (err, csv) {
+//    if (err) console.log(err);
+//    console.log(csv);
+//  });
+  // Set correct content-type
+  res.set('Content-Type', 'text/csv');
+  // Export collection and pipe to `res`
+  spawn('mongoexport', [ 
+    '--db', 'IPPD', '--collection', 'ratings', 
+    '--fields', 'user,project,isJudge,demoRating,presentationRating,posterRating',
+    '--csv'
+  ]).stdout.pipe(res);
 };
