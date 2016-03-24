@@ -16,7 +16,7 @@ angular.module('ratings').controller('RatingsController', ['$scope', '$filter', 
         project: {
           _id: $stateParams.projectId
         },
-        posterRating : $scope.posterRating,
+        posterRating: $scope.posterRating,
         presentationRating: $scope.presentationRating,
         demoRating: $scope.demoRating,
         comment: $scope.comment,
@@ -24,13 +24,11 @@ angular.module('ratings').controller('RatingsController', ['$scope', '$filter', 
       });
 
       // Find newly saved rating after save
-      console.log ("saving");
       rating.$save(function (response) {
         $location.path('projects');
       }, function (errorResponse) {
         $scope.error = errorResponse.data.message;
       });
-      console.log("saved");
     };
 
     // Remove existing Rating
@@ -102,7 +100,7 @@ angular.module('ratings').controller('RatingsController', ['$scope', '$filter', 
         console.log($scope.ratings);
         $scope.thisRating = $filter('filter')(
           $scope.ratings, {
-            project:{
+            project: {
               _id: $stateParams.projectId
             },
             user: {
@@ -113,14 +111,13 @@ angular.module('ratings').controller('RatingsController', ['$scope', '$filter', 
         if ($scope.thisRating.length > 0) {
           $scope.thisRating = $scope.thisRating[0];
           $scope.rated = true;
-        }
-        else {
+        } else {
           $scope.rated = false;
         }
       });
     };
 
-    $scope.getStars = function(num) {
+    $scope.getStars = function (num) {
       var rating = 'Unrated';
 
       if (num) {

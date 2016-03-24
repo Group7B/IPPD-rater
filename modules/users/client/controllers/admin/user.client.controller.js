@@ -6,15 +6,8 @@ angular.module('users.admin').controller('UserController', ['$scope', '$state', 
     $scope.user = userResolve;
 
     $scope.findUser = function () {
-      console.log($stateParams);
-      /*$scope.oldUser = Users.get({
-        _id: {
-          $oid: $stateParams.userId
-        }
-      });*/
-
       var users;
-      Users.query( function (data) {
+      Users.query(function (data) {
         users = data;
         $scope.oldUser = $filter('filter')(
           users, {
@@ -44,18 +37,12 @@ angular.module('users.admin').controller('UserController', ['$scope', '$state', 
       }
       var user = $scope.user;
       var oldUser = $scope.oldUser;
-
-      console.log($scope.oldUser.roles);
-      console.log(userResolve.roles);
-      console.log(user.roles);
-
+      
       // if the roles changed
       if (user.roles !== oldUser.roles) {
 
-        console.log("changing user");
         // check if the judge role was set
-        if (user.roles.indexOf("judge") > -1 && oldUser.roles.indexOf("judge") === -1){
-          console.log("setting judge role");
+        if (user.roles.indexOf('judge') > -1 && oldUser.roles.indexOf("judge") === -1){
           Ratings.query(function (data) {
             var ratings = data;
             var userRatings = $filter('filter')(
@@ -70,8 +57,7 @@ angular.module('users.admin').controller('UserController', ['$scope', '$state', 
             }
           });
         } // otherwise check if the judge role was unset
-        else if (user.roles.indexOf("judge") === -1 && oldUser.roles.indexOf("judge") > -1) {
-          console.log("unsetting judge role");
+        else if (user.roles.indexOf("judge") === -1 && oldUser.roles.indexOf('judge') > -1) {
           Ratings.query(function (data) {
             var ratings = data;
             var userRatings = $filter('filter')(
