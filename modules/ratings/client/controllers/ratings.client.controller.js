@@ -16,27 +16,16 @@ angular.module('ratings').controller('RatingsController', ['$scope', '$filter', 
         project: {
           _id: $stateParams.projectId
         },
-        posterRating : 0,
-        presentationRating: 0,
-        demoRating: 0,
-        comment: ''
+        posterRating: $scope.posterRating,
+        presentationRating: $scope.presentationRating,
+        demoRating: $scope.demoRating,
+        comment: $scope.comment,
+        isJudge: $scope.isJudge
       });
 
       // Find newly saved rating after save
       rating.$save(function (response) {
-        Ratings.query(function (data) {
-          $scope.ratings = data;
-          $scope.thisRating = $filter('filter')(
-            $scope.ratings, {
-              project:{
-                _id: $stateParams.projectId
-              },
-              user: {
-                _id: Authentication.user._id
-              }
-            });
-          $scope.thisRating = $scope.thisRating[0];
-        });
+        $location.path('projects');
       }, function (errorResponse) {
         $scope.error = errorResponse.data.message;
       });
@@ -63,22 +52,26 @@ angular.module('ratings').controller('RatingsController', ['$scope', '$filter', 
     $scope.update = function (isValid) {
       $scope.error = null;
 
-      if (!isValid) {
+      if (!$scope.rated) {
+        $scope.create();
+        return;
+      } else if (!isValid) {
         $scope.$broadcast('show-errors-check-validity', 'ratingForm');
         return false;
+      } else {
+        var rating = $scope.thisRating;
+        rating.posterRating = $scope.posterRating;
+        rating.presentationRating = $scope.presentationRating;
+        rating.demoRating = $scope.demoRating;
+        rating.comment = $scope.comment;
+        rating.isJudge = $scope.isJudge;
+
+        rating.$update(function () {
+          $location.path('projects');
+        }, function (errorResponse) {
+          $scope.error = errorResponse.data.message;
+        });
       }
-
-      var rating = $scope.thisRating;
-      rating.posterRating = $scope.posterRating;
-      rating.presentationRating = $scope.presentationRating;
-      rating.demoRating = $scope.demoRating;
-      rating.comment = $scope.comment;
-
-      rating.$update(function () {
-        $location.path('projects');
-      }, function (errorResponse) {
-        $scope.error = errorResponse.data.message;
-      });
     };
 
     // Find a list of Ratings
@@ -99,13 +92,15 @@ angular.module('ratings').controller('RatingsController', ['$scope', '$filter', 
     };
 
     $scope.findRatingByProjectAndUser = function () {
+      $scope.isJudge = (Authentication.user.roles.indexOf("judge") > -1) ? true : false;
+
       $scope.thisRating = {};
       Ratings.query(function (data) {
         $scope.ratings = data;
         console.log($scope.ratings);
         $scope.thisRating = $filter('filter')(
           $scope.ratings, {
-            project:{
+            project: {
               _id: $stateParams.projectId
             },
             user: {
@@ -115,15 +110,14 @@ angular.module('ratings').controller('RatingsController', ['$scope', '$filter', 
         console.log($scope.thisRating);
         if ($scope.thisRating.length > 0) {
           $scope.thisRating = $scope.thisRating[0];
+          $scope.rated = true;
+        } else {
+          $scope.rated = false;
         }
-        else {
-          $scope.create();
-        }
-        console.log($scope.thisRating);
       });
     };
 
-    $scope.getStars = function(num) {
+    $scope.getStars = function (num) {
       var rating = 'Unrated';
 
       if (num) {
