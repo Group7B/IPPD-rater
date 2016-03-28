@@ -6,7 +6,7 @@ angular.module('ratings').factory('Ratings', ['$resource',
     return $resource('api/ratings/:ratingId', {
       ratingId: '@_id'
     }, {
-      update: {
+      'update': {
         method: 'PUT'
       }
     });

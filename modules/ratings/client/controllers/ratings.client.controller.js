@@ -147,5 +147,11 @@ angular.module('ratings').controller('RatingsController', ['$scope', '$filter', 
         $scope.success = 'All ratings successfully deleted.';
       }
     };
+
+    $scope.updateRank = function(rating) {
+      rating.$update(function (err) {
+        $scope.error = err;
+      });
+    };
   }
 ]);
