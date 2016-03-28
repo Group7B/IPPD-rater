@@ -32,6 +32,10 @@ exports.invokeRolesPolicies = function () {
     {
       resources: '/api/projects/:projectId',
       permissions: '*'
+    },
+    {
+      resources: '/api/export',
+      permissions: '*'
     }]
   }]);
 };

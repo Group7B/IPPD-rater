@@ -3,7 +3,8 @@
 var multiparty = require('multiparty'),
   fs = require('fs'),
   json2csv = require('json2csv'),
-  spawn = require('child_process').spawn;
+  mongoose = require('mongoose'),
+  Rating = mongoose.model('Rating');
 
 exports.postImage = function (req, res) {
   var form = new multiparty.Form();
@@ -12,7 +13,7 @@ exports.postImage = function (req, res) {
     var file = files.file[0];
     var contentType = file.headers['content-type'];
     var destPath = 'modules/core/client/img/brand/IPPD_logo.png';
-    
+
     // Server side file type checker.
     if (contentType !== 'image/png' && contentType !== 'image/jpeg') {
       fs.unlink(file.path);
@@ -34,10 +35,10 @@ exports.postProjectLogo = function (req, res) {
     var file = files.file[0];
     console.info(file);
     var contentType = file.headers['content-type'];
-    
+
     var fileName = file.originalFilename;
     var destPath = 'modules/projects/client/img/logos/' + fileName;
-    
+
     // Server side file type checker.
     if (contentType !== 'image/png' && contentType !== 'image/jpeg') {
       fs.unlink(file.path);
@@ -54,19 +55,30 @@ exports.postProjectLogo = function (req, res) {
 };
 
 exports.exportRatings = function (req, res) {
-//  json2csv({
-//    data: data,
-//    fields: fields
-//  }, function (err, csv) {
-//    if (err) console.log(err);
-//    console.log(csv);
-//  });
-  // Set correct content-type
-  res.set('Content-Type', 'text/csv');
-  // Export collection and pipe to `res`
-  spawn('mongoexport', [ 
-    '--db', 'IPPD', '--collection', 'ratings', 
-    '--fields', 'user,project,isJudge,demoRating,presentationRating,posterRating',
-    '--csv'
-  ]).stdout.pipe(res);
+  var fields = ['project.teamName','user.username', 'user.displayName', 'isJudge', 'demoRating', 'presentationRating','posterRating', 'comment'];
+  Rating
+    .find({})
+    .populate('project user')
+    .exec(function (err, data) {
+      if (err) {
+        res.status(500).send("Something went wrong");
+      } else if (data.length) {
+        console.log('Data:');
+        console.log(data);
+        json2csv({
+          data: data,
+          fields: fields
+        }, function (err, csv) {
+          if (err) {
+            res.status(500).send("Something went wrong");
+          } else {
+            res.setHeader('Content-disposition', 'attachment; filename=testing.csv');
+            res.set('Content-Type', 'text/csv');
+            res.status(200).send(csv);
+          }
+        });
+      } else {
+        res.status(404).send("Collection is empty");
+      }
+    });
 };

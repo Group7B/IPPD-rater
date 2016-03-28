@@ -1,19 +1,10 @@
 'use strict';
 
-angular.module('users.admin').controller('DataController', ['$scope', 'Ratings', '$http',
-  function ($scope, Ratings, $http) {
+angular.module('users.admin').controller('DataController', ['$scope', '$window', 'Ratings', '$http',
+  function ($scope, $window, Ratings, $http) {
 
     $scope.exportRatings = function () {
-      $http({
-        method: 'GET',
-        url: '/api/export'
-      }).then(function successCallback(response) {
-        console.log('Response:');
-        console.log(response);
-      }, function errorCallback(response) {
-        console.log('Error:');
-        console.log(response);
-      });
+      $window.open('api/export', '_blank');
     };
   }
 ]);

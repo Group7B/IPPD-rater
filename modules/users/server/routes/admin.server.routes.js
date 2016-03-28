@@ -31,7 +31,7 @@ module.exports = function (app) {
     .post(upload.postProjectLogo);
   
   app.route('/api/export')
-    .get(upload.exportRatings);
+    .get(adminPolicy.isAllowed, upload.exportRatings);
   
   app.route('/api/theme')
     .get(theme.readTheme)
