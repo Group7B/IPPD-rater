@@ -53,19 +53,11 @@
             <div class="col-md-4">
                 <h1>Ratings</h1>
             </div>
-            <div class="col-md-offset-3 col-md-4" style="margin-top: 2em">
-             <!--  Descending Order -->
-              <!-- <input type="checkbox" style="font-size: 50px;"></input> -->
-
-          
-                <input class="form-control" type="text" ng-model="search" placeholder="Search" ng-change="figureOutItemsToDisplay()" />
-           
-            </div>
         </div>
   </div>
 
 
-    <button type="radio" name="sortOpt" ng-click="sort='project.teamName'" class="" checked="checked">
+    <button type="radio" name="sortOpt" ng-click="sort='project.teamName'" class="" >
       Project
     </button>
     <button type="radio" name="sortOpt" ng-click="sort='-posterRating'" class="" >
@@ -84,73 +76,7 @@
       Role
     </button>
 
-
-<!-- <div id="page-wrap">
-<div class="tabs">
-        
-       <div class="tab">
-           <input type="radio" id="tab-1" name="tab-group-1" checked>
-           <label for="tab-1">Tab One</label>
-           
-           <div class="content">
-               <p>Stuff for Tab One</p>
-           </div> 
-       </div>
-        
-       <div class="tab">
-           <input type="radio" id="tab-2" name="tab-group-1">
-           <label for="tab-2">Tab Two</label>
-           
-           <div class="content">
-               <p>Stuff for Tab Two</p>
-               
-               <img src="http://placekitten.com/200/100">
-           </div> 
-       </div>
-        
-        <div class="tab">
-           <input type="radio" id="tab-3" name="tab-group-1">
-           <label for="tab-3">Tab Three</label>
-         
-           <div class="content">
-               <p>Stuff for Tab Three</p>
-               
-               <img src="http://placedog.com/200/100">
-           </div> 
-       </div>
-        
-    </div>
-
-</div> -->
-
-
-
-
-
-
   <div class="list-group">
-
-
-    <!-- <ul class="tabrow">
-      <li type="radio" name="sortOpt" ng-click="sort='project.teamName'" class="ratingCol selected" >
-        Project
-      </li>
-      <li type="radio" name="sortOpt" ng-click="sort='-posterRating'" class="ratingCol" >
-        Poster
-      </li>
-      <li type="radio" name="sortOpt" ng-click="sort='-presentationRating'" class="ratingCol" >
-        Presentation
-      </li>
-      <li type="radio" name="sortOpt" ng-click="sort='-demoRating'" class="ratingCol" >
-        Demo
-      </li>
-      <li type="radio" name="sortOpt" ng-click="sort='user.username'" class="ratingCol" >
-        User
-      </li>
-      <li type="radio" name="sortOpt" ng-click="sort='user.roles'" class="ratingCol" >
-        Role
-      </li>
-    </ul> -->
 
     <!-- <button type="radio" name="sortOpt" ng-click="sort='project.teamName'" class="" checked="checked">
       Project
@@ -171,7 +97,7 @@
       Role
     </button> -->
 
-    <a ng-repeat="rating in ratings | orderBy: sort"  ui-sref="rating.project({project.teamName})" class="list-group-item">
+    <a ng-repeat="rating in ratings | orderBy: sort"  ui-sref="rating.project({project:teamName})" class="list-group-item">
     <div style="display: inline-block;">
       <div class="ratingCol" style="display: inline-block; margin-right: 20px; vertical-align: middle;" >
       <!-- TEAM -->
