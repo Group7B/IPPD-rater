@@ -1,7 +1,7 @@
 'use strict';
 
-angular.module('users.admin').controller('UserController', ['$scope', '$state', 'Authentication', 'userResolve',
-  function ($scope, $state, Authentication, userResolve) {
+angular.module('users.admin').controller('UserController', ['$scope', '$state', 'Authentication', 'userResolve', 'Users',
+  function ($scope, $state, Authentication, userResolve, Users) {
     $scope.authentication = Authentication;
     $scope.user = userResolve;
 
@@ -35,6 +35,25 @@ angular.module('users.admin').controller('UserController', ['$scope', '$state', 
       }, function (errorResponse) {
         $scope.error = errorResponse.data.message;
       });
+    };
+
+    $scope.deleteAllUsers = function() {
+      //warning message
+      if(confirm("Do you want to delete all users (with the exception of admins) from the database?")) {
+        Users.query(function (data) {
+          $scope.users = data;
+        });
+        var i;
+        for (i = 0; i < $scope.users.length; i++) {
+          $scope.isAdmin = ($scope.users[i].roles.indexOf("admin") > -1) ? true : false;
+          if (!$scope.isAdmin) {
+            console.log($scope.users[i]);
+            $scope.users[i].$remove();  //delete non-admin user
+            $scope.users.splice($scope.users.indexOf($scope.users[i]), 1);
+          }
+        }
+        $scope.success = 'All users (save for admins) successfully deleted.';
+      }
     };
   }
 ]);

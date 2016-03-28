@@ -27,6 +27,18 @@
     <button ng-click="deleteAllProjects()">Delete All Projects</button>
   </div>
 
+  <hr>
+
+  <div class ="row">
+    <h3> Delete All Users </h3>
+    <p>Deletes all non-admin users. To delete admin users, go to their respective pages to delete them manually.</p>
+    <div ng-show="success" class="text-success">
+      <strong ng-bind="success"></strong>
+      <br>
+    </div>
+    <button ng-click="deleteAllUsers()">Delete All Users</button>
+  </div>
+
 
 
 
