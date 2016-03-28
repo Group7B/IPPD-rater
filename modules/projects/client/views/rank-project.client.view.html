@@ -25,25 +25,19 @@
 
           <div ng-show="sortType === 'posterRating'">
             <text>Rank:</text>
-            <select ng-model="rating.posterRank" ng-change="updateRank(rating)">
-              <option value="1">1</option>
-              <option value="2">2</option>
+            <select ng-model="rating.posterRank" ng-change="updateRank(rating)" ng-options="n for n in rankRange(1,ratings.length)">
             </select>
           </div>
 
           <div ng-show="sortType === 'presentationRating'">
             <text>Rank:</text>
-            <select ng-model="rating.presentationRank" ng-change="updateRank(rating)">
-              <option value="1">1</option>
-              <option value="2">2</option>
+            <select ng-model="rating.presentationRank" ng-change="updateRank(rating)" ng-options="n for n in rankRange(1,ratings.length)">
             </select>
           </div>
 
           <div ng-show="sortType === 'demoRating'">
             <text>Rank:</text>
-            <select ng-model="rating.demoRank" ng-change="updateRank(rating)">
-              <option value="1">1</option>
-              <option value="2">2</option>
+            <select ng-model="rating.demoRank" ng-change="updateRank(rating)" ng-options="n for n in rankRange(1,ratings.length)">
             </select>
           </div>
 

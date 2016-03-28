@@ -153,5 +153,13 @@ angular.module('ratings').controller('RatingsController', ['$scope', '$filter', 
         $scope.error = err;
       });
     };
+
+    $scope.rankRange = function(start, end) {
+      var result = [];
+      for (var i = start; i <= end; ++i) {
+        result.push(i);
+      }
+      return result;
+    };
   }
 ]);
