@@ -1,13 +1,18 @@
 <section ng-controller="RatingsController" ng-init="find()">
   <div class="page-header">
-    <h1>Project Ranking</h1>
-   <label>Search Project: <input ng-model="searchText"></label>
-  <input type="submit">
+    <h1>Final Ranking</h1>
+    <button ui-sref="projects.list" class="buttonHover allButton accentColor"> Back to Projects </button>
   </div>
-  <div class="list-group">
-    <button class="btn btn-primary btn-sm" ng-click="sortType = 'posterRating'; sortType2 = '-posterRank'"> Poster </button>
-    <button class="btn btn-primary btn-sm" ng-click="sortType = 'presentationRating'; sortType2 = '-presentationRank'"> Presentation </button>
-    <button class="btn btn-primary btn-sm" ng-click="sortType = 'demoRating'; sortType2 = '-demoRank'"> Demo </button>
+  
+  <div>
+    <button ui-sref="projects.list" class="buttonHover allButton accentColor fullWidth"> Submit Rankings </button>
+  </div>
+
+  <div class="list-group headerFont">
+    <span>Sort by : &nbsp;</span>
+    <button class="filterButton" ng-click="sortType = 'posterRating'; sortType2 = '-posterRank'"> Poster </button>
+    <button class="filterButton" ng-click="sortType = 'presentationRating'; sortType2 = '-presentationRank'"> Presentation </button>
+    <button class="filterButton" ng-click="sortType = 'demoRating'; sortType2 = '-demoRank'"> Demo </button>
     <div ng-repeat="rating in ratings | filter: {$: authentication.user._id} : true | orderBy:[sortType,sortType2]:sortReverse" class="list-group-item" >
       <div class="row">
 
@@ -25,19 +30,19 @@
 
           <div ng-show="sortType === 'posterRating'">
             <text>Rank:</text>
-            <select ng-model="rating.posterRank" ng-change="updateRank(rating)" ng-options="n for n in rankRange(1,ratings.length)">
+            <select class="accentColor" style="color : white" ng-model="rating.posterRank" ng-change="updateRank(rating)" ng-options="n for n in rankRange(1,ratings.length)">
             </select>
           </div>
 
           <div ng-show="sortType === 'presentationRating'">
             <text>Rank:</text>
-            <select ng-model="rating.presentationRank" ng-change="updateRank(rating)" ng-options="n for n in rankRange(1,ratings.length)">
+            <select class="accentColor" style="color : white" ng-model="rating.presentationRank" ng-change="updateRank(rating)" ng-options="n for n in rankRange(1,ratings.length)">
             </select>
           </div>
 
           <div ng-show="sortType === 'demoRating'">
             <text>Rank:</text>
-            <select ng-model="rating.demoRank" ng-change="updateRank(rating)" ng-options="n for n in rankRange(1,ratings.length)">
+            <select class="accentColor" style="color : white" ng-model="rating.demoRank" ng-change="updateRank(rating)" ng-options="n for n in rankRange(1,ratings.length)">
             </select>
           </div>
 
@@ -71,11 +76,6 @@
       </div>
       <button ui-sref="projects.rate({projectId: rating.project._id})" class="btn btn-md"> Change Ratings</button>
     </div>
-
-    <div class="form-group">
-      <button ui-sref="projects.list()" class="btn btn-primary btn-lg btn-block"> Go to Projects </button>
-    </div>
-
   </div>
   <div class="alert alert-warning text-center" ng-if="projects.$resolved && !projects.length">
     No projects yet, why don't you <a ui-sref="projects.create">create one</a>?

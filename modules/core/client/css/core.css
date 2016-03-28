@@ -224,6 +224,33 @@ a:hover .header-profile-image {
   outline: 0 !important;
 }
 
+.smallButton {
+  font-size: 1rem;
+  line-height: 20px;
+}
+
+.filterButton {
+    -webkit-appearance:none;
+    -moz-appearance:none;
+     -webkit-transition: all 200ms linear;
+    -moz-transition: all 200ms linear;
+    -o-transition: all 200ms linear;
+    -ms-transition: all 200ms linear;
+    transition: all 200ms linear;
+    border: none;
+    color: black;
+    border-radius: 4px;
+    margin-bottom: 15px;
+    display: inline-block;
+    text-align: center;
+    margin-right: 20px;
+  }
+  .filterButton:focus {
+    background-color: #005596;
+    color: white;
+    outline: 0 !important;
+  }
+
 .destructiveButton {
   background-color: #ff0007;
 }
@@ -287,6 +314,10 @@ a:hover .header-profile-image {
   -o-transition: all 200ms linear;
   -ms-transition: all 200ms linear;
   transition: all 200ms linear;
+}
+
+.fullWidth {
+  width: 100%;
 }
 
 .buttonHover:hover {
