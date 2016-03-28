@@ -92,7 +92,7 @@ angular.module('ratings').controller('RatingsController', ['$scope', '$filter', 
     };
 
     $scope.findRatingByProjectAndUser = function () {
-      $scope.isJudge = (Authentication.user.roles.indexOf("judge") > -1) ? true : false;
+      $scope.isJudge = (Authentication.user.roles.indexOf('judge') > -1) ? true : false;
 
       $scope.thisRating = {};
       Ratings.query(function (data) {
@@ -133,7 +133,7 @@ angular.module('ratings').controller('RatingsController', ['$scope', '$filter', 
 
     $scope.deleteAllRatings = function() {
       //warning message
-      if(confirm("Do you want to delete all ratings from the database?")) {
+      if(confirm('Do you want to delete all ratings from the database?')) {
         $scope.thisRating = {};
         Ratings.query(function (data) {
           $scope.ratings = data;
@@ -142,7 +142,7 @@ angular.module('ratings').controller('RatingsController', ['$scope', '$filter', 
         for (i = 0; i < $scope.ratings.length; i++) {
           $scope.ratings[i].$remove();  //delete all ratings
         }
-        console.log("Number of ratings: %d", $scope.ratings.length);
+        console.log('Number of ratings: %d', $scope.ratings.length);
         $scope.ratings.splice(0, $scope.ratings.length);
         $scope.success = 'All ratings successfully deleted.';
       }

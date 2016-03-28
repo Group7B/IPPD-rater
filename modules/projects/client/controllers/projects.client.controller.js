@@ -139,7 +139,7 @@ angular.module('projects').controller('ProjectController', ['$scope', '$filter',
 
     $scope.deleteAllProjects = function() {
       //warning message
-      if(confirm("Do you want to delete all projects from the database?")) {
+      if(confirm('Do you want to delete all projects from the database?')) {
         $scope.thisProject = {};
         Projects.query(function (data) {
           $scope.projects = data;
