@@ -1,7 +1,7 @@
 'use strict';
 
-angular.module('projects').controller('ProjectController', ['$scope', '$filter', '$stateParams', '$location', 'Authentication', 'Projects',
-  function ($scope, $filter, $stateParams, $location, Authentication, Projects) {
+angular.module('projects').controller('ProjectController', ['$scope', '$filter', '$stateParams', '$location', 'Authentication', 'Projects', 'sharedLogoUrl',
+  function ($scope, $filter, $stateParams, $location, Authentication, Projects, sharedLogoUrl) {
     $scope.authentication = Authentication;
 
     $scope.create = function (isValid) {
@@ -16,13 +16,15 @@ angular.module('projects').controller('ProjectController', ['$scope', '$filter',
       var project = new Projects({
         teamName: this.name,
         description: this.description,
-        logo: this.logo
+        logo: $scope.buildLogoName(this.name)
       });
 
+      sharedLogoUrl.setProperty($scope.buildLogoName(this.name));
+      $scope.$broadcast('projectCreated');
 
       // Redirect after save
       project.$save(function (response) {
-        console.log ('Adding ' + project.teamName + ', ' + project.description);
+        console.log('Adding ' + project.teamName + ', ' + project.description);
         $location.path('admin/projects/listadmin');
 
         // Clear form fields
@@ -32,6 +34,13 @@ angular.module('projects').controller('ProjectController', ['$scope', '$filter',
       }, function (errorResponse) {
         $scope.error = errorResponse.data.message;
       });
+    };
+
+    $scope.buildLogoName = function (name) {
+      name = name.replace(/\s+/g, '');
+      name += '.jpg';
+
+      return name;
     };
 
     // Remove existing project
@@ -63,7 +72,7 @@ angular.module('projects').controller('ProjectController', ['$scope', '$filter',
       var project = $scope.project;
       if ($scope.teamName) project.teamName = $scope.teamName;
       if ($scope.description) project.description = $scope.description;
-      if ($scope.logo) project.logo = $scope.logo;
+      $scope.$broadcast('projectCreated');
       console.log('The project is ' + project.teamName);
 
       project.$update(function () {
@@ -106,7 +115,43 @@ angular.module('projects').controller('ProjectController', ['$scope', '$filter',
     $scope.findOne = function () {
       $scope.project = Projects.get({
         projectId: $stateParams.projectId
+      }, function () {
+        sharedLogoUrl.setProperty($scope.project.logo);
+      });
+      var projectId = $stateParams.projectId;
+    };
+    // find existing project by passed in value
+    $scope.findById = function (projectId) {
+      $scope.project = Projects.get({
+        projectId: projectId
       });
     };
+
+    $scope.userIsAdmin = function () {
+      var roles = $scope.authentication.user.roles;
+      for (var i = 0; i < roles.length; ++i) {
+        if (roles[i] === 'admin') {
+          return true;
+        }
+      }
+      return false;
+    };
+
+    $scope.deleteAllProjects = function() {
+      //warning message
+      if(confirm("Do you want to delete all projects from the database?")) {
+        $scope.thisProject = {};
+        Projects.query(function (data) {
+          $scope.projects = data;
+        });
+        var i;
+        for (i = 0; i < $scope.projects.length; i++) {
+          $scope.projects[i].$remove();  //delete all ratings
+        }
+        $scope.projects.splice(0, $scope.projects.length);
+        $scope.success = 'All projects successfully deleted.';
+      }
+    };
+
   }
 ]);

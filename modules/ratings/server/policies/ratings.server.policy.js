@@ -31,6 +31,15 @@ exports.invokeRolesPolicies = function () {
       permissions: []
     }]
   }, {
+    roles: ['judge'],
+    allows: [{
+      resources: '/api/ratings',
+      permissions: ['get', 'post']
+    }, {
+      resources: '/api/ratings/:ratingId',
+      permissions: ['get']
+    }]
+  }, {
     roles: ['guest'],
     allows: [{
       resources: '/api/ratings',

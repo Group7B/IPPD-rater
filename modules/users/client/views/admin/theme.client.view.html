@@ -1,0 +1,63 @@
+<section class="headerFont">
+  <div class="page-header">
+    <div class="row">
+      <div class="col-md-4">
+        <h1>Theme Options</h1>
+      </div>
+    </div>
+  </div>
+
+  <div class="uploadLogo row" ng-init="initUploader(false)">
+    <h3> Logo Upload </h3>
+    
+    <center>
+      <input type="file" nv-file-select uploader="uploader"/>
+    </center>
+    
+    <br>
+
+    <center>
+      <button class="buttonHover allButton accentColor" type="button" ng-click="uploader.uploadAll()" ng-disabled="!uploader.getNotUploadedItems().length" disabled="disabled">
+        Upload File
+      </button>
+
+      <button class="buttonHover allButton accentColor" type="button" ng-click="uploader.clearQueue()" ng-disabled="!uploader.queue.length">
+        Remove File
+      </button>
+    </center>
+  </div>
+  
+  <hr>
+
+  <div class="row" ng-controller="ThemeController">
+    <h3>Theme Colors</h3>
+    
+    <div class="row">
+      <div class="col-md-4">
+        Background: <input class="formField" colorpicker type="text" placeholder="{{theme.backgroundColor}}" ng-model="backgroundColor" />
+      </div>
+
+      <div class="col-md-4">
+        Accent: <input class="formField" colorpicker type="text" placeholder="{{theme.accentColor}}" ng-model="accentColor" />
+      </div>
+      
+      <div class="col-md-4">
+        Text: <input class="formField" colorpicker type="text" placeholder="{{theme.textColor}}" ng-model="textColor" />
+      </div>
+    </div>
+    
+    <br>
+    
+    <div class="row">
+      <center>
+        <button class="buttonHover allButton accentColor" type="button" ng-click="updateStoredColors()" ng-disabled="!(backgroundColor || accentColor || textColor)">
+          Save Colors
+        </button>
+        
+        <button class="buttonHover allButton accentColor" type="button" ng-click="clearFields()" ng-disabled="!(backgroundColor || accentColor || textColor)">
+          Clear Fields
+        </button>
+      </center>
+    </div>
+  </div>
+</section>
