@@ -228,7 +228,6 @@ describe('Rating CRUD tests', function () {
                 if (ratingUpdateErr) {
                   return done(ratingUpdateErr);
                 }
-                console.log(ratingUpdateRes.body);
                 // Set assertions
                 (ratingUpdateRes.body._id).should.equal(ratingSaveRes.body._id);
                 (ratingUpdateRes.body.user).should.equal(userId);
