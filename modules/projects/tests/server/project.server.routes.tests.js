@@ -213,7 +213,7 @@ describe('Project CRUD tests', function () {
               .expect(400)
               .end(function (projectSaveErr, projectSaveRes) {
                 // Set message assertion
-                (projectSaveRes.body.message).should.match('TeamName already exists');
+                (projectSaveRes.body.message).should.match('11000 duplicate key error collection: 27017.projects index: teamName already exists');
                 // Handle project save error
                 done(projectSaveErr);
               });
