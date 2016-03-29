@@ -28,7 +28,7 @@ exports.invokeRolesPolicies = function () {
       permissions: ['get', 'post']
     }, {
       resources: '/api/ratings/:ratingId',
-      permissions: []
+      permissions: ['put', 'delete']
     }]
   }, {
     roles: ['judge'],
@@ -60,7 +60,7 @@ exports.isAllowed = function (req, res, next) {
   //console.log(req.rating + ' ' + req.user + ' ' + req.rating.user);
 
   // If an rating is being processed and the current user created it then allow any manipulation
-  if (req.rating && req.user && req.rating.user === req.user.id) {
+  if (req.rating && req.user && req.rating.user === req.user) {
     return next();
   }
 

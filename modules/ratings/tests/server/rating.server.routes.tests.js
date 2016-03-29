@@ -12,7 +12,7 @@ var should = require('should'),
 /**
  * Globals
  */
-var app, agent, credentials, user, rating, project;
+var app, agent, credentials, judgeCredentials, user, judge, rating, project;
 
 /**
  * Rating routes tests
@@ -32,6 +32,11 @@ describe('Rating CRUD tests', function () {
     credentials = {
       username: 'username',
       password: 'M3@n.jsI$Aw3$0m3'
+    };
+
+    judgeCredentials = {
+      username: 'imJudgingYou',
+      password: 'I\'mJudgingYou'
     };
 
     // Create a project to rate
@@ -66,7 +71,28 @@ describe('Rating CRUD tests', function () {
         presentationRating: 3,
         demoRating: 4
       });
+    });
 
+    judge = new User({
+      firstName: 'Judge',
+      lastName: 'Judy',
+      displayName: 'Judge Judy',
+      email: 'Judge@Judy.com',
+      username: judgeCredentials.username,
+      password: judgeCredentials.password,
+      provider: 'local',
+      isJudge: true
+    });
+
+    judge.save(function () {
+      rating = new Rating({
+        isJudge: true,
+        project: project,
+        user: user,
+        posterRating: 5,
+        presentationRating: 3,
+        demoRating: 4
+      });
       done();
     });
   });
@@ -107,9 +133,9 @@ describe('Rating CRUD tests', function () {
                 var ratings = ratingsGetRes.body;
 
                 // Set assertions
-                (ratings[0].user).should.equal(userId);
+                (ratings[0].user._id).should.equal(userId);
                 (ratings[0].isJudge).should.equal(false);
-                (ratings[0].project).should.equal(project.id);
+                (ratings[0].project._id).should.equal(project.id);
                 (ratings[0].posterRating).should.equal(5);
                 (ratings[0].presentationRating).should.equal(3);
                 (ratings[0].demoRating).should.equal(4);
@@ -146,12 +172,16 @@ describe('Rating CRUD tests', function () {
 
         // Get the userId
         var userId = user.id;
+        rating.project = null;
 
         // Save a new rating
         agent.post('/api/ratings')
           .send(rating)
           .expect(400)
           .end(function (ratingSaveErr, ratingSaveRes) {
+            if (ratingSaveErr) {
+              return done(ratingSaveErr);
+            }
             // Set message assertion
             (ratingSaveRes.body.message).should.match('All ratings must relate to a project');
             // Handle rating save error
@@ -191,16 +221,19 @@ describe('Rating CRUD tests', function () {
 
             // Update an existing rating
             agent.put('/api/ratings/' + ratingSaveRes.body._id)
-              .send(user)
+              .send(rating)
               .expect(200)
               .end(function (ratingUpdateErr, ratingUpdateRes) {
                 // Handle rating update error
                 if (ratingUpdateErr) {
                   return done(ratingUpdateErr);
                 }
-
+                console.log(ratingUpdateRes.body);
                 // Set assertions
                 (ratingUpdateRes.body._id).should.equal(ratingSaveRes.body._id);
+                (ratingUpdateRes.body.user).should.equal(userId);
+                (ratingUpdateRes.body.isJudge).should.equal(false);
+                (ratingUpdateRes.body.project).should.equal(project.id);
                 (ratingUpdateRes.body.posterRating).should.equal(1);
                 (ratingUpdateRes.body.presentationRating).should.equal(1);
                 (ratingUpdateRes.body.demoRating).should.equal(2);
