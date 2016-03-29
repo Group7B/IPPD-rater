@@ -99,7 +99,7 @@ describe('User CRUD tests', function () {
 
             // NodeJS v4 changed the status code representation so we must check
             // before asserting, to be comptabile with all node versions.
-            if (process.version.indexOf('v4') === 0) {
+            if (process.version.indexOf('v4') === 0 | process.version.indexOf('v5') === 0) {
               signoutRes.text.should.equal('Found. Redirecting to /');
             } else {
               signoutRes.text.should.equal('Moved Temporarily. Redirecting to /');
@@ -742,7 +742,7 @@ describe('User CRUD tests', function () {
               }
 
               // Call the assertion callback
-              userInfoRes.body.message.should.equal('Username already exists');
+              userInfoRes.body.message.should.equal('11000 duplicate key error collection: 27017.users index: username already exists');
 
               return done();
             });
@@ -794,7 +794,7 @@ describe('User CRUD tests', function () {
               }
 
               // Call the assertion callback
-              userInfoRes.body.message.should.equal('Email already exists');
+              userInfoRes.body.message.should.equal('11000 duplicate key error collection: 27017.users index: email already exists');
 
               return done();
             });
