@@ -63,8 +63,6 @@ exports.exportRatings = function (req, res) {
       if (err) {
         res.status(500).send("Something went wrong");
       } else if (data.length) {
-        console.log('Data:');
-        console.log(data);
         json2csv({
           data: data,
           fields: fields
