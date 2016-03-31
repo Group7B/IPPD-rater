@@ -11,7 +11,7 @@
     <div class="row">
       <div class="col-md-4">
         <h1>Projects</h1>
-        <button class="buttonHover allButton accentColor" ui-sref="projects.rank">Submit Rankings</button>
+        <button class="buttonHover allButton accentColor" ui-sref="projects.rank" ng-show="authentication.user.roles.indexOf('judge') > -1">Submit Rankings</button>
       </div>
       <div class="col-md-4" style="margin-top: 2em">
         <input class="formField" type="text" ng-model="searchText" placeholder="Search" />
