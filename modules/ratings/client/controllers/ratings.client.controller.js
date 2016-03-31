@@ -23,7 +23,6 @@ angular.module('ratings').controller('RatingsController', ['$scope', '$filter', 
         isJudge: $scope.isJudge
       });
 
-      // Find newly saved rating after save
       rating.$save(function (response) {
         $location.path('projects');
       }, function (errorResponse) {
@@ -112,6 +111,21 @@ angular.module('ratings').controller('RatingsController', ['$scope', '$filter', 
         } else {
           $scope.rated = false;
         }
+      });
+    };
+    
+    $scope.getRatingsByUser = function (user) {
+      var ratedBy = {};
+      Ratings.query(function (data) {
+        var ratings = data;
+        ratedBy = $filter('filter')(
+          ratings, {
+            user: {
+              _id: Authentication.user._id
+            }
+          });
+        
+        return ratedBy;
       });
     };
 
