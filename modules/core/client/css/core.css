@@ -28,7 +28,7 @@ td {
   /*font-family: 'Open Sans',Helvetica,Arial,sans-serif;*/
   font-size: 20px;
   text-align: center;
-  padding: 5px;
+  padding-top: 5px;
   border-bottom: none;
   font-family: 'Quicksand', sans-serif;
   font-weight: bold;
@@ -351,7 +351,7 @@ a:hover .header-profile-image {
   /*float: center;*/
   height: 45px;
   /*padding: 0 2px;*/
-  padding-bottom: 5px;
+  /*padding-bottom: 5px;*/
 }
 
 .rate:not(:checked) > input {
@@ -389,6 +389,107 @@ a:hover .header-profile-image {
 .rate > label:hover ~ input:checked ~ label {
   color: #FA9E42;
 }
+
+/*.sub_form {
+  padding: 5px;
+}*/
+
+.clear_star_ratings {
+  margin-top: 15px;
+  margin-bottom: 0;
+  -webkit-appearance:none;
+  -moz-appearance:none;
+  background:none;
+  border:none;
+  margin:0;
+  padding:0;
+  padding-top: 10px;
+  font-size: 15px;
+  color: #DBDCDE;
+  outline: 0;
+  outline-color: none;
+  display: block;
+  text-align: center;
+  /*content: 'clear';*/
+  /*visibility: hidden;*/
+
+}
+
+
+.clear_star_ratings:not(:checked) > input {
+  position: absolute;
+  font-size: 50px;
+  float: center;
+  visibility: hidden;
+  /*text-align: center;*/
+}
+
+.clear_star_ratings:not(:checked) > label {
+  /*float: left;*/
+  width: 4em;
+  text-align: center;
+  /*overflow: hidden;*/
+  /*white-space: nowrap;*/
+ /* cursor: pointer;
+  font-size: 45px;
+  color: #DBDCDE;*/
+  /*margin-top: 15px;
+  margin-bottom: 0;
+  -webkit-appearance:none;
+  -moz-appearance:none;
+  background:none;
+  border:none;
+  margin:0;
+  padding:0;
+  padding-top: 10px;
+  font-size: 15px;
+  color: #DBDCDE;
+  outline: 0;
+  outline-color: none;
+  display: block;
+  text-align: center;*/
+}
+
+.clear_star_ratings:not(:checked) > label:before {
+  content: 'clear';
+}
+
+.clear_star_ratings > input:checked ~ label {
+  color: #DBDCDE;
+}
+
+label[for="star-null"] {
+  display: block;
+  margin: 0 auto;
+  color: #DBDCDE;
+}
+
+/*.clear_star_ratings:not(:checked) > label:hover,
+.clear_star_ratings:not(:checked) > label:hover ~ label {
+  color: #FA9E42;
+}*/
+
+/*.clear_star_ratings > input:checked + label:hover,
+.clear_star_ratings > input:checked + label:hover ~ label,
+.clear_star_ratings > input:checked ~ label:hover,
+.clear_star_ratings > input:checked ~ label:hover ~ label,
+.clear_star_ratings > label:hover ~ input:checked ~ label {
+  color: #FA9E42;
+}*/
+
+input[type="reset"] {
+  -webkit-appearance:none;
+  -moz-appearance:none;
+  background:none;
+  border:none;
+  margin:0;
+  padding:0;
+  font-size: 15px;
+  color: #DBDCDE;
+  outline: 0;
+  outline-color: none;
+}
+
 
 #back-button {
   position: absolute;
