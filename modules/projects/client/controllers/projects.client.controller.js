@@ -3,6 +3,7 @@
 angular.module('projects').controller('ProjectController', ['$scope', '$filter', '$stateParams', '$location', 'Authentication', 'Projects', 'Ratings', 'sharedLogoUrl',
   function ($scope, $filter, $stateParams, $location, Authentication, Projects, Ratings, sharedLogoUrl) {
     $scope.authentication = Authentication;
+    $scope.projectFilter = 'all';
 
     $scope.create = function (isValid) {
       $scope.error = null;
@@ -161,9 +162,16 @@ angular.module('projects').controller('ProjectController', ['$scope', '$filter',
       for(var i = 0; i < $scope.ratings.length; i++)
       {
         if(project._id === $scope.ratings[i].project._id && $scope.authentication.user._id === $scope.ratings[i].user._id)
-          return true;
+          return 'Rated';
       }
-      return false;
+      return 'Unrated';
+    };
+
+    $scope.testFilter = function(projectFilter){
+      if($scope.projectFilter === projectFilter)
+        $scope.projectFilter = 'all';
+      else
+        $scope.projectFilter = projectFilter;
     };
 
 

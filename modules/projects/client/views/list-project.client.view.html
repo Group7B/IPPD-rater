@@ -18,8 +18,10 @@
       </div>
     </div>
   </div>
+   <button class="filterButton" ng-click="testFilter('Rated')" > Rated </button>
+    <button class="filterButton" ng-click="testFilter('Unrated')"> Unrated </button>
   <div class="list-group">
-    <a ng-repeat="project in projects | filter:searchText" ui-sref="projects.rate({projectId: project._id})" class="list-group-item">
+    <a ng-repeat="project in projects | filter:searchText" ui-sref="projects.rate({projectId: project._id})" class="list-group-item "ng-show="projectFilter === 'all' || projectFilter === hasRated(project)">
       <div class="row">
         <div class="col-sm-2">
           <div class="post-thumb"><img class="logo-icon" ng-if="project.logo" ng-src='modules/projects/client/img/logos/{{project.logo}}' alt="No img"></div>
@@ -27,8 +29,8 @@
         </div>
         <div class="col-sm-10">
 
-          <div class="list-group-item-text" style="float:right; color: green;" ng-show="hasRated(project)"> <text> Rated! </text> </div>
-           <div class="list-group-item-text" style="float:right; color: red;" ng-show="!hasRated(project)"> <text> Unrated! </text> </div>
+          <div class="list-group-item-text" style="float:right; color: green;" ng-show="hasRated(project) === 'Rated'"> <text> Rated! </text> </div>
+           <div class="list-group-item-text" style="float:right; color: red;" ng-show="hasRated(project) === 'Unrated'"> <text> Unrated! </text> </div>
                  
           <p class="list-group-item-heading" ng-bind="project.teamName"></p>
           <br>
