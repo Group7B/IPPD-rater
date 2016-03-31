@@ -142,16 +142,16 @@ angular.module('projects').controller('ProjectController', ['$scope', '$filter',
       return false;
     };
 
-    $scope.deleteAllProjects = function() {
+    $scope.deleteAllProjects = function () {
       //warning message
-      if(confirm("Do you want to delete all projects from the database?")) {
+      if (confirm("Do you want to delete all projects from the database?")) {
         $scope.thisProject = {};
         Projects.query(function (data) {
           $scope.projects = data;
         });
         var i;
         for (i = 0; i < $scope.projects.length; i++) {
-          $scope.projects[i].$remove();  //delete all ratings
+          $scope.projects[i].$remove(); //delete all ratings
         }
         $scope.projects.splice(0, $scope.projects.length);
         $scope.success = 'All projects successfully deleted.';
@@ -159,16 +159,27 @@ angular.module('projects').controller('ProjectController', ['$scope', '$filter',
     };
 
     $scope.hasRated = function (project) {
-      for(var i = 0; i < $scope.ratings.length; i++)
-      {
-        if(project._id === $scope.ratings[i].project._id && $scope.authentication.user._id === $scope.ratings[i].user._id)
-          return 'Rated';
+      var filtered = $filter('filter')(
+        $scope.ratings, {
+          project: {
+            _id: project._id
+          },
+          user: {
+            _id: $scope.authentication.user._id
+          }
+        });
+      if (filtered.length > 0) {
+        var index = $scope.projects.indexOf(project);
+        $scope.projects.splice(index, 1);
+        $scope.projects.push(project);
+        return 'Rated';
+      } else {
+        return 'Unrated';
       }
-      return 'Unrated';
     };
 
-    $scope.testFilter = function(projectFilter){
-      if($scope.projectFilter === projectFilter)
+    $scope.testFilter = function (projectFilter) {
+      if ($scope.projectFilter === projectFilter)
         $scope.projectFilter = 'all';
       else
         $scope.projectFilter = projectFilter;

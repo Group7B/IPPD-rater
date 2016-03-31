@@ -51,14 +51,6 @@ label {
   display: inline;
 }
 
-.header-profile-image {
-  opacity: 0.8;
-  height: 28px;
-  width: 28px;
-  border-radius: 50%;
-  margin-right: 5px;
-}
-
 .img-center {
   margin: auto;
 }
@@ -119,10 +111,6 @@ a:hover .header-profile-image {
 
 .signOutButton {
   color: #e60000;
-}
-
-.page-header {
-  font-family: 'Quicksand', sans-serif;
 }
 
 .bg {
