@@ -1,7 +1,7 @@
 'use strict';
 
-angular.module('projects').controller('ProjectController', ['$scope', '$filter', '$stateParams', '$location', 'Authentication', 'Projects', 'sharedLogoUrl',
-  function ($scope, $filter, $stateParams, $location, Authentication, Projects, sharedLogoUrl) {
+angular.module('projects').controller('ProjectController', ['$scope', '$filter', '$stateParams', '$location', 'Authentication', 'Projects', 'Ratings', 'sharedLogoUrl',
+  function ($scope, $filter, $stateParams, $location, Authentication, Projects, Ratings, sharedLogoUrl) {
     $scope.authentication = Authentication;
 
     $scope.create = function (isValid) {
@@ -88,6 +88,10 @@ angular.module('projects').controller('ProjectController', ['$scope', '$filter',
         $scope.projects = data;
         $scope.buildPager();
       });
+      $scope.ratings = {};
+      Ratings.query(function (data) {
+        $scope.ratings = data;
+      });
     };
 
     $scope.buildPager = function () {
@@ -152,6 +156,16 @@ angular.module('projects').controller('ProjectController', ['$scope', '$filter',
         $scope.success = 'All projects successfully deleted.';
       }
     };
+
+    $scope.hasRated = function (project) {
+      for(var i = 0; i < $scope.ratings.length; i++)
+      {
+        if(project._id === $scope.ratings[i].project._id && $scope.authentication.user._id === $scope.ratings[i].user._id)
+          return true;
+      }
+      return false;
+    };
+
 
   }
 ]);
