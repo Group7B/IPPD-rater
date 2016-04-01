@@ -7,29 +7,38 @@
     <a class="signOutButton" href="/api/auth/signout" target="_self">Signout</a>
   </div>
 
-  <div class="page-header">
+  <div class="page-header headerFont">
     <div class="row">
       <div class="col-md-4">
         <h1>Projects</h1>
+        <button class="buttonHover allButton accentColor" ui-sref="projects.rank" ng-show="authentication.user.roles.indexOf('judge') > -1">Submit Rankings</button>
       </div>
       <div class="col-md-4" style="margin-top: 2em">
         <input class="formField" type="text" ng-model="searchText" placeholder="Search" />
       </div>
     </div>
   </div>
-  <div class="list-group">
-    <a ng-repeat="project in projects | filter:searchText" ui-sref="projects.rate({projectId: project._id})" class="list-group-item">
+  Sort by: &nbsp;
+  <button class="filterButton" ng-click="testFilter('Rated')"> Rated </button>
+  <button class="filterButton" ng-click="testFilter('Unrated')"> Unrated </button>
+  <div class="list-group contentFont">
+    <a ng-repeat="project in projects | filter:searchText" ui-sref="projects.rate({projectId: project._id})" class="list-group-item " ng-show="projectFilter === 'all' || projectFilter === hasRated(project)">
       <div class="row">
         <div class="col-sm-2">
           <div class="post-thumb"><img class="logo-icon" ng-if="project.logo" ng-src='modules/projects/client/img/logos/{{project.logo}}' alt="No img"></div>
           <div class="post-thumb"><img class="logo-icon" ng-if="!project.logo" src='modules/projects/client/img/logos/default.jpg' alt="No img"></div>
         </div>
         <div class="col-sm-10">
-          <p class="list-group-item-heading" ng-bind="project.teamName"></p>
-          <br>
-          <div class="list-group-item-text" ng-bind="project.description"></div>
 
-          <div class="cf"></div>
+          <div class="list-group-item-text headerFont" style="float:right; color: green;" ng-show="hasRated(project) === 'Rated'">
+            <text> Rated! </text>
+          </div>
+          <div class="list-group-item-text headerFont" style="float:right; color: red;" ng-show="hasRated(project) === 'Unrated'">
+            <text> Unrated! </text>
+          </div>
+
+          <h4 class="list-group-item-heading headerFont" ng-bind="project.teamName"></h4>
+          <p class="list-group-item-text contentFont" ng-bind="project.description"></p>
         </div>
       </div>
     </a>

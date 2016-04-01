@@ -6,6 +6,14 @@
       </div>
     </div>
   </div>
+  
+  <div class ="row" ng-controller="DataController">
+    <div ng-show="success" class="text-success">
+      <strong ng-bind="success"></strong>
+      <br>
+    </div>
+    <button class="buttonHover allButton accentColor col-md-4 col-md-offset-4" ng-click="exportRatings()">Export Ratings</button>
+  </div>
 
   <div class ="row" ng-controller="RatingsController" ng-init="find()">
     <div ng-show="success" class="text-success">

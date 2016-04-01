@@ -4,47 +4,48 @@
       <div class="col-md-6">
         <h1 ng-bind="user.username"></h1>
       </div>
-      <div class="col-md-4">
-        <a class="btn btn-primary" ui-sref="admin.user-edit({userId: user._id})">
-          <i class="glyphicon glyphicon-edit"></i>
-        </a>
-        <a class="btn btn-primary" ng-click="remove();" ng-if="user._id !== authentication.user._id">
-          <i class="glyphicon glyphicon-trash"></i>
-        </a>
-      </div>
     </div>
   </div>
 
   <div class="row">
-    <div class="col-md-8">
+    <div class="col-xs-8 col-xs-offset-2">
       <div class="row">
-        <div class="col-md-3"><strong>First Name</strong></div>
-        <div class="col-md-6" ng-bind="user.firstName"></div>
+        <div class="col-md-3 col-md-offset-1"><strong>First Name</strong></div>
+        <div class="col-md-6 col-md-offset-2" ng-bind="user.firstName"></div>
       </div>
       <hr/>
       <div class="row">
-        <div class="col-md-3"><strong>Last Name</strong></div>
-        <div class="col-md-6" ng-bind="user.lastName"></div>
+        <div class="col-md-3 col-md-offset-1"><strong>Last Name</strong></div>
+        <div class="col-md-6 col-md-offset-2" ng-bind="user.lastName"></div>
       </div>
       <hr/>
       <div class="row">
-        <div class="col-md-3"><strong>Email</strong></div>
-        <div class="col-md-6" ng-bind="user.email"></div>
+        <div class="col-md-3 col-md-offset-1"><strong>Email</strong></div>
+        <div class="col-md-6 col-md-offset-2" ng-bind="user.email"></div>
       </div>
       <hr/>
       <div class="row">
-        <div class="col-md-3"><strong>Provider</strong></div>
-        <div class="col-md-6" ng-bind="user.provider"></div>
+        <div class="col-md-3 col-md-offset-1"><strong>Provider</strong></div>
+        <div class="col-md-6 col-md-offset-2" ng-bind="user.provider"></div>
       </div>
       <hr/>
       <div class="row">
-        <div class="col-md-3"><strong>Created</strong></div>
-        <div class="col-md-6" ng-bind="user.created"></div>
+        <div class="col-md-3 col-md-offset-1"><strong>Created</strong></div>
+        <div class="col-md-6 col-md-offset-2" ng-bind="user.created"></div>
       </div>
       <hr/>
       <div class="row">
-        <div class="col-md-3"><strong>Roles</strong></div>
-        <div class="col-md-6" ng-bind="user.roles"></div>
+        <div class="col-md-3 col-md-offset-1"><strong>Roles</strong></div>
+        <div class="col-md-6 col-md-offset-2" ng-bind="user.roles"></div>
+      </div>
+      <hr/>
+      <div class="row">
+        <button class="col-xs-2 col-xs-offset-3 buttonHover allButton accentColor" ui-sref="admin.user-edit({userId: user._id})">
+          Edit
+        </button>
+        <button class="col-xs-2 col-xs-offset-1 buttonHover allButton destructiveButton" ng-click="remove();" ng-if="user._id !== authentication.user._id">
+          Delete
+        </button>
       </div>
     </div>
   </div>

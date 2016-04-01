@@ -23,7 +23,6 @@ angular.module('ratings').controller('RatingsController', ['$scope', '$filter', 
         isJudge: $scope.isJudge
       });
 
-      // Find newly saved rating after save
       rating.$save(function (response) {
         $location.path('projects');
       }, function (errorResponse) {
@@ -97,7 +96,6 @@ angular.module('ratings').controller('RatingsController', ['$scope', '$filter', 
       $scope.thisRating = {};
       Ratings.query(function (data) {
         $scope.ratings = data;
-        console.log($scope.ratings);
         $scope.thisRating = $filter('filter')(
           $scope.ratings, {
             project: {
@@ -107,13 +105,27 @@ angular.module('ratings').controller('RatingsController', ['$scope', '$filter', 
               _id: Authentication.user._id
             }
           });
-        console.log($scope.thisRating);
         if ($scope.thisRating.length > 0) {
           $scope.thisRating = $scope.thisRating[0];
           $scope.rated = true;
         } else {
           $scope.rated = false;
         }
+      });
+    };
+
+    $scope.getRatingsByUser = function (user) {
+      var ratedBy = {};
+      Ratings.query(function (data) {
+        var ratings = data;
+        ratedBy = $filter('filter')(
+          ratings, {
+            user: {
+              _id: Authentication.user._id
+            }
+          });
+
+        return ratedBy;
       });
     };
 
@@ -142,10 +154,23 @@ angular.module('ratings').controller('RatingsController', ['$scope', '$filter', 
         for (i = 0; i < $scope.ratings.length; i++) {
           $scope.ratings[i].$remove();  //delete all ratings
         }
-        console.log('Number of ratings: %d', $scope.ratings.length);
         $scope.ratings.splice(0, $scope.ratings.length);
         $scope.success = 'All ratings successfully deleted.';
       }
+    };
+
+    $scope.updateRank = function(rating) {
+      rating.$update(function (err) {
+        $scope.error = err;
+      });
+    };
+
+    $scope.rankRange = function(start, end) {
+      var result = [];
+      for (var i = start; i <= end; ++i) {
+        result.push(i);
+      }
+      return result;
     };
   }
 ]);

@@ -42,6 +42,18 @@ var RatingSchema = new Schema({
     min: 0,
     max: 5
   },
+  posterRank: {
+    type: Number,
+    default: 255
+  },
+  presentationRank: {
+    type: Number,
+    default: 255
+  },
+  demoRank: {
+    type: Number,
+    default: 255
+  },
   comment: {
     type: String,
     default: ''
