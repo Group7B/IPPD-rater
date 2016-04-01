@@ -190,7 +190,6 @@ describe('Rating CRUD tests', function () {
       });
   });
 
-    // TODO: currently getting a 403 "Forbidden"
   it('should be able to update a rating if signed in', function (done) {
     agent.post('/api/auth/signin')
       .send(credentials)
@@ -230,9 +229,9 @@ describe('Rating CRUD tests', function () {
                 }
                 // Set assertions
                 (ratingUpdateRes.body._id).should.equal(ratingSaveRes.body._id);
-                (ratingUpdateRes.body.user).should.equal(userId);
+                (ratingUpdateRes.body.user._id).should.equal(userId);
                 (ratingUpdateRes.body.isJudge).should.equal(false);
-                (ratingUpdateRes.body.project).should.equal(project.id);
+                (ratingUpdateRes.body.project._id).should.equal(project.id);
                 (ratingUpdateRes.body.posterRating).should.equal(1);
                 (ratingUpdateRes.body.presentationRating).should.equal(1);
                 (ratingUpdateRes.body.demoRating).should.equal(2);
@@ -365,6 +364,437 @@ describe('Rating CRUD tests', function () {
         });
 
     });
+  });
+
+  it('should be able to rank an existing rating', function (done) {
+    agent.post('/api/auth/signin')
+      .send(credentials)
+      .expect(200)
+      .end(function (signinErr, signinRes) {
+        // Handle signin error
+        if (signinErr) {
+          return done(signinErr);
+        }
+
+        // Get the userId
+        var userId = user.id;
+
+        // Save a new rating
+        agent.post('/api/ratings')
+          .send(rating)
+          .expect(200)
+          .end(function (ratingSaveErr, ratingSaveRes) {
+            // Handle rating save error
+            if (ratingSaveErr) {
+              return done(ratingSaveErr);
+            }
+
+            // Rank the rating
+            rating.posterRank = 1;
+            rating.presentationRank = 2;
+            rating.demoRank = 3;
+
+            // Update an existing rating
+            agent.put('/api/ratings/' + ratingSaveRes.body._id)
+              .send(rating)
+              .expect(200)
+              .end(function (ratingUpdateErr, ratingUpdateRes) {
+                // Handle rating update error
+                if (ratingUpdateErr) {
+                  return done(ratingUpdateErr);
+                }
+                // Set assertions
+                (ratingUpdateRes.body._id).should.equal(ratingSaveRes.body._id);
+                (ratingUpdateRes.body.user._id).should.equal(userId);
+                (ratingUpdateRes.body.isJudge).should.equal(false);
+                (ratingUpdateRes.body.project._id).should.equal(project.id);
+                (ratingUpdateRes.body.posterRating).should.equal(5);
+                (ratingUpdateRes.body.presentationRating).should.equal(3);
+                (ratingUpdateRes.body.demoRating).should.equal(4);
+                (ratingUpdateRes.body.posterRank).should.equal(1);
+                (ratingUpdateRes.body.presentationRank).should.equal(2);
+                (ratingUpdateRes.body.demoRank).should.equal(3);
+
+                // Call the assertion callback
+                done();
+              });
+          });
+      });
+  });
+
+  it('should be able to rank only one feature of a rating', function (done) {
+    agent.post('/api/auth/signin')
+      .send(credentials)
+      .expect(200)
+      .end(function (signinErr, signinRes) {
+        // Handle signin error
+        if (signinErr) {
+          return done(signinErr);
+        }
+
+        // Get the userId
+        var userId = user.id;
+
+        // Save a new rating
+        agent.post('/api/ratings')
+          .send(rating)
+          .expect(200)
+          .end(function (ratingSaveErr, ratingSaveRes) {
+            // Handle rating save error
+            if (ratingSaveErr) {
+              return done(ratingSaveErr);
+            }
+
+            // Rank the rating
+            rating.posterRank = 1;
+
+            // Update an existing rating
+            agent.put('/api/ratings/' + ratingSaveRes.body._id)
+              .send(rating)
+              .expect(200)
+              .end(function (ratingUpdateErr, ratingUpdateRes) {
+                // Handle rating update error
+                if (ratingUpdateErr) {
+                  return done(ratingUpdateErr);
+                }
+                // Set assertions
+                (ratingUpdateRes.body._id).should.equal(ratingSaveRes.body._id);
+                (ratingUpdateRes.body.user._id).should.equal(userId);
+                (ratingUpdateRes.body.isJudge).should.equal(false);
+                (ratingUpdateRes.body.project._id).should.equal(project.id);
+                (ratingUpdateRes.body.posterRating).should.equal(5);
+                (ratingUpdateRes.body.presentationRating).should.equal(3);
+                (ratingUpdateRes.body.demoRating).should.equal(4);
+                (ratingUpdateRes.body.posterRank).should.equal(1);
+
+
+                // Call the assertion callback
+                done();
+              });
+          });
+      });
+  });
+
+  it('should be able to create a rating with only the poster', function (done) {
+    var newRating = new Rating({
+      isJudge: false,
+      project: project,
+      user: user,
+      posterRating: 1,
+    });
+
+    agent.post('/api/auth/signin')
+      .send(credentials)
+      .expect(200)
+      .end(function (signinErr, signinRes) {
+        // Handle signin error
+        if (signinErr) {
+          return done(signinErr);
+        }
+
+        // Get the userId
+        var userId = user.id;
+
+        // Save a new rating
+        agent.post('/api/ratings')
+          .send(newRating)
+          .expect(200)
+          .end(function (ratingSaveErr, ratingSaveRes) {
+            // Handle rating save error
+            if (ratingSaveErr) {
+              return done(ratingSaveErr);
+            }
+
+            // Get a list of ratings
+            agent.get('/api/ratings')
+              .end(function (ratingsGetErr, ratingsGetRes) {
+                // Handle rating save error
+                if (ratingsGetErr) {
+                  return done(ratingsGetErr);
+                }
+
+                // Get ratings list
+                var ratings = ratingsGetRes.body;
+
+                // Set assertions
+                (ratings[0].user._id).should.equal(userId);
+                (ratings[0].isJudge).should.equal(false);
+                (ratings[0].project._id).should.equal(project.id);
+                (ratings[0].posterRating).should.equal(1);
+
+                // Call the assertion callback
+                done();
+              });
+          });
+      });
+  });
+
+  it('should be able to create a rating with only the presentation', function (done) {
+    var newRating = new Rating({
+      isJudge: false,
+      project: project,
+      user: user,
+      presentationRating: 1,
+    });
+
+    agent.post('/api/auth/signin')
+      .send(credentials)
+      .expect(200)
+      .end(function (signinErr, signinRes) {
+        // Handle signin error
+        if (signinErr) {
+          return done(signinErr);
+        }
+
+        // Get the userId
+        var userId = user.id;
+
+        // Save a new rating
+        agent.post('/api/ratings')
+          .send(newRating)
+          .expect(200)
+          .end(function (ratingSaveErr, ratingSaveRes) {
+            // Handle rating save error
+            if (ratingSaveErr) {
+              return done(ratingSaveErr);
+            }
+
+            // Get a list of ratings
+            agent.get('/api/ratings')
+              .end(function (ratingsGetErr, ratingsGetRes) {
+                // Handle rating save error
+                if (ratingsGetErr) {
+                  return done(ratingsGetErr);
+                }
+
+                // Get ratings list
+                var ratings = ratingsGetRes.body;
+
+                // Set assertions
+                (ratings[0].user._id).should.equal(userId);
+                (ratings[0].isJudge).should.equal(false);
+                (ratings[0].project._id).should.equal(project.id);
+                (ratings[0].presentationRating).should.equal(1);
+
+                // Call the assertion callback
+                done();
+              });
+          });
+      });
+  });
+
+  it('should be able to create a rating with only the demo', function (done) {
+    var newRating = new Rating({
+      isJudge: false,
+      project: project,
+      user: user,
+      demoRating: 1,
+    });
+
+    agent.post('/api/auth/signin')
+      .send(credentials)
+      .expect(200)
+      .end(function (signinErr, signinRes) {
+        // Handle signin error
+        if (signinErr) {
+          return done(signinErr);
+        }
+
+        // Get the userId
+        var userId = user.id;
+
+        // Save a new rating
+        agent.post('/api/ratings')
+          .send(newRating)
+          .expect(200)
+          .end(function (ratingSaveErr, ratingSaveRes) {
+            // Handle rating save error
+            if (ratingSaveErr) {
+              return done(ratingSaveErr);
+            }
+
+            // Get a list of ratings
+            agent.get('/api/ratings')
+              .end(function (ratingsGetErr, ratingsGetRes) {
+                // Handle rating save error
+                if (ratingsGetErr) {
+                  return done(ratingsGetErr);
+                }
+
+                // Get ratings list
+                var ratings = ratingsGetRes.body;
+
+                // Set assertions
+                (ratings[0].user._id).should.equal(userId);
+                (ratings[0].isJudge).should.equal(false);
+                (ratings[0].project._id).should.equal(project.id);
+                (ratings[0].demoRating).should.equal(1);
+
+                // Call the assertion callback
+                done();
+              });
+          });
+      });
+  });
+
+  it('should be able to update the poster rating only', function (done) {
+    agent.post('/api/auth/signin')
+      .send(credentials)
+      .expect(200)
+      .end(function (signinErr, signinRes) {
+        // Handle signin error
+        if (signinErr) {
+          return done(signinErr);
+        }
+
+        // Get the userId
+        var userId = user.id;
+
+        // Save a new rating
+        agent.post('/api/ratings')
+          .send(rating)
+          .expect(200)
+          .end(function (ratingSaveErr, ratingSaveRes) {
+            // Handle rating save error
+            if (ratingSaveErr) {
+              return done(ratingSaveErr);
+            }
+
+            // Rank the rating
+            rating.posterRating = 1;
+
+            // Update an existing rating
+            agent.put('/api/ratings/' + ratingSaveRes.body._id)
+              .send(rating)
+              .expect(200)
+              .end(function (ratingUpdateErr, ratingUpdateRes) {
+                // Handle rating update error
+                if (ratingUpdateErr) {
+                  return done(ratingUpdateErr);
+                }
+                // Set assertions
+                (ratingUpdateRes.body._id).should.equal(ratingSaveRes.body._id);
+                (ratingUpdateRes.body.user._id).should.equal(userId);
+                (ratingUpdateRes.body.isJudge).should.equal(false);
+                (ratingUpdateRes.body.project._id).should.equal(project.id);
+                (ratingUpdateRes.body.posterRating).should.equal(1);
+                (ratingUpdateRes.body.presentationRating).should.equal(3);
+                (ratingUpdateRes.body.demoRating).should.equal(4);
+
+
+                // Call the assertion callback
+                done();
+              });
+          });
+      });
+  });
+
+  it('should be able to update the presentation rating only', function (done) {
+    agent.post('/api/auth/signin')
+      .send(credentials)
+      .expect(200)
+      .end(function (signinErr, signinRes) {
+        // Handle signin error
+        if (signinErr) {
+          return done(signinErr);
+        }
+
+        // Get the userId
+        var userId = user.id;
+
+        // Save a new rating
+        agent.post('/api/ratings')
+          .send(rating)
+          .expect(200)
+          .end(function (ratingSaveErr, ratingSaveRes) {
+            // Handle rating save error
+            if (ratingSaveErr) {
+              return done(ratingSaveErr);
+            }
+
+            // Rank the rating
+            rating.presentationRating = 1;
+
+            // Update an existing rating
+            agent.put('/api/ratings/' + ratingSaveRes.body._id)
+              .send(rating)
+              .expect(200)
+              .end(function (ratingUpdateErr, ratingUpdateRes) {
+                // Handle rating update error
+                if (ratingUpdateErr) {
+                  return done(ratingUpdateErr);
+                }
+                // Set assertions
+                (ratingUpdateRes.body._id).should.equal(ratingSaveRes.body._id);
+                (ratingUpdateRes.body.user._id).should.equal(userId);
+                (ratingUpdateRes.body.isJudge).should.equal(false);
+                (ratingUpdateRes.body.project._id).should.equal(project.id);
+                (ratingUpdateRes.body.posterRating).should.equal(5);
+                (ratingUpdateRes.body.presentationRating).should.equal(1);
+                (ratingUpdateRes.body.demoRating).should.equal(4);
+
+
+                // Call the assertion callback
+                done();
+              });
+          });
+      });
+  });
+
+  it('should be able to update the demo rating only', function (done) {
+    agent.post('/api/auth/signin')
+      .send(credentials)
+      .expect(200)
+      .end(function (signinErr, signinRes) {
+        // Handle signin error
+        if (signinErr) {
+          return done(signinErr);
+        }
+
+        // Get the userId
+        var userId = user.id;
+
+        // Save a new rating
+        agent.post('/api/ratings')
+          .send(rating)
+          .expect(200)
+          .end(function (ratingSaveErr, ratingSaveRes) {
+            // Handle rating save error
+            if (ratingSaveErr) {
+              return done(ratingSaveErr);
+            }
+
+            // Rank the rating
+            rating.demoRating = 1;
+
+            // Update an existing rating
+            agent.put('/api/ratings/' + ratingSaveRes.body._id)
+              .send(rating)
+              .expect(200)
+              .end(function (ratingUpdateErr, ratingUpdateRes) {
+                // Handle rating update error
+                if (ratingUpdateErr) {
+                  return done(ratingUpdateErr);
+                }
+                // Set assertions
+                (ratingUpdateRes.body._id).should.equal(ratingSaveRes.body._id);
+                (ratingUpdateRes.body.user._id).should.equal(userId);
+                (ratingUpdateRes.body.isJudge).should.equal(false);
+                (ratingUpdateRes.body.project._id).should.equal(project.id);
+                (ratingUpdateRes.body.posterRating).should.equal(5);
+                (ratingUpdateRes.body.presentationRating).should.equal(3);
+                (ratingUpdateRes.body.demoRating).should.equal(1);
+
+
+                // Call the assertion callback
+                done();
+              });
+          });
+      });
+  });
+
+  it('should not be able to update another user\'s rating', function (done) {
+    done();
   });
 
   afterEach(function (done) {
