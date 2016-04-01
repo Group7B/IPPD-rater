@@ -57,7 +57,7 @@
 
           // Test scope value
           expect(scope.authentication.user).toEqual('Fred');
-          expect($location.url()).toEqual('/');
+          expect($location.url()).toEqual('/projects');
         });
 
         it('should be redirected to previous state after successful login',
@@ -129,7 +129,7 @@
           // test scope value
           expect(scope.authentication.user).toBe('Fred');
           expect(scope.error).toEqual(null);
-          expect($location.url()).toBe('/');
+          expect($location.url()).toBe('/projects');
         });
 
         it('should fail to register with duplicate Username', function () {
@@ -165,8 +165,8 @@
         });
       }));
 
-      it('should be redirected to home', function () {
-        expect($location.path).toHaveBeenCalledWith('/');
+      it('should be redirected to project listing', function () {
+        expect($location.path).toHaveBeenCalledWith('/projects');
       });
     });
   });
