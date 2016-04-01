@@ -11,7 +11,10 @@
       $location,
       Authentication,
       Ratings,
-      mockRating;
+      mockRating,
+      Projects,
+      $state,
+      $window;
 
     // The $resource service augments the response object with methods for updating and deleting the resource.
     // If we were to use the standard toEqual matcher, our tests would fail because the test values would not match
@@ -38,7 +41,7 @@
     // The injector ignores leading and trailing underscores here (i.e. _$httpBackend_).
     // This allows us to inject a service but then attach it to a variable
     // with the same name as the service.
-    beforeEach(inject(function ($controller, $rootScope, _$location_, _$stateParams_, _$httpBackend_, _Authentication_, _Ratings_) {
+    beforeEach(inject(function ($controller, $rootScope, _$location_, _$stateParams_, _$httpBackend_, _Authentication_, _Ratings_, _$window_, _$state_, _Projects_) {
       // Set a new global scope
       scope = $rootScope.$new();
 
@@ -48,6 +51,9 @@
       $location = _$location_;
       Authentication = _Authentication_;
       Ratings = _Ratings_;
+      Projects = _Projects_;
+      $state = _$state_;
+      $window = _$window_;
 
       // create mock rating
       mockRating = new Ratings({
@@ -65,6 +71,8 @@
       RatingsController = $controller('RatingsController', {
         $scope: scope
       });
+
+      spyOn($state, 'go');
     }));
 
     it('$scope.find() should create an array with at least one rating object fetched from XHR', inject(function (Ratings) {
@@ -75,7 +83,7 @@
       $httpBackend.expectGET('api/ratings').respond(sampleRatings);
 
       // Run controller functionality
-      scope.find();
+      scope.findRatings();
       $httpBackend.flush();
 
       // Test scope value
