@@ -1,18 +1,22 @@
-<section class="container-fluid">
+<section class="container-fluid headerFont">
+  <script type="text/javascript">
+    $('.adminListButton').on('click', function(){
+      $('.adminListButton').removeClass('adminButtonActive');
+      $(this).addClass('adminButtonActive');
+    });
+  </script>
+  
   <div class="row">
-    <div class="col-sm-3 col-md-3 col-lg-2 sidebar">
-      <ul class="nav nav-sidebar headerFont">
-         <div id="topLogo">
-            <img class="logo" src="modules/core/client/img/brand/IPPD_logo.png">
-        </div>
-        <div class="adminListButton notLast"><a ui-sref="admin.users">Users</a></div>
-        <div class="adminListButton notLast"><a ui-sref="admin.projects">Projects</a></div>
-        <div class="adminListButton notLast"><a ui-sref="admin.ratings">Ratings</a></div>
-        <div class="adminListButton notLast"><a ui-sref="admin.theme">Theme</a></div>
-        <div class="adminListButton"><a ui-sref="admin.data">Data</a></div>
-      </ul>
-    </div>
-    <div class="col-sm-9 col-md-9 col-lg-10">
+    <div class="col-sm-2 col-md-2 adminListButton accentColor"><a ui-sref="projects.list">Back to Rating</a></div>
+    <div class="col-sm-2 col-md-2 adminListButton accentColor"><a ui-sref="admin.users">Users</a></div>
+    <div class="col-sm-2 col-md-2 adminListButton accentColor"><a ui-sref="admin.projects">Projects</a></div>
+    <div class="col-sm-2 col-md-2 adminListButton accentColor"><a ui-sref="admin.ratings">Ratings</a></div>
+    <div class="col-sm-2 col-md-2 adminListButton accentColor"><a ui-sref="admin.theme">Theme</a></div>
+    <div class="col-sm-2 col-md-2 adminListButton accentColor"><a ui-sref="admin.data">Data</a></div>
+  </div>
+  
+  <div class="row">
+    <div class="col-sm-10 col-md-10 col-lg-10 col-sm-offset-1 col-offset-md-1 col-offset-lg-1">
       <section ui-view></section>
     </div>
   </div>

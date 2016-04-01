@@ -6,26 +6,31 @@
       </div>
     </div>
   </div>
+  
+  <div class ="row" ng-controller="DataController">
+    <div ng-show="success" class="text-success">
+      <strong ng-bind="success"></strong>
+      <br>
+    </div>
+    <button class="buttonHover allButton accentColor col-md-4 col-md-offset-4" ng-click="exportRatings()">Export Ratings</button>
+  </div>
 
   <div class ="row" ng-controller="RatingsController" ng-init="find()">
-    <h3> Delete All Ratings </h3>
     <div ng-show="success" class="text-success">
       <strong ng-bind="success"></strong>
       <br>
     </div>
-    <button ng-click="deleteAllRatings()">Delete All Ratings</button>
+    <button class="buttonHover allButton destructiveButton col-md-4 col-md-offset-4" ng-click="deleteAllRatings()">Clear Ratings</button>
   </div>
-
-  <hr>
 
   <div class ="row" ng-controller="ProjectController" ng-init="find()">
-    <h3> Delete All Projects </h3>
     <div ng-show="success" class="text-success">
       <strong ng-bind="success"></strong>
       <br>
     </div>
-    <button ng-click="deleteAllProjects()">Delete All Projects</button>
+    <button class="buttonHover allButton destructiveButton col-md-4 col-md-offset-4" ng-click="deleteAllProjects()">Clear Projects</button>
   </div>
+<<<<<<< HEAD
 
   <hr>
 
@@ -42,4 +47,6 @@
 
 
 
+=======
+>>>>>>> origin/develop
 </section>
