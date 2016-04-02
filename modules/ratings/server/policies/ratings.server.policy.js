@@ -28,7 +28,7 @@ exports.invokeRolesPolicies = function () {
       permissions: ['get', 'post']
     }, {
       resources: '/api/ratings/:ratingId',
-      permissions: ['put', 'delete']
+      permissions: []
     }]
   }, {
     roles: ['judge'],
@@ -37,7 +37,7 @@ exports.invokeRolesPolicies = function () {
       permissions: ['get', 'post']
     }, {
       resources: '/api/ratings/:ratingId',
-      permissions: ['get']
+      permissions: []
     }]
   }, {
     roles: ['guest'],
@@ -57,13 +57,8 @@ exports.invokeRolesPolicies = function () {
 exports.isAllowed = function (req, res, next) {
   var roles = (req.user) ? req.user.roles : ['guest'];
 
-  //console.log(req.rating + ' ' + req.user + ' ' + req.rating.user);
-
   // If an rating is being processed and the current user created it then allow any manipulation
-  if (req.rating && req.user && req.rating.user === req.user) {
-    return next();
-  }
-
+  if (req.rating && req.user && req.rating.user._id.equals(req.user._id)) return next();
   // Check for user roles
   acl.areAnyRolesAllowed(roles, req.route.path, req.method.toLowerCase(), function (err, isAllowed) {
     if (err) {
