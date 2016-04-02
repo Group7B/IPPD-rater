@@ -12,7 +12,7 @@ var should = require('should'),
 /**
  * Globals
  */
-var app, agent, credentials, judgeCredentials, user, judge, rating, project;
+var app, agent, credentials, judgeCredentials, newCredentials, user, judge, otherUser, rating, project;
 
 /**
  * Rating routes tests
@@ -37,6 +37,11 @@ describe('Rating CRUD tests', function () {
     judgeCredentials = {
       username: 'imJudgingYou',
       password: 'I\'mJudgingYou'
+    };
+
+    newCredentials = {
+      username: 'justanotheruser',
+      password: 'It\'sCaSeS3ns1tiv3'
     };
 
     // Create a project to rate
@@ -93,8 +98,22 @@ describe('Rating CRUD tests', function () {
         presentationRating: 3,
         demoRating: 4
       });
-      done();
     });
+
+    otherUser = new User({
+      firstName: 'no',
+      lastName: 'name',
+      displayName: 'No Name',
+      email: 'ThisIs@so.tedious',
+      username: newCredentials.username,
+      password: newCredentials.password,
+      provider: 'local',
+      isJudge: false
+    });
+
+    otherUser.save();
+
+    done();
   });
 
 
@@ -793,8 +812,57 @@ describe('Rating CRUD tests', function () {
       });
   });
 
-  it('should not be able to update another user\'s rating', function (done) {
-    done();
+  it('should not be able to get another user\'s rating', function (done) {
+    agent.post('/api/auth/signin')
+      .send(credentials)
+      .expect(200)
+      .end(function (signinErr, signinRes) {
+        // Handle signin error
+        if (signinErr) {
+          return done(signinErr);
+        }
+
+        // Get the userId
+        var userId = user.id;
+
+        // Save a new rating
+        agent.post('/api/ratings')
+          .send(rating, user)
+          .expect(200)
+          .end(function (ratingSaveErr, ratingSaveRes) {
+            // Handle rating save error
+            if (ratingSaveErr) {
+              return done(ratingSaveErr);
+            }
+
+            agent.get('/api/auth/signout')
+              .expect(302)
+              .end(function (signOutErr, signoutRes) {
+                if (signOutErr){
+                  return done(signOutErr);
+                }
+
+                agent.post('/api/auth/signin')
+                  .send(newCredentials)
+                  .expect(200)
+                  .end(function (signinErr, signinRes) {
+                    if (signinErr) {
+                      return done(signinErr);
+                    }
+
+                    agent.put('/api/ratings/' + ratingSaveRes.body._id)
+                      .send(rating)
+                      .expect(403)
+                      .end(function (ratingUpdateErr, ratingUpdateRes) {
+                        if (ratingUpdateErr){
+                          return done(ratingUpdateErr);
+                        }
+                        done();
+                      });
+                  });
+              });
+          });
+      });
   });
 
   afterEach(function (done) {
