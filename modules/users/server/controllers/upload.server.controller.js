@@ -55,7 +55,7 @@ exports.postProjectLogo = function (req, res) {
 };
 
 exports.exportRatings = function (req, res) {
-  var fields = ['project.teamName','user.username', 'user.displayName', 'isJudge', 'demoRating', 'presentationRating','posterRating', 'comment'];
+  var fields = ['project.teamName','user.username', 'user.displayName', 'isJudge', 'demoRating', 'presentationRating','posterRating', 'posterRank', 'presentationRank', 'demoRank', 'comment'];
   Rating
     .find({})
     .populate('project user')

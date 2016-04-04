@@ -10,6 +10,18 @@ angular.module('ratings').controller('RatingsController', ['$scope', '$filter', 
       projectId: $stateParams.projectId
     });
 
+    $scope.sortType = 'posterRating';
+    $scope.sortType2 = '-posterRating';
+
+    $scope.$on('sort', function (event, sortTypes) {
+      $scope.sortType = sortTypes[0];
+      $scope.sortType2 = sortTypes[1];
+    });
+
+    $scope.$on('submitRankings', function (event) {
+      $scope.updateRanks();
+    });
+
     // Create new Rating
     $scope.create = function (isValid) {
       var rating = new Ratings({
@@ -113,19 +125,17 @@ angular.module('ratings').controller('RatingsController', ['$scope', '$filter', 
         }
       });
     };
-    
-    $scope.getRatingsByUser = function (user) {
-      var ratedBy = {};
+
+    $scope.findRatingsByUser = function () {
+      $scope.ratedBy = {};
       Ratings.query(function (data) {
         var ratings = data;
-        ratedBy = $filter('filter')(
+        $scope.ratedBy = $filter('filter')(
           ratings, {
             user: {
               _id: Authentication.user._id
             }
           });
-        
-        return ratedBy;
       });
     };
 
@@ -143,29 +153,31 @@ angular.module('ratings').controller('RatingsController', ['$scope', '$filter', 
       return rating;
     };
 
-    $scope.deleteAllRatings = function() {
+    $scope.deleteAllRatings = function () {
       //warning message
-      if(confirm("Do you want to delete all ratings from the database?")) {
+      if (confirm("Do you want to delete all ratings from the database?")) {
         $scope.thisRating = {};
         Ratings.query(function (data) {
           $scope.ratings = data;
         });
         var i;
         for (i = 0; i < $scope.ratings.length; i++) {
-          $scope.ratings[i].$remove();  //delete all ratings
+          $scope.ratings[i].$remove(); //delete all ratings
         }
         $scope.ratings.splice(0, $scope.ratings.length);
         $scope.success = 'All ratings successfully deleted.';
       }
     };
 
-    $scope.updateRank = function(rating) {
-      rating.$update(function (err) {
-        $scope.error = err;
-      });
+    $scope.updateRanks = function () {
+      for (var i = 0; i < $scope.ratedBy.length; ++i) {
+        $scope.ratedBy[i].$update();
+      }
+      
+      $location.path('projects');
     };
 
-    $scope.rankRange = function(start, end) {
+    $scope.rankRange = function (start, end) {
       var result = [];
       for (var i = start; i <= end; ++i) {
         result.push(i);

@@ -44,15 +44,15 @@ var RatingSchema = new Schema({
   },
   posterRank: {
     type: Number,
-    default: 255
+    default: 0
   },
   presentationRank: {
     type: Number,
-    default: 255
+    default: 0
   },
   demoRank: {
     type: Number,
-    default: 255
+    default: 0
   },
   comment: {
     type: String,
