@@ -25,7 +25,6 @@ angular.module('projects').controller('ProjectController', ['$scope', '$filter',
 
       // Redirect after save
       project.$save(function (response) {
-        console.log('Adding ' + project.teamName + ', ' + project.description);
         $location.path('admin/projects/listadmin');
 
         // Clear form fields
@@ -74,7 +73,6 @@ angular.module('projects').controller('ProjectController', ['$scope', '$filter',
       if ($scope.teamName) project.teamName = $scope.teamName;
       if ($scope.description) project.description = $scope.description;
       $scope.$broadcast('projectCreated');
-      console.log('The project is ' + project.teamName);
 
       project.$update(function () {
         $location.path('admin/projects/listadmin');
