@@ -4,7 +4,6 @@ angular.module('users.admin').controller('UserController', ['$scope', '$state', 
   function ($scope, $state, Authentication, userResolve, $filter, Ratings, $stateParams, Users) {
     $scope.authentication = Authentication;
     $scope.user = userResolve;
-    //$scope.allUsers = Admin;
 
     $scope.findUser = function () {
       var users;
