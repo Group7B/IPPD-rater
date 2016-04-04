@@ -6,6 +6,9 @@ angular.module('users').factory('Users', ['$resource',
     return $resource('api/users', {}, {
       update: {
         method: 'PUT'
+      },
+      deleteAllUsers: {
+        method: 'DELETE'
       }
     });
   }
@@ -49,4 +52,3 @@ angular.module('users').service('sharedLogoUrl', function () {
   };
 
 });
-

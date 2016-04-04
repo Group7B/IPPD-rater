@@ -154,7 +154,7 @@ angular.module('projects').controller('ProjectController', ['$scope', '$filter',
           $scope.projects[i].$remove(); //delete all ratings
         }
         $scope.projects.splice(0, $scope.projects.length);
-        $scope.success = 'All projects successfully deleted.';
+        alert('All projects successfully deleted!');
       }
     };
 

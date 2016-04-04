@@ -6,47 +6,23 @@
       </div>
     </div>
   </div>
-  
+
   <div class ="row" ng-controller="DataController">
-    <div ng-show="success" class="text-success">
-      <strong ng-bind="success"></strong>
-      <br>
-    </div>
     <button class="buttonHover allButton accentColor col-md-4 col-md-offset-4" ng-click="exportRatings()">Export Ratings</button>
   </div>
 
   <div class ="row" ng-controller="RatingsController" ng-init="find()">
-    <div ng-show="success" class="text-success">
-      <strong ng-bind="success"></strong>
-      <br>
-    </div>
     <button class="buttonHover allButton destructiveButton col-md-4 col-md-offset-4" ng-click="deleteAllRatings()">Clear Ratings</button>
   </div>
 
   <div class ="row" ng-controller="ProjectController" ng-init="find()">
-    <div ng-show="success" class="text-success">
-      <strong ng-bind="success"></strong>
-      <br>
-    </div>
     <button class="buttonHover allButton destructiveButton col-md-4 col-md-offset-4" ng-click="deleteAllProjects()">Clear Projects</button>
   </div>
-<<<<<<< HEAD
 
-  <hr>
 
-  <div class ="row">
-    <h3> Delete All Users </h3>
-    <p>Deletes all non-admin users. To delete admin users, go to their respective pages to delete them manually.</p>
-    <div ng-show="success" class="text-success">
-      <strong ng-bind="success"></strong>
-      <br>
-    </div>
-    <button ng-click="deleteAllUsers()">Delete All Users</button>
+
+  <div class ="row" ng-controller="UserListController">
+    <button class="buttonHover allButton destructiveButton col-md-4 col-md-offset-4" ng-click="DeleteAllUsers()">Clear Users</button>
   </div>
 
-
-
-
-=======
->>>>>>> origin/develop
 </section>
