@@ -4,15 +4,20 @@
 
 /* -----------------------------------------------------------------------------
 
-    Rename this file 'test.js' and save within this directory. Copy the info
-    from your local.js file (just the db info) into the blank db section
-    below, and then your tests will be able to connect to the databse.
+    Rename this file 'test.js' and save within this directory. Similar to your
+    local.js file, set the db to the mongolab uri for our TESTING database.
+
+    DO NOT USE THE NORMAL DATABASE BECAUSE YOU WILL DELETE EVERYTHING AND
+                            EVERYONE WILL HATE YOU.
+
+    You have been warned.
 
 ----------------------------------------------------------------------------- */
 var defaultEnvConfig = require('./default');
 
 module.exports = {
   db: {
+    // Use same user and password as the other db and the uri of the TESTING database
     uri: '',
     options: {
       user: '',
