@@ -57,6 +57,20 @@ exports.deleteUser = function (req, res) {
 };
 
 /**
+ * Delete all users except for admins
+ */
+exports.deleteAllUsers = function (req, res) {
+  User.find({}, '-salt -password').sort('-created').populate('user', 'displayName').where('roles').nin(['admin']).remove().exec(function (err, users) {
+    if (err) {
+      return res.status(400).send({
+        message: errorHandler.getErrorMessage(err)
+      });
+    }
+
+  });
+};
+
+/**
  * List of Users
  */
 exports.listUser = function (req, res) {

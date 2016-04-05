@@ -155,8 +155,7 @@ angular.module('ratings').controller('RatingsController', ['$scope', '$filter', 
 
     $scope.deleteAllRatings = function () {
       //warning message
-      if (confirm("Do you want to delete all ratings from the database?")) {
-        $scope.thisRating = {};
+      if(confirm("Do you want to delete all ratings from the database?")) {
         Ratings.query(function (data) {
           $scope.ratings = data;
         });
@@ -165,7 +164,7 @@ angular.module('ratings').controller('RatingsController', ['$scope', '$filter', 
           $scope.ratings[i].$remove(); //delete all ratings
         }
         $scope.ratings.splice(0, $scope.ratings.length);
-        $scope.success = 'All ratings successfully deleted.';
+        alert('All ratings successfully deleted!');
       }
     };
 
@@ -175,14 +174,6 @@ angular.module('ratings').controller('RatingsController', ['$scope', '$filter', 
       }
       
       $location.path('projects');
-    };
-
-    $scope.rankRange = function (start, end) {
-      var result = [];
-      for (var i = start; i <= end; ++i) {
-        result.push(i);
-      }
-      return result;
     };
   }
 ]);

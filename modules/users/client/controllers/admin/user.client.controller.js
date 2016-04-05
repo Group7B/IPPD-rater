@@ -37,7 +37,7 @@ angular.module('users.admin').controller('UserController', ['$scope', '$state', 
       }
       var user = $scope.user;
       var oldUser = $scope.oldUser;
-      
+
       // if the roles changed
       if (user.roles !== oldUser.roles) {
 
@@ -84,4 +84,5 @@ angular.module('users.admin').controller('UserController', ['$scope', '$state', 
       });
     };
   }
+
 ]);
