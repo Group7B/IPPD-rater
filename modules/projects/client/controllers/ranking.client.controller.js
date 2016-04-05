@@ -5,9 +5,9 @@ angular.module('projects').controller('RankingController', ['$scope',
     $scope.sortType = 'posterRating';
     $scope.sortType2 = '-posterRating';
 
-    $scope.instructionTexts = ['Rank your favorite 3 posters, then hit Next!',
-                                'Rank your favorite 3 presentations, then hit Next!',
-                                'Rank your favorite 3 demonstrations, then hit Submit to save your rankings!'
+    $scope.instructionTexts = ['Rank your top 3 posters, then hit Next to rank presentations!',
+                                'Rank your top 3 presentations, then hit Next to rank demonstrations!',
+                                'Rank your top 3 demos, then hit Submit to save your rankings!'
                               ];
     
     $scope.buttons = [document.querySelector('#posterButton'),      
@@ -59,9 +59,11 @@ angular.module('projects').controller('RankingController', ['$scope',
       for (var i = 0; i < $scope.buttons.length; ++i) {
         if (i === index) {
           $scope.buttons[i].classList.add('accentColor');
+          $scope.buttons[i].classList.add('listTabButtonActive');
           $scope.buttons[i].style.color = '#fff';
         } else {
           $scope.buttons[i].classList.remove('accentColor');
+          $scope.buttons[i].classList.remove('listTabButtonActive');
           $scope.buttons[i].style.color = '#000';
         }
       }
@@ -69,7 +71,7 @@ angular.module('projects').controller('RankingController', ['$scope',
       if (index < 2) {
         document.getElementById('nextButton').textContent = 'Next';
       } else {
-        document.getElementById('nextButton').textContent = 'Submit Rankings';
+        document.getElementById('nextButton').textContent = 'Submit';
       }
     };
   }
