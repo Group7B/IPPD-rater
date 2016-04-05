@@ -38,7 +38,6 @@ angular.module('users.admin').controller('UploadController', ['$scope', '$timeou
     
     $scope.$on('projectCreated', function () {
       if ($scope.uploader.getNotUploadedItems().length) {
-        console.log('event received');
         $scope.uploader.uploadAll();
       }
     });

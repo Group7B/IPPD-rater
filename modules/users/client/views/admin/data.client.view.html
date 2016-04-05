@@ -7,16 +7,22 @@
     </div>
   </div>
 
+  <div class ="row" ng-controller="DataController">
+    <button class="buttonHover allButton accentColor col-md-4 col-md-offset-4" ng-click="exportRatings()">Export Ratings</button>
+  </div>
+
   <div class ="row" ng-controller="RatingsController" ng-init="find()">
-    <h3> Delete All Ratings </h3>
-    <div ng-show="success" class="text-success">
-      <strong ng-bind="success"></strong>
-      <br>
-    </div>
-    <button ng-click="deleteAllRatings()">Delete All Ratings</button>
+    <button class="buttonHover allButton destructiveButton col-md-4 col-md-offset-4" ng-click="deleteAllRatings()">Clear Ratings</button>
+  </div>
+
+  <div class ="row" ng-controller="ProjectController" ng-init="find()">
+    <button class="buttonHover allButton destructiveButton col-md-4 col-md-offset-4" ng-click="deleteAllProjects()">Clear Projects</button>
   </div>
 
 
 
+  <div class ="row" ng-controller="UserListController">
+    <button class="buttonHover allButton destructiveButton col-md-4 col-md-offset-4" ng-click="DeleteAllUsers()">Clear Users</button>
+  </div>
 
 </section>

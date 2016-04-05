@@ -1,8 +1,9 @@
 'use strict';
 
-angular.module('projects').controller('ProjectController', ['$scope', '$filter', '$stateParams', '$location', 'Authentication', 'Projects', 'sharedLogoUrl',
-  function ($scope, $filter, $stateParams, $location, Authentication, Projects, sharedLogoUrl) {
+angular.module('projects').controller('ProjectController', ['$scope', '$filter', '$stateParams', '$location', 'Authentication', 'Projects', 'Ratings', 'sharedLogoUrl',
+  function ($scope, $filter, $stateParams, $location, Authentication, Projects, Ratings, sharedLogoUrl) {
     $scope.authentication = Authentication;
+    $scope.projectFilter = 'all';
 
     $scope.create = function (isValid) {
       $scope.error = null;
@@ -18,13 +19,12 @@ angular.module('projects').controller('ProjectController', ['$scope', '$filter',
         description: this.description,
         logo: $scope.buildLogoName(this.name)
       });
-      
+
       sharedLogoUrl.setProperty($scope.buildLogoName(this.name));
       $scope.$broadcast('projectCreated');
 
       // Redirect after save
       project.$save(function (response) {
-        console.log('Adding ' + project.teamName + ', ' + project.description);
         $location.path('admin/projects/listadmin');
 
         // Clear form fields
@@ -35,11 +35,11 @@ angular.module('projects').controller('ProjectController', ['$scope', '$filter',
         $scope.error = errorResponse.data.message;
       });
     };
-    
+
     $scope.buildLogoName = function (name) {
       name = name.replace(/\s+/g, '');
       name += '.jpg';
-      
+
       return name;
     };
 
@@ -73,7 +73,6 @@ angular.module('projects').controller('ProjectController', ['$scope', '$filter',
       if ($scope.teamName) project.teamName = $scope.teamName;
       if ($scope.description) project.description = $scope.description;
       $scope.$broadcast('projectCreated');
-      console.log('The project is ' + project.teamName);
 
       project.$update(function () {
         $location.path('admin/projects/listadmin');
@@ -87,6 +86,10 @@ angular.module('projects').controller('ProjectController', ['$scope', '$filter',
       Projects.query(function (data) {
         $scope.projects = data;
         $scope.buildPager();
+      });
+      $scope.ratings = {};
+      Ratings.query(function (data) {
+        $scope.ratings = data;
       });
     };
 
@@ -136,5 +139,50 @@ angular.module('projects').controller('ProjectController', ['$scope', '$filter',
       }
       return false;
     };
+
+    $scope.deleteAllProjects = function () {
+      //warning message
+      if (confirm("Do you want to delete all projects from the database?")) {
+        $scope.thisProject = {};
+        Projects.query(function (data) {
+          $scope.projects = data;
+        });
+        var i;
+        for (i = 0; i < $scope.projects.length; i++) {
+          $scope.projects[i].$remove(); //delete all ratings
+        }
+        $scope.projects.splice(0, $scope.projects.length);
+        alert('All projects successfully deleted!');
+      }
+    };
+
+    $scope.hasRated = function (project) {
+      var filtered = $filter('filter')(
+        $scope.ratings, {
+          project: {
+            _id: project._id
+          },
+          user: {
+            _id: $scope.authentication.user._id
+          }
+        });
+      if (filtered.length > 0) {
+        var index = $scope.projects.indexOf(project);
+        $scope.projects.splice(index, 1);
+        $scope.projects.push(project);
+        return 'Rated';
+      } else {
+        return 'Unrated';
+      }
+    };
+
+    $scope.testFilter = function (projectFilter) {
+      if ($scope.projectFilter === projectFilter)
+        $scope.projectFilter = 'all';
+      else
+        $scope.projectFilter = projectFilter;
+    };
+
+
   }
 ]);
