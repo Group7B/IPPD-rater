@@ -103,7 +103,7 @@ angular.module('ratings').controller('RatingsController', ['$scope', '$filter', 
     };
 
     $scope.findRatingByProjectAndUser = function () {
-      $scope.isJudge = (Authentication.user.roles.indexOf("judge") > -1) ? true : false;
+      $scope.isJudge = (Authentication.user.roles.indexOf('judge') > -1) ? true : false;
 
       $scope.thisRating = {};
       Ratings.query(function (data) {
@@ -155,7 +155,7 @@ angular.module('ratings').controller('RatingsController', ['$scope', '$filter', 
 
     $scope.deleteAllRatings = function () {
       //warning message
-      if(confirm("Do you want to delete all ratings from the database?")) {
+      if(confirm('Do you want to delete all ratings from the database?')) {
         Ratings.query(function (data) {
           $scope.ratings = data;
         });
