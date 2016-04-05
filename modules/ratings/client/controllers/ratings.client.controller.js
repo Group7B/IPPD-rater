@@ -16,8 +16,10 @@ angular.module('ratings').controller('RatingsController', ['$scope', '$filter', 
       var tabs = document.querySelectorAll('.listTabButton');
       for (var i = 0; i < tabs.length; ++i) {
         tabs[i].classList.remove('listTabButtonActive');
+        tabs[i].classList.remove('accentColor');
       }
       document.querySelector(tabID).classList.add('listTabButtonActive');
+      document.querySelector(tabID).classList.add('accentColor');
     };
 
     $scope.sortType = 'posterRating';
