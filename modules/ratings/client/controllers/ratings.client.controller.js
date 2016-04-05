@@ -4,9 +4,19 @@
 angular.module('ratings').controller('RatingsController', ['$scope', '$filter', '$stateParams', '$location', 'Authentication', 'Ratings', 'Projects',
   function ($scope, $filter, $stateParams, $location, Authentication, Ratings, Projects) {
     $scope.authentication = Authentication;
+    $scope.adminListTabSort = 'project.teamName';
     $scope.project = Projects.get({
       projectId: $stateParams.projectId
     });
+    
+    $scope.sortTabs = function(tabID, sortString) {
+      $scope.adminListTabSort = sortString;
+      var tabs = document.querySelectorAll('.listTabButton');
+      for (var i = 0; i < tabs.length; ++i) {
+        tabs[i].classList.remove('listTabButtonActive');
+      }
+      document.querySelector(tabID).classList.add('listTabButtonActive');
+    };
 
     // Create new Rating
     $scope.create = function (isValid) {
