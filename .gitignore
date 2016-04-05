@@ -4,6 +4,7 @@
 ehthumbs.db
 Icon?
 Thumbs.db
+Desktop.ini
 
 # Node and related ecosystem
 # ==========================
@@ -22,6 +23,7 @@ public/dist/
 uploads
 modules/users/client/img/profile/uploads
 config/env/local.js
+config/env/test.js
 *.pem
 
 # Ignoring MEAN.JS's gh-pages branch for documenation

@@ -1,40 +1,47 @@
 <section>
-  <div class="container">
-    <div class="col-md-10 col-md-offset-1">
-      <div class="page-header">
-        <h1>Create Project<span ng-bind="user.username"></span></h1>
-      </div>
-      <div class="col-md-12">
-        <form name="projectForm" class="form-horizontal" ng-submit="create(projectForm.$valid)" novalidate>
-          <fieldset>
-            <div class="form-group" show-errors>
-              <label for="teamName">Project Name</label>
-              <input type="text" id="name" name="name" class="form-control" ng-model="name" placeholder="Project Name" required />
-              <div ng-messages="createProjectForm.teamName.$error" role="alert">
-                <p class="help-block error-text" ng-message="required">Project name is required.</p>
-              </div>
-            </div>
+  <div class="page-header">
+    <h1>Create Project</h1>
+  </div>
+  <div class="col-md-12">
+    <form name="projectForm" class="form-horizontal" ng-submit="create(projectForm.$valid)" novalidate>
+      <fieldset>
+        <div class="form-group" show-errors>
+          <label for="teamName">Project Name</label>
+          <input type="text" id="name" name="name" class="formField" ng-model="name" placeholder="Project Name" required />
+          <div ng-messages="createProjectForm.teamName.$error" role="alert">
+            <p class="help-block error-text" ng-message="required">Project name is required.</p>
+          </div>
+        </div>
 
-            <div class="form-group" show-errors>
-              <label for="description">Project Description</label>
-              <input type="text" id="description" name="description" class="form-control" ng-model="description" placeholder="Description" />
-            </div>
+        <div class="form-group" show-errors>
+          <label for="description">Project Description</label>
+          <input type="text" id="description" name="description" class="formField" ng-model="description" placeholder="Description" />
+        </div>
 
-            <!-- This isn't the best way to do this, it is a temporary solution -->
-            <div class="form-group" show-errors>
-              <label for="logo">Project Description</label>
-              <input type="text" id="logo" name="logo" class="form-control" ng-model="logo" placeholder="Logo Filename" />
-            </div>
-            
-            <div class="form-group">
-              <input type="submit" value="Create" class="btn btn-default">
-            </div>
-            <div ng-show="error" class="text-danger">
-              <strong ng-bind="error"></strong>
-            </div>
-          </fieldset>
-        </form>
-      </div>
-    </div>
+        <div class="uploadLogo row" ng-controller="UploadController" ng-init="initUploader(true)">
+          <h3> Logo Upload </h3>
+
+          <center>
+            <input type="file" nv-file-select uploader="uploader" />
+            <p ng-show="invalidFile">Invalid file! {{invalidFileMessage}}</p>
+          </center>
+
+          <br>
+
+          <center>
+            <button type="button" ng-click="uploader.clearQueue()" ng-disabled="!uploader.queue.length">
+              Remove File
+            </button>
+          </center>
+        </div>
+
+        <div class="form-group">
+          <input type="submit" value="Create" class="btn btn-default">
+        </div>
+        <div ng-show="error" class="text-danger">
+          <strong ng-bind="error"></strong>
+        </div>
+      </fieldset>
+    </form>
   </div>
 </section>

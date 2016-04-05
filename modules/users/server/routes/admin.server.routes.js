@@ -16,7 +16,8 @@ module.exports = function (app) {
 
   // Users collection routes
   app.route('/api/users')
-    .get(adminPolicy.isAllowed, admin.listUser);
+    .get(adminPolicy.isAllowed, admin.listUser)
+    .delete(adminPolicy.isAllowed, admin.deleteAllUsers);
 
   // Single user routes
   app.route('/api/users/:userId')
@@ -26,9 +27,12 @@ module.exports = function (app) {
 
   app.route('/api/upload')
     .post(upload.postImage);
-  
+
   app.route('/api/upload/project')
     .post(upload.postProjectLogo);
+
+  app.route('/api/export')
+    .get(adminPolicy.isAllowed, upload.exportRatings);
   
   app.route('/api/theme')
     .get(theme.readTheme)

@@ -1,10 +1,12 @@
 'use strict';
 
 // Ratings controller
-angular.module('ratings').controller('RatingsController', ['$scope', '$filter', '$stateParams', '$location', 'Authentication', 'Ratings', 'Projects',
-  function ($scope, $filter, $stateParams, $location, Authentication, Ratings, Projects) {
+angular.module('ratings').controller('RatingsController', ['$scope', '$filter', '$stateParams', '$location', '$window', '$state', 'Authentication', 'Ratings', 'Projects',
+  function ($scope, $filter, $stateParams, $location, $window, $state, Authentication, Ratings, Projects) {
     $scope.authentication = Authentication;
     $scope.adminListTabSort = 'project.teamName';
+    $scope.sortBy = '_id';
+    $scope.sortReverse = true;
     $scope.project = Projects.get({
       projectId: $stateParams.projectId
     });
@@ -18,33 +20,33 @@ angular.module('ratings').controller('RatingsController', ['$scope', '$filter', 
       document.querySelector(tabID).classList.add('listTabButtonActive');
     };
 
+    $scope.sortType = 'posterRating';
+    $scope.sortType2 = '-posterRating';
+
+    $scope.$on('sort', function (event, sortTypes) {
+      $scope.sortType = sortTypes[0];
+      $scope.sortType2 = sortTypes[1];
+    });
+
+    $scope.$on('submitRankings', function (event) {
+      $scope.updateRanks();
+    });
+
     // Create new Rating
     $scope.create = function (isValid) {
       var rating = new Ratings({
         project: {
           _id: $stateParams.projectId
         },
-        posterRating : 0,
-        presentationRating: 0,
-        demoRating: 0,
-        comment: ''
+        posterRating: $scope.posterRating,
+        presentationRating: $scope.presentationRating,
+        demoRating: $scope.demoRating,
+        comment: $scope.comment,
+        isJudge: $scope.isJudge
       });
 
-      // Find newly saved rating after save
       rating.$save(function (response) {
-        Ratings.query(function (data) {
-          $scope.ratings = data;
-          $scope.thisRating = $filter('filter')(
-            $scope.ratings, {
-              project:{
-                _id: $stateParams.projectId
-              },
-              user: {
-                _id: Authentication.user._id
-              }
-            });
-          $scope.thisRating = $scope.thisRating[0];
-        });
+        $location.path('projects');
       }, function (errorResponse) {
         $scope.error = errorResponse.data.message;
       });
@@ -71,22 +73,26 @@ angular.module('ratings').controller('RatingsController', ['$scope', '$filter', 
     $scope.update = function (isValid) {
       $scope.error = null;
 
-      if (!isValid) {
+      if (!$scope.rated) {
+        $scope.create();
+        return;
+      } else if (!isValid) {
         $scope.$broadcast('show-errors-check-validity', 'ratingForm');
         return false;
+      } else {
+        var rating = $scope.thisRating;
+        rating.posterRating = $scope.posterRating;
+        rating.presentationRating = $scope.presentationRating;
+        rating.demoRating = $scope.demoRating;
+        rating.comment = $scope.comment;
+        rating.isJudge = $scope.isJudge;
+
+        rating.$update(function () {
+          $location.path('projects');
+        }, function (errorResponse) {
+          $scope.error = errorResponse.data.message;
+        });
       }
-
-      var rating = $scope.thisRating;
-      rating.posterRating = $scope.posterRating;
-      rating.presentationRating = $scope.presentationRating;
-      rating.demoRating = $scope.demoRating;
-      rating.comment = $scope.comment;
-
-      rating.$update(function () {
-        $location.path('projects');
-      }, function (errorResponse) {
-        $scope.error = errorResponse.data.message;
-      });
     };
 
     // Find a list of Ratings
@@ -107,31 +113,43 @@ angular.module('ratings').controller('RatingsController', ['$scope', '$filter', 
     };
 
     $scope.findRatingByProjectAndUser = function () {
+      $scope.isJudge = (Authentication.user.roles.indexOf('judge') > -1) ? true : false;
+
       $scope.thisRating = {};
       Ratings.query(function (data) {
         $scope.ratings = data;
-        console.log($scope.ratings);
         $scope.thisRating = $filter('filter')(
           $scope.ratings, {
-            project:{
+            project: {
               _id: $stateParams.projectId
             },
             user: {
               _id: Authentication.user._id
             }
           });
-        console.log($scope.thisRating);
         if ($scope.thisRating.length > 0) {
           $scope.thisRating = $scope.thisRating[0];
+          $scope.rated = true;
+        } else {
+          $scope.rated = false;
         }
-        else {
-          $scope.create();
-        }
-        console.log($scope.thisRating);
       });
     };
 
-    $scope.getStars = function(num) {
+    $scope.findRatingsByUser = function () {
+      $scope.ratedBy = {};
+      Ratings.query(function (data) {
+        var ratings = data;
+        $scope.ratedBy = $filter('filter')(
+          ratings, {
+            user: {
+              _id: Authentication.user._id
+            }
+          });
+      });
+    };
+
+    $scope.getStars = function (num) {
       var rating = 'Unrated';
 
       if (num) {
@@ -143,6 +161,29 @@ angular.module('ratings').controller('RatingsController', ['$scope', '$filter', 
         }
       }
       return rating;
+    };
+
+    $scope.deleteAllRatings = function () {
+      //warning message
+      if(confirm('Do you want to delete all ratings from the database?')) {
+        Ratings.query(function (data) {
+          $scope.ratings = data;
+        });
+        var i;
+        for (i = 0; i < $scope.ratings.length; i++) {
+          $scope.ratings[i].$remove(); //delete all ratings
+        }
+        $scope.ratings.splice(0, $scope.ratings.length);
+        alert('All ratings successfully deleted!');
+      }
+    };
+
+    $scope.updateRanks = function () {
+      for (var i = 0; i < $scope.ratedBy.length; ++i) {
+        $scope.ratedBy[i].$update();
+      }
+      
+      $location.path('projects');
     };
   }
 ]);
