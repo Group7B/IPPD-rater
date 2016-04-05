@@ -25,7 +25,6 @@ angular.module('projects').controller('ProjectController', ['$scope', '$filter',
 
       // Redirect after save
       project.$save(function (response) {
-        console.log('Adding ' + project.teamName + ', ' + project.description);
         $location.path('admin/projects/listadmin');
 
         // Clear form fields
@@ -74,7 +73,6 @@ angular.module('projects').controller('ProjectController', ['$scope', '$filter',
       if ($scope.teamName) project.teamName = $scope.teamName;
       if ($scope.description) project.description = $scope.description;
       $scope.$broadcast('projectCreated');
-      console.log('The project is ' + project.teamName);
 
       project.$update(function () {
         $location.path('admin/projects/listadmin');
@@ -144,8 +142,7 @@ angular.module('projects').controller('ProjectController', ['$scope', '$filter',
 
     $scope.deleteAllProjects = function () {
       //warning message
-      if (confirm("Do you want to delete all projects from the database?")) {
-
+      if (confirm('Do you want to delete all projects from the database?')) {
         $scope.thisProject = {};
         Projects.query(function (data) {
           $scope.projects = data;
@@ -155,7 +152,7 @@ angular.module('projects').controller('ProjectController', ['$scope', '$filter',
           $scope.projects[i].$remove(); //delete all ratings
         }
         $scope.projects.splice(0, $scope.projects.length);
-        $scope.success = 'All projects successfully deleted.';
+        alert('All projects successfully deleted!');
       }
     };
 
