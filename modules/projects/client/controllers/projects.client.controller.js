@@ -3,6 +3,7 @@
 angular.module('projects').controller('ProjectController', ['$scope', '$filter', '$stateParams', '$location', 'Authentication', 'Projects', 'Ratings', 'sharedLogoUrl',
   function ($scope, $filter, $stateParams, $location, Authentication, Projects, Ratings, sharedLogoUrl) {
     $scope.authentication = Authentication;
+    $scope.projectFilter = 'all';
 
     $scope.create = function (isValid) {
       $scope.error = null;
@@ -24,7 +25,6 @@ angular.module('projects').controller('ProjectController', ['$scope', '$filter',
 
       // Redirect after save
       project.$save(function (response) {
-        console.log('Adding ' + project.teamName + ', ' + project.description);
         $location.path('admin/projects/listadmin');
 
         // Clear form fields
@@ -73,7 +73,6 @@ angular.module('projects').controller('ProjectController', ['$scope', '$filter',
       if ($scope.teamName) project.teamName = $scope.teamName;
       if ($scope.description) project.description = $scope.description;
       $scope.$broadcast('projectCreated');
-      console.log('The project is ' + project.teamName);
 
       project.$update(function () {
         $location.path('admin/projects/listadmin');
@@ -141,31 +140,55 @@ angular.module('projects').controller('ProjectController', ['$scope', '$filter',
       return false;
     };
 
-    $scope.deleteAllProjects = function() {
+    $scope.deleteAllProjects = function () {
       //warning message
-      if(confirm("Do you want to delete all projects from the database?")) {
+      if (confirm('Do you want to delete all projects from the database?')) {
         $scope.thisProject = {};
         Projects.query(function (data) {
           $scope.projects = data;
         });
         var i;
         for (i = 0; i < $scope.projects.length; i++) {
-          $scope.projects[i].$remove();  //delete all ratings
+          $scope.projects[i].$remove(); //delete all ratings
         }
         $scope.projects.splice(0, $scope.projects.length);
-        $scope.success = 'All projects successfully deleted.';
+        alert('All projects successfully deleted!');
       }
     };
 
     $scope.hasRated = function (project) {
-      for(var i = 0; i < $scope.ratings.length; i++)
-      {
-        if(project._id === $scope.ratings[i].project._id && $scope.authentication.user._id === $scope.ratings[i].user._id)
-          return true;
+      var filtered = $filter('filter')(
+        $scope.ratings, {
+          project: {
+            _id: project._id
+          },
+          user: {
+            _id: $scope.authentication.user._id
+          }
+        });
+      if (filtered.length > 0) {
+        var index = $scope.projects.indexOf(project);
+        $scope.projects.splice(index, 1);
+        $scope.projects.push(project);
+        return 'rated';
+      } else {
+        return 'notRated';
       }
-      return false;
     };
 
-
+    $scope.testFilter = function (projectFilter) {
+      $scope.projectFilter = projectFilter;
+      $scope.sortProjectTabs('#' + projectFilter);
+    };
+    
+    $scope.sortProjectTabs = function(tabID) {
+      var tabs = document.querySelectorAll('.listTabButton');
+      for (var i = 0; i < tabs.length; ++i) {
+        tabs[i].classList.remove('listTabButtonActive');
+        tabs[i].classList.remove('accentColor');
+      }
+      document.querySelector(tabID).classList.add('listTabButtonActive');
+      document.querySelector(tabID).classList.add('accentColor');
+    };
   }
 ]);

@@ -3,12 +3,12 @@
     <h1 ng-bind="project.teamName"></h1>
   </div>
   <div class="pull-right">
-    <a class="btn btn-primary" ui-sref="admin.edit-project({projectId: project._id})">
-      <i class="glyphicon glyphicon-edit"></i>
-    </a>
-    <a class="btn btn-primary" ng-click="remove();">
-      <i class="glyphicon glyphicon-trash"></i>
-    </a>
+    <button class="buttonHover allButton accentColor" ui-sref="admin.edit-project({projectId: project._id})">
+      Edit
+    </button>
+    <button class="buttonHover allButton destructiveButton" ng-click="remove();">
+      Delete
+    </button>
   </div>
   <h3> Description: </h3>
   <p ng-bind="project.description"></p>

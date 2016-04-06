@@ -1,11 +1,13 @@
 'use strict';
 
-angular.module('users.admin').controller('UserListController', ['$scope', '$filter', 'Users',
-  function ($scope, $filter, Users) {
-    Users.query(function (data) {
-      $scope.users = data;
-      $scope.buildPager();
-    });
+angular.module('users.admin').controller('UserListController', ['$scope', '$filter', '$state', 'Users', '$stateParams',
+  function ($scope, $filter, $state, Users, $stateParams) {
+    $scope.find = function() {
+      Users.query(function (data) {
+        $scope.users = data;
+        $scope.buildPager();
+      });
+    };
 
     $scope.buildPager = function () {
       $scope.pagedItems = [];
@@ -26,6 +28,14 @@ angular.module('users.admin').controller('UserListController', ['$scope', '$filt
 
     $scope.pageChanged = function () {
       $scope.figureOutItemsToDisplay();
+    };
+
+    $scope.DeleteAllUsers = function() {
+      if(confirm('Do you want to delete all users (with the exception of admins) from the database?')) {
+        Users.deleteAllUsers();
+        alert('All users (save for admins) deleted!');
+        location.reload();
+      }
     };
   }
 ]);
