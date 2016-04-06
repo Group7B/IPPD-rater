@@ -4,64 +4,56 @@
       <div class="col-md-4">
         <h1>Ratings</h1>
       </div>
-      <div class="col-md-offset-3 col-md-4" style="margin-top: 2em">
-        <!--  Descending Order -->
-        <!-- <input type="checkbox" style="font-size: 50px;"></input> -->
-      </div>
     </div>
   </div>
 
-  <button type="radio" name="sortOpt" ng-click="sort='project.teamName'" class="ratingCol">
+  <button id="projectNameTab" type="radio" name="sortOpt" ng-click="sortTabs('#projectNameTab','project.teamName')" class="listTabButton listTabButtonActive accentColor">
     Project
   </button>
-  <button type="radio" name="sortOpt" ng-click="sort='-posterRating'" class="ratingCol">
+  <button id="posterRatingTab" type="radio" name="sortOpt" ng-click="sortTabs('#posterRatingTab','-posterRating')" class="listTabButton">
     Poster
   </button>
-  <button type="radio" name="sortOpt" ng-click="sort='-presentationRating'" class="ratingCol">
+  <button id="presentationRatingTab" type="radio" name="sortOpt" ng-click="sortTabs('#presentationRatingTab','-presentationRating')" class="listTabButton">
     Presentation
   </button>
-  <button type="radio" name="sortOpt" ng-click="sort='-demoRating'" class="ratingCol">
+  <button id="demoRatingTab" type="radio" name="sortOpt" ng-click="sortTabs('#demoRatingTab','-demoRating')" class="listTabButton">
     Demo
   </button>
-  <button type="radio" name="sortOpt" ng-click="sort='user.username'" class="ratingCol">
+  <button id="usernameTab" type="radio" name="sortOpt" ng-click="sortTabs('#usernameTab','user.username')" class="listTabButton">
     User
   </button>
-  <button type="radio" name="sortOpt" ng-click="sort='user.roles'" class="ratingCol">
+  <button id="roleTab" type="radio" name="sortOpt" ng-click="sortTabs('#roleTab','-user.roles')" class="listTabButton">
     Role
   </button>
 
   <div class="list-group">
-    <a ng-repeat="rating in ratings | orderBy: sort" ui-sref="rating.project({project.teamName})" class="list-group-item">
+    <a ng-repeat="rating in ratings | orderBy: adminListTabSort" ui-sref="rating.project({project:teamName})" class="list-group-item">
       <div style="display: inline-block;">
-        <div class="ratingCol" style="display: inline-block; margin-right: 20px;">
+        <div class="ratingCol" style="display: inline-block; margin-right: 20px; vertical-align: middle;">
           <!-- TEAM -->
           <span ng-bind="rating.project.teamName">  </span>
         </div>
-        <div class="ratingCol" style="display: inline-block; margin-right: 20px;">
+        <div class="ratingCol" style="display: inline-block; margin-right: 20px; vertical-align: middle;">
           <!-- POSTER -->
           <span ng-bind="getStars(rating.posterRating)"></span>
         </div>
-        <div class="ratingCol" style="display: inline-block; margin-right: 20px;">
+        <div class="ratingCol" style="display: inline-block; margin-right: 20px; vertical-align: middle;">
           <!-- PRESENTATION -->
           <span ng-bind="getStars(rating.presentationRating)"></span>
         </div>
-        <div class="ratingCol" style="display: inline-block; margin-right: 20px;">
+        <div class="ratingCol" style="display: inline-block; margin-right: 20px; vertical-align: middle;">
           <!-- DEMO -->
           <span ng-bind="getStars(rating.demoRating)"></span>
         </div>
-        <div class="ratingCol" style="display: inline-block; margin-right: 20px;">
+        <div class="ratingCol" style="display: inline-block; margin-right: 20px; vertical-align: middle;">
           <!-- USERNAME -->
           <span ng-bind="rating.user.username"></span>
         </div>
-        <div class="ratingCol" style="display: inline-block; margin-right: 20px;">
+        <div class="ratingCol" style="display: inline-block; margin-right: 20px; vertical-align: middle;">
           <!-- JUDGE -->
           <span ng-bind="rating.user.roles"></span>
         </div>
       </div>
     </a>
-  </div>
-
-  <div class="alert alert-warning text-center" ng-if="ratings.$resolved && !ratings.length">
-    No ratings yet, why don't you <a ui-sref="ratings.create">create one</a>?
   </div>
 </section>

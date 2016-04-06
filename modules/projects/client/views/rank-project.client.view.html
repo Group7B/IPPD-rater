@@ -19,19 +19,17 @@
 
   <div class="headerFont" ng-controller="RankingController">
     <div class="row">
-      <button id="posterButton" class="col-xs-3 rankButton" ng-click="filterButtonPressed(0)"> Poster </button>
-      <button id="presButton" class="col-xs-4 col-xs-offset-1 rankButton" ng-click="filterButtonPressed(1)"> Presentation </button>
-      <button id="demoButton" class="col-xs-3 col-xs-offset-1 rankButton" ng-click="filterButtonPressed(2)"> Demo </button>
-    </div>
-    
-    <br>
-    
-    <div class="row">
-      <button id="nextButton" class="col-xs-10 col-xs-offset-1 rankButton rankNextButton" ng-click="nextButtonPressed()"> Next </button>
-    </div>
-    
-    <div class="row">
       <span class="col-xs-12 instructionLabel text-center" ng-bind="currentInstruction"></span>
+    </div>
+    
+    <div class="row">
+      <button id="nextButton" class="col-xs-10 col-xs-offset-1 col-md-4 col-md-offset-4 buttonHover allButton rankNextButton" ng-click="nextButtonPressed()"> Next </button>
+    </div>
+    
+    <div class="row">
+      <button id="posterButton" class="listTabButton listTabButtonActive thirdWidthListTabButton" ng-click="filterButtonPressed(0)"> Poster </button>
+      <button id="presButton" class="listTabButton thirdWidthListTabButton" ng-click="filterButtonPressed(1)"> Presentation </button>
+      <button id="demoButton" class="listTabButton thirdWidthListTabButton rightmostListTabButton" ng-click="filterButtonPressed(2)"> Demo </button>
     </div>
   </div>
 

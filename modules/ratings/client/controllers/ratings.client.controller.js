@@ -4,11 +4,23 @@
 angular.module('ratings').controller('RatingsController', ['$scope', '$filter', '$stateParams', '$location', '$window', '$state', 'Authentication', 'Ratings', 'Projects',
   function ($scope, $filter, $stateParams, $location, $window, $state, Authentication, Ratings, Projects) {
     $scope.authentication = Authentication;
+    $scope.adminListTabSort = 'project.teamName';
     $scope.sortBy = '_id';
     $scope.sortReverse = true;
     $scope.project = Projects.get({
       projectId: $stateParams.projectId
     });
+    
+    $scope.sortTabs = function(tabID, sortString) {
+      $scope.adminListTabSort = sortString;
+      var tabs = document.querySelectorAll('.listTabButton');
+      for (var i = 0; i < tabs.length; ++i) {
+        tabs[i].classList.remove('listTabButtonActive');
+        tabs[i].classList.remove('accentColor');
+      }
+      document.querySelector(tabID).classList.add('listTabButtonActive');
+      document.querySelector(tabID).classList.add('accentColor');
+    };
 
     $scope.sortType = 'posterRating';
     $scope.sortType2 = '-posterRating';
