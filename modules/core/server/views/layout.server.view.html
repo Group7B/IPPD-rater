@@ -33,7 +33,7 @@
 
   <link href='https://fonts.googleapis.com/css?family=Quicksand:700' rel='stylesheet' type='text/css'>
   <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
-  
+
   <!-- Application CSS Files -->
   {% for cssFile in cssFiles %}<link rel="stylesheet" href="{{cssFile}}">{% endfor %}
 </head>
@@ -41,6 +41,8 @@
 <body class="ng-cloak backgroundColor">
   <section class="content">
     <section class="container">
+      <div ng-controller="HomeController" ng-init="updateStoredColors()">
+      </div>
        {% block content %}{% endblock %}
     </section>
   </section>
