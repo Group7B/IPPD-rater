@@ -10,7 +10,7 @@ angular.module('ratings').controller('RatingsController', ['$scope', '$filter', 
     $scope.project = Projects.get({
       projectId: $stateParams.projectId
     });
-    
+
     $scope.sortTabs = function(tabID, sortString) {
       $scope.adminListTabSort = sortString;
       var tabs = document.querySelectorAll('.listTabButton');
@@ -79,7 +79,7 @@ angular.module('ratings').controller('RatingsController', ['$scope', '$filter', 
         $scope.$broadcast('show-errors-check-validity', 'ratingForm');
         return false;
       }
-      else if (($scope.posterRating === '0' || $scope.posterRating === 0) && ($scope.presentationRating === '0' || $scope.presentationRating === 0)  && ($scope.demoRating === '0' || $scope.demoRating === 0)) {
+      else if (($scope.posterRating === '0' || $scope.posterRating === 0) && ($scope.presentationRating === '0' || $scope.presentationRating === 0) && ($scope.demoRating === '0' || $scope.demoRating === 0)) {
         $scope.remove($scope.thisRating);
       }
       else {
@@ -138,9 +138,17 @@ angular.module('ratings').controller('RatingsController', ['$scope', '$filter', 
           $scope.presentationRating = $scope.thisRating.presentationRating;
           $scope.demoRating = $scope.thisRating.demoRating;
           $scope.comment = $scope.thisRating.comment;
+
+          $scope.oldPoster = $scope.posterRating;
+          $scope.oldPresentation = $scope.presentationRating;
+          $scope.oldDemo = $scope.demoRating;
+          $scope.oldComment = $scope.comment;
         }
         else {
           $scope.rated = false;
+          $scope.posterRating = 0;
+          $scope.presentationRating = 0;
+          $scope.demoRating = 0;
         }
       });
     };
@@ -191,7 +199,7 @@ angular.module('ratings').controller('RatingsController', ['$scope', '$filter', 
       for (var i = 0; i < $scope.ratedBy.length; ++i) {
         $scope.ratedBy[i].$update();
       }
-      
+
       $location.path('projects');
     };
   }
