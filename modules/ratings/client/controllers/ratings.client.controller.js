@@ -109,14 +109,25 @@ angular.module('ratings').controller('RatingsController', ['$scope', '$filter', 
         if ($scope.thisRating.length > 0) {
           $scope.thisRating = $scope.thisRating[0];
           $scope.rated = true;
-          var current = [];
-          console.log('poster rating: ' + $scope.thisRating.posterRating);
-          console.log('presentation rating: ' + $scope.thisRating.presentationRating);
-          console.log('demo rating: ' + $scope.thisRating.demoRating);
-          current.push($scope.thisRating.posterRating);
-          current.push($scope.thisRating.presentationRating);
-          current.push($scope.thisRating.demoRating);
-          return current;
+          var currentPoster = $scope.thisRating.posterRating;
+          var currentPresentation = $scope.thisRating.presentationRating;
+          var currentDemo = $scope.thisRating.demoRating;
+          var currentComment = $scope.thisRating.comment;
+        
+          for (var i = 0; i <= 5; i++) {
+            if (i === currentPoster) {
+              document.getElementById('poster_star' + i).checked = true;
+            }
+            if (i === currentPresentation) {
+              document.getElementById('presentation_star' + i).checked = true;
+            }
+            if (i === currentDemo) {
+              document.getElementById('demo_star' + i).checked = true;
+            }
+          }
+          document.getElementById('comment').placeholder = currentComment;
+
+        
         } else {
           $scope.rated = false;
         }
