@@ -35,7 +35,7 @@ angular.module('ratings').controller('RatingsController', ['$scope', '$filter', 
     $scope.remove = function (rating) {
       if (rating) {
         rating.$remove();
-
+        console.log('rating removed');
         for (var i in $scope.ratings) {
           if ($scope.ratings[i] === rating) {
             $scope.ratings.splice(i, 1);
@@ -51,14 +51,30 @@ angular.module('ratings').controller('RatingsController', ['$scope', '$filter', 
     // Update existing Rating
     $scope.update = function (isValid) {
       $scope.error = null;
-
+      console.log($scope.posterRating);
+      console.log($scope.presentationRating);
+      console.log($scope.demoRating);
       if (!$scope.rated) {
         $scope.create();
+        console.log('create');
         return;
-      } else if (!isValid) {
+      }
+      else if (!isValid) {
         $scope.$broadcast('show-errors-check-validity', 'ratingForm');
         return false;
-      } else {
+      }
+      else if ($scope.posterRating === '0' || $scope.posterRating === 0) {
+        console.log('poster');
+        if ($scope.presentationRating === '0' || $scope.presentationRating === 0) {
+          console.log('presentation');
+          if ($scope.demoRating === '0' || $scope.demoRating === 0) {
+            console.log('removing');
+            $scope.remove($scope.thisRating);
+          }
+        }
+      }
+      else {
+        console.log('update');
         var rating = $scope.thisRating;
         rating.posterRating = $scope.posterRating;
         rating.presentationRating = $scope.presentationRating;
@@ -109,15 +125,13 @@ angular.module('ratings').controller('RatingsController', ['$scope', '$filter', 
         if ($scope.thisRating.length > 0) {
           $scope.thisRating = $scope.thisRating[0];
           $scope.rated = true;
-          var current = [];
-          console.log('poster rating: ' + $scope.thisRating.posterRating);
-          console.log('presentation rating: ' + $scope.thisRating.presentationRating);
-          console.log('demo rating: ' + $scope.thisRating.demoRating);
-          current.push($scope.thisRating.posterRating);
-          current.push($scope.thisRating.presentationRating);
-          current.push($scope.thisRating.demoRating);
-          return current;
-        } else {
+
+          $scope.posterRating = $scope.thisRating.posterRating;
+          $scope.presentationRating = $scope.thisRating.presentationRating;
+          $scope.demoRating = $scope.thisRating.demoRating;
+          $scope.comment = $scope.thisRating.comment;
+        }
+        else {
           $scope.rated = false;
         }
       });
