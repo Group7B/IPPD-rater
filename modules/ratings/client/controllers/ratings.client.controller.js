@@ -7,10 +7,12 @@ angular.module('ratings').controller('RatingsController', ['$scope', '$filter', 
     $scope.adminListTabSort = 'project.teamName';
     $scope.sortBy = '_id';
     $scope.sortReverse = true;
-    $scope.project = Projects.get({
-      projectId: $stateParams.projectId
-    });
-    
+    if($stateParams.projectId){
+      $scope.project = Projects.get({
+        projectId: $stateParams.projectId
+      });
+    }
+
     $scope.sortTabs = function(tabID, sortString) {
       $scope.adminListTabSort = sortString;
       var tabs = document.querySelectorAll('.listTabButton');
@@ -107,11 +109,11 @@ angular.module('ratings').controller('RatingsController', ['$scope', '$filter', 
 
     // Find existing Rating
     $scope.findOne = function () {
-      $scope.rating = Ratings.get({
-        ratingId: {
-          _id: $stateParams.ratingId
-        }
-      });
+      //$scope.rating = Ratings.get({
+      //  ratingId: {
+      //    _id: $stateParams.ratingId
+      //  }
+      //});
     };
 
     $scope.findRatingByProjectAndUser = function () {
@@ -184,7 +186,7 @@ angular.module('ratings').controller('RatingsController', ['$scope', '$filter', 
       for (var i = 0; i < $scope.ratedBy.length; ++i) {
         $scope.ratedBy[i].$update();
       }
-      
+
       $location.path('projects');
     };
   }
