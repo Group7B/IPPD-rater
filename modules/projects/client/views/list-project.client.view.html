@@ -7,35 +7,49 @@
     <a class="signOutButton" href="/api/auth/signout" target="_self">Signout</a>
   </div>
 
-  <div class="page-header">
+  <div class="pageHeader headerFont row">
     <div class="row">
-      <div class="col-md-4">
-        <h1>Projects</h1>
-        <button class="buttonHover allButton accentColor" ui-sref="projects.rank" ng-show="authentication.user.roles.indexOf('judge') > -1">Submit Rankings</button>
-      </div>
-      <div class="col-md-4" style="margin-top: 2em">
-        <input class="formField" type="text" ng-model="searchText" placeholder="Search" />
-      </div>
+      <h1 class="col-xs-4">Rate Projects</h1>
+    </div>
+
+    <div class="row">
+      <button class="buttonHover allButton accentColor col-xs-12 col-md-3" ui-sref="projects.rank" ng-show="authentication.user.roles.indexOf('judge') > -1">
+        Submit Rankings
+      </button>
+    </div>
+
+    <div class="col-xs-10 col-xs-offset-1 col-md-6 col-md-offset-3">
+      <input class="formField" type="text" ng-model="searchText" placeholder="Search" />
     </div>
   </div>
-  <div class="list-group">
-    <a ng-repeat="project in projects | filter:searchText" ui-sref="projects.rate({projectId: project._id})" class="list-group-item">
+
+  <div class="row headerFont">
+    <h4> Filter by:</h4>
+    <button id="all" class="listTabButton thirdWidthListTabButton listTabButtonActive accentColor" ng-click="testFilter('all')"> Both </button>
+    <button id="rated" class="listTabButton thirdWidthListTabButton" ng-click="testFilter('rated')"> Rated </button>
+    <button id="notRated" class="listTabButton thirdWidthListTabButton rightmostListTabButton" ng-click="testFilter('notRated')"> Not Rated </button>
+  </div>
+
+  <div class="list-group contentFont">
+    <a ng-repeat="project in projects | filter:searchText" ui-sref="projects.rate({projectId: project._id})" class="list-group-item row" ng-show="projectFilter === 'all' || projectFilter === hasRated(project)">
       <div class="row">
         <div class="col-sm-2">
           <div class="post-thumb"><img class="logo-icon" ng-if="project.logo" ng-src='modules/projects/client/img/logos/{{project.logo}}' alt="No img"></div>
           <div class="post-thumb"><img class="logo-icon" ng-if="!project.logo" src='modules/projects/client/img/logos/default.jpg' alt="No img"></div>
         </div>
         <div class="col-sm-10">
-          <p class="list-group-item-heading" ng-bind="project.teamName"></p>
-          <br>
-          <div class="list-group-item-text" ng-bind="project.description"></div>
 
-          <div class="cf"></div>
+          <div class="list-group-item-text headerFont" style="float:right; color: green;" ng-show="hasRated(project) === 'rated'">
+            <text> Rated! </text>
+          </div>
+          <div class="list-group-item-text headerFont" style="float:right; color: red;" ng-show="hasRated(project) === 'notRated'">
+            <text> Not Rated! </text>
+          </div>
+
+          <h4 class="list-group-item-heading headerFont" ng-bind="project.teamName"></h4>
+          <p class="list-group-item-text contentFont" ng-bind="project.description"></p>
         </div>
       </div>
     </a>
-  </div>
-  <div class="alert alert-warning text-center" ng-if="projects.$resolved && !projects.length">
-    No projects yet, why don't you <a ui-sref="projects.create">create one</a>?
   </div>
 </section>

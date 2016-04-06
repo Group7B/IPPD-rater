@@ -4,10 +4,34 @@
 angular.module('ratings').controller('RatingsController', ['$scope', '$filter', '$stateParams', '$location', '$window', '$state', 'Authentication', 'Ratings', 'Projects',
   function ($scope, $filter, $stateParams, $location, $window, $state, Authentication, Ratings, Projects) {
     $scope.authentication = Authentication;
+    $scope.adminListTabSort = 'project.teamName';
     $scope.sortBy = '_id';
     $scope.sortReverse = true;
     $scope.project = Projects.get({
       projectId: $stateParams.projectId
+    });
+    
+    $scope.sortTabs = function(tabID, sortString) {
+      $scope.adminListTabSort = sortString;
+      var tabs = document.querySelectorAll('.listTabButton');
+      for (var i = 0; i < tabs.length; ++i) {
+        tabs[i].classList.remove('listTabButtonActive');
+        tabs[i].classList.remove('accentColor');
+      }
+      document.querySelector(tabID).classList.add('listTabButtonActive');
+      document.querySelector(tabID).classList.add('accentColor');
+    };
+
+    $scope.sortType = 'posterRating';
+    $scope.sortType2 = '-posterRating';
+
+    $scope.$on('sort', function (event, sortTypes) {
+      $scope.sortType = sortTypes[0];
+      $scope.sortType2 = sortTypes[1];
+    });
+
+    $scope.$on('submitRankings', function (event) {
+      $scope.updateRanks();
     });
 
     // Create new Rating
@@ -23,7 +47,6 @@ angular.module('ratings').controller('RatingsController', ['$scope', '$filter', 
         isJudge: $scope.isJudge
       });
 
-      // Find newly saved rating after save
       rating.$save(function (response) {
         $location.path('projects');
       }, function (errorResponse) {
@@ -93,7 +116,7 @@ angular.module('ratings').controller('RatingsController', ['$scope', '$filter', 
     };
 
     $scope.findRatingByProjectAndUser = function () {
-      $scope.isJudge = (Authentication.user.roles.indexOf("judge") > -1) ? true : false;
+      $scope.isJudge = (Authentication.user.roles.indexOf('judge') > -1) ? true : false;
 
       $scope.thisRating = {};
       Ratings.query(function (data) {
@@ -122,6 +145,19 @@ angular.module('ratings').controller('RatingsController', ['$scope', '$filter', 
       });
     };
 
+    $scope.findRatingsByUser = function () {
+      $scope.ratedBy = {};
+      Ratings.query(function (data) {
+        var ratings = data;
+        $scope.ratedBy = $filter('filter')(
+          ratings, {
+            user: {
+              _id: Authentication.user._id
+            }
+          });
+      });
+    };
+
     $scope.getStars = function (num) {
       var rating = 'Unrated';
 
@@ -136,34 +172,27 @@ angular.module('ratings').controller('RatingsController', ['$scope', '$filter', 
       return rating;
     };
 
-    $scope.deleteAllRatings = function() {
+    $scope.deleteAllRatings = function () {
       //warning message
-      if(confirm("Do you want to delete all ratings from the database?")) {
-        $scope.thisRating = {};
+      if(confirm('Do you want to delete all ratings from the database?')) {
         Ratings.query(function (data) {
           $scope.ratings = data;
         });
         var i;
         for (i = 0; i < $scope.ratings.length; i++) {
-          $scope.ratings[i].$remove();  //delete all ratings
+          $scope.ratings[i].$remove(); //delete all ratings
         }
         $scope.ratings.splice(0, $scope.ratings.length);
-        $scope.success = 'All ratings successfully deleted.';
+        alert('All ratings successfully deleted!');
       }
     };
 
-    $scope.updateRank = function(rating) {
-      rating.$update(function (err) {
-        $scope.error = err;
-      });
-    };
-
-    $scope.rankRange = function(start, end) {
-      var result = [];
-      for (var i = start; i <= end; ++i) {
-        result.push(i);
+    $scope.updateRanks = function () {
+      for (var i = 0; i < $scope.ratedBy.length; ++i) {
+        $scope.ratedBy[i].$update();
       }
-      return result;
+      
+      $location.path('projects');
     };
   }
 ]);

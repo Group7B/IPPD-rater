@@ -55,20 +55,20 @@ exports.postProjectLogo = function (req, res) {
 };
 
 exports.exportRatings = function (req, res) {
-  var fields = ['project.teamName','user.username', 'user.displayName', 'isJudge', 'demoRating', 'presentationRating','posterRating', 'comment'];
+  var fields = ['project.teamName','user.username', 'user.displayName', 'isJudge', 'demoRating', 'presentationRating','posterRating', 'posterRank', 'presentationRank', 'demoRank', 'comment'];
   Rating
     .find({})
     .populate('project user')
     .exec(function (err, data) {
       if (err) {
-        res.status(500).send("Something went wrong");
+        res.status(500).send('Something went wrong');
       } else if (data.length) {
         json2csv({
           data: data,
           fields: fields
         }, function (err, csv) {
           if (err) {
-            res.status(500).send("Something went wrong");
+            res.status(500).send('Something went wrong');
           } else {
             res.setHeader('Content-disposition', 'attachment; filename=testing.csv');
             res.set('Content-Type', 'text/csv');
@@ -76,7 +76,7 @@ exports.exportRatings = function (req, res) {
           }
         });
       } else {
-        res.status(404).send("Collection is empty");
+        res.status(404).send('Collection is empty');
       }
     });
 };

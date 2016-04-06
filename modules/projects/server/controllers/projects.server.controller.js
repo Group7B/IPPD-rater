@@ -45,7 +45,6 @@ exports.update = function (req, res) {
   project.description = req.body.description;
   project.logo = req.body.logo;
 
-  console.log ('Server side: ' + project.teamName + ', ' + project.description);
   project.save(function (err) {
     if (err) {
       return res.status(400).send({
@@ -104,7 +103,6 @@ exports.projectByID = function (req, res, next, id) {
     if (err) {
       return next(err);
     } else if (!project) {
-      console.log('We couldnt find your project');
       return res.status(404).send({
         message: 'No project with that identifier has been found'
       });

@@ -1,83 +1,95 @@
-<section ng-controller="RatingsController" ng-init="find()">
-  <div class="page-header">
-    <h1>Final Ranking</h1>
-    <button ui-sref="projects.list" class="buttonHover allButton accentColor"> Back to Projects </button>
-  </div>
-  
-  <div>
-    <button ui-sref="projects.list" class="buttonHover allButton accentColor fullWidth"> Submit Rankings </button>
+<section ng-controller="RatingsController" ng-init="findRatingsByUser()">
+  <div class="userBar headerFont">
+    <span class="welcomeMessage">Welcome, {{authentication.user.firstName}}!</span>
+    <br>
+    <a class="" ng-show="userIsAdmin()" ui-sref="admin.users">Admin Dashboard</a>
+    <br>
+    <a class="signOutButton" href="/api/auth/signout" target="_self">Signout</a>
   </div>
 
-  <div class="list-group headerFont">
-    <span>Sort by : &nbsp;</span>
-    <button class="filterButton" ng-click="sortType = 'posterRating'; sortType2 = '-posterRank'"> Poster </button>
-    <button class="filterButton" ng-click="sortType = 'presentationRating'; sortType2 = '-presentationRank'"> Presentation </button>
-    <button class="filterButton" ng-click="sortType = 'demoRating'; sortType2 = '-demoRank'"> Demo </button>
-    <div ng-repeat="rating in ratings | filter: {$: authentication.user._id} : true | orderBy:[sortType,sortType2]:sortReverse" class="list-group-item" >
+  <div class="pageHeader headerFont row">
+    <div class="row">
+      <h1 class="col-xs-4">Final Ranking</h1>
+    </div>
+
+    <div class="row">
+      <button class="buttonHover allButton smallButton accentColor col-xs-2 col-md-1 col-xs-offset-1" ui-sref="projects.list"> Back </button>
+    </div>
+  </div>
+
+  <div class="headerFont" ng-controller="RankingController">
+    <div class="row">
+      <span class="col-xs-12 instructionLabel text-center" ng-bind="currentInstruction"></span>
+    </div>
+    
+    <div class="row">
+      <button id="nextButton" class="col-xs-10 col-xs-offset-1 col-md-4 col-md-offset-4 buttonHover allButton rankNextButton" ng-click="nextButtonPressed()"> Next </button>
+    </div>
+    
+    <div class="row">
+      <button id="posterButton" class="listTabButton listTabButtonActive thirdWidthListTabButton" ng-click="filterButtonPressed(0)"> Poster </button>
+      <button id="presButton" class="listTabButton thirdWidthListTabButton" ng-click="filterButtonPressed(1)"> Presentation </button>
+      <button id="demoButton" class="listTabButton thirdWidthListTabButton rightmostListTabButton" ng-click="filterButtonPressed(2)"> Demo </button>
+    </div>
+  </div>
+
+  <div class="list-group">
+    <div ng-repeat="rating in ratedBy | orderBy:[sortType,sortType2]:sortReverse" class="list-group-item row">
+
       <div class="row">
-
-        <div class="clearfix visible-xs-block"></div>
-        <div class="col-xs-4 col-sm-2">
-          <div class="post-thumb"><img class="logo-icon" ng-if="rating.project.logo" ng-src='modules/projects/client/img/logos/{{rating.project.logo}}' alt="No img"></div>
-          <div class="post-thumb"><img class="logo-icon" ng-if="!rating.project.logo" src='modules/projects/client/img/logos/default.jpg' alt="No img"></div>
+        <div class="col-xs-8">
+          <h4 class="list-group-item-heading headerFont" ng-bind="rating.project.teamName"></h4>
+          <p class="list-group-item-text contentFont" ng-bind="rating.project.description"></p>
         </div>
 
-        <div class="col-xs-5 col-sm-8">
-          <p  class="list-group-item-heading" ng-bind="rating.project.teamName"></p>
-        </div>
-
-        <div class="col-xs-3 col-sm-2">
-
+        <div class="col-xs-2 col-xs-offset-1">
           <div ng-show="sortType === 'posterRating'">
             <text>Rank:</text>
-            <select class="accentColor" style="color : white" ng-model="rating.posterRank" ng-change="updateRank(rating)" ng-options="n for n in rankRange(1,ratings.length)">
+            <select class="accentColor" style="color : white" ng-model="rating.posterRank" ng-options="n for n in [1,2,3]">
             </select>
           </div>
 
           <div ng-show="sortType === 'presentationRating'">
             <text>Rank:</text>
-            <select class="accentColor" style="color : white" ng-model="rating.presentationRank" ng-change="updateRank(rating)" ng-options="n for n in rankRange(1,ratings.length)">
+            <select class="accentColor" style="color : white" ng-model="rating.presentationRank" ng-options="n for n in [1,2,3]">
             </select>
           </div>
 
           <div ng-show="sortType === 'demoRating'">
             <text>Rank:</text>
-            <select class="accentColor" style="color : white" ng-model="rating.demoRank" ng-change="updateRank(rating)" ng-options="n for n in rankRange(1,ratings.length)">
+            <select class="accentColor" style="color : white" ng-model="rating.demoRank" ng-options="n for n in [1,2,3]">
             </select>
           </div>
-
         </div>
-
-        <div class="col-xs-10">
-          <div class="list-group-item-text" ng-bind="rating.project.description"></div>
-        </div>
-
-          <div class="col-xs-10">
-
-            <div class="list-group-item" ng-show="sortType === 'posterRating'">
-                <text>Poster Rating: </text>
-                <text class="list-group-item-text" ng-bind="getStars(rating.posterRating)"></text>
-            </div>
-            <div class="list-group-item" ng-show="sortType === 'presentationRating'">
-                <text>Presentation Rating: </text>
-                <text class="list-group-item-text" ng-bind="getStars(rating.presentationRating)"></text>
-            </div>
-            <div class="list-group-item" ng-show="sortType === 'demoRating'">
-                <text>Demo Rating: </text>
-                <text class="list-group-item-text" ng-bind="getStars(rating.demoRating)"></text>
-            </div>
-            <div class="list-group-item">
-                <text>My Comment: </text>
-                <text class="list-group-item-text" ng-bind="rating.comment"></text>
-            </div>
-          </div>
-
-
       </div>
-      <button ui-sref="projects.rate({projectId: rating.project._id})" class="btn btn-md"> Change Ratings</button>
+
+      <br>
+
+      <div class="row" ng-show="sortType === 'posterRating'">
+        <text class="col-xs-2">Poster: </text>
+        <text class="col-xs-8 col-xs-offset-2 col-md-offset-1" ng-bind="getStars(rating.posterRating)"></text>
+      </div>
+
+      <div class="row" ng-show="sortType === 'presentationRating'">
+        <text class="col-xs-2">Presentation: </text>
+        <text class="col-xs-8 col-xs-offset-2 col-md-offset-1" ng-bind="getStars(rating.presentationRating)"></text>
+      </div>
+
+      <div class="row" ng-show="sortType === 'demoRating'">
+        <text class="col-xs-2">Demonstration: </text>
+        <text class="col-xs-8 col-xs-offset-2 col-md-offset-1" ng-bind="getStars(rating.demoRating)"></text>
+      </div>
+
+      <div class="row">
+        <text class="col-xs-2">Comment: </text>
+        <text class="col-xs-8 col-xs-offset-2 col-md-offset-1" ng-bind="rating.comment"></text>
+      </div>
+
+      <br>
+
+      <div class="row">
+        <button class="col-xs-2 col-xs-offset-5 col-md-1 col-md-offset-2 buttonHover allButton smallButton accentColor" ui-sref="projects.rate({projectId: rating.project._id})">Edit</button>
+      </div>
     </div>
-  </div>
-  <div class="alert alert-warning text-center" ng-if="projects.$resolved && !projects.length">
-    No projects yet, why don't you <a ui-sref="projects.create">create one</a>?
   </div>
 </section>
