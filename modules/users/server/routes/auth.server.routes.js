@@ -3,11 +3,52 @@
 /**
  * Module dependencies.
  */
+
 var passport = require('passport');
+var config = require('/home/ian/Software/IPPD-rater/config/env/local.js');
 
 module.exports = function (app) {
   // User Routes
   var users = require('../controllers/users.server.controller');
+
+  //Setting up Shibboleth routes
+  app.get('/api/auth/shib', (function(req, res) {
+    if(req.isAuthenticated()) {
+      res.render('home', {
+        user : req.user
+      });
+    } 
+    else {
+      res.render('home',
+        {
+          user : null
+        });
+    }
+  }));
+
+  app.get('/api/auth/shib/login',(
+      passport.authenticate(config.passport.strategy,
+        {
+          successRedirect : '/',
+          failureRedirect : '/login',
+        })
+    ));
+
+  app.post('/api/auth/shib/login/callback', (
+    passport.authenticate(config.passport.strategy,
+      {
+        failureRedirect: '/',
+        failureFlash: true
+      }),
+    function(req, res) {
+      res.redirect('/');
+    }
+  ));
+
+  app.get('/api/auth/shib/logout', (function(req, res) {
+    req.logout();
+    res.redirect('/');
+  }));
 
   // Setting up the users password api
   app.route('/api/auth/forgot').post(users.forgot);

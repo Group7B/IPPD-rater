@@ -17,6 +17,7 @@ var config = require('../config'),
   helmet = require('helmet'),
   flash = require('connect-flash'),
   consolidate = require('consolidate'),
+  passport = require('passport'),
   path = require('path');
 
 /**
@@ -50,6 +51,7 @@ module.exports.initLocalVariables = function (app) {
  * Initialize application middleware
  */
 module.exports.initMiddleware = function (app) {
+
   // Showing stack errors
   app.set('showStackError', true);
 
@@ -88,6 +90,13 @@ module.exports.initMiddleware = function (app) {
   // Add the cookie parser and flash middleware
   app.use(cookieParser());
   app.use(flash());
+
+  //passport-saml things
+  app.use(express.static('public'));
+  app.use(session({ secret: 'keyboard cat' }));
+  app.use(passport.initialize());
+  app.use(passport.session());
+
 };
 
 /**
