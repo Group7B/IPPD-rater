@@ -109,6 +109,14 @@ angular.module('ratings').controller('RatingsController', ['$scope', '$filter', 
         if ($scope.thisRating.length > 0) {
           $scope.thisRating = $scope.thisRating[0];
           $scope.rated = true;
+          var current = [];
+          console.log('poster rating: ' + $scope.thisRating.posterRating);
+          console.log('presentation rating: ' + $scope.thisRating.presentationRating);
+          console.log('demo rating: ' + $scope.thisRating.demoRating);
+          current.push($scope.thisRating.posterRating);
+          current.push($scope.thisRating.presentationRating);
+          current.push($scope.thisRating.demoRating);
+          return current;
         } else {
           $scope.rated = false;
         }
