@@ -34,31 +34,32 @@ angular.module('ratings').controller('RatingsController', ['$scope', '$filter', 
     // Remove existing Rating
     $scope.remove = function (rating) {
       if (rating) {
-        rating.$remove();
-
-        for (var i in $scope.ratings) {
-          if ($scope.ratings[i] === rating) {
-            $scope.ratings.splice(i, 1);
-          }
-        }
-      } else {
-        $scope.rating.$remove(function () {
-          $location.path('ratings');
+        rating.$remove(function () {
+          $location.path('projects');
+        }, function (errorResponse) {
+          $scope.error = errorResponse.data.message;
         });
+      }
+      else {
+        console.log('No rating specified');
       }
     };
 
     // Update existing Rating
     $scope.update = function (isValid) {
       $scope.error = null;
-
       if (!$scope.rated) {
         $scope.create();
         return;
-      } else if (!isValid) {
+      }
+      else if (!isValid) {
         $scope.$broadcast('show-errors-check-validity', 'ratingForm');
         return false;
-      } else {
+      }
+      else if (($scope.posterRating === '0' || $scope.posterRating === 0) && ($scope.presentationRating === '0' || $scope.presentationRating === 0)  && ($scope.demoRating === '0' || $scope.demoRating === 0)) {
+        $scope.remove($scope.thisRating);
+      }
+      else {
         var rating = $scope.thisRating;
         rating.posterRating = $scope.posterRating;
         rating.presentationRating = $scope.presentationRating;
@@ -109,26 +110,13 @@ angular.module('ratings').controller('RatingsController', ['$scope', '$filter', 
         if ($scope.thisRating.length > 0) {
           $scope.thisRating = $scope.thisRating[0];
           $scope.rated = true;
-          var currentPoster = $scope.thisRating.posterRating;
-          var currentPresentation = $scope.thisRating.presentationRating;
-          var currentDemo = $scope.thisRating.demoRating;
-          var currentComment = $scope.thisRating.comment;
-        
-          for (var i = 0; i <= 5; i++) {
-            if (i === currentPoster) {
-              document.getElementById('poster_star' + i).checked = true;
-            }
-            if (i === currentPresentation) {
-              document.getElementById('presentation_star' + i).checked = true;
-            }
-            if (i === currentDemo) {
-              document.getElementById('demo_star' + i).checked = true;
-            }
-          }
-          document.getElementById('comment').placeholder = currentComment;
 
-        
-        } else {
+          $scope.posterRating = $scope.thisRating.posterRating;
+          $scope.presentationRating = $scope.thisRating.presentationRating;
+          $scope.demoRating = $scope.thisRating.demoRating;
+          $scope.comment = $scope.thisRating.comment;
+        }
+        else {
           $scope.rated = false;
         }
       });
