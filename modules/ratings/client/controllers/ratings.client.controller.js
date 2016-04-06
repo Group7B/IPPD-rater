@@ -107,15 +107,6 @@ angular.module('ratings').controller('RatingsController', ['$scope', '$filter', 
       });
     };
 
-    // Find existing Rating
-    $scope.findOne = function () {
-      //$scope.rating = Ratings.get({
-      //  ratingId: {
-      //    _id: $stateParams.ratingId
-      //  }
-      //});
-    };
-
     $scope.findRatingByProjectAndUser = function () {
       $scope.isJudge = (Authentication.user.roles.indexOf('judge') > -1) ? true : false;
 
