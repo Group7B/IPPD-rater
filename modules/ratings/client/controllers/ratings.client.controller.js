@@ -59,30 +59,28 @@ angular.module('ratings').controller('RatingsController', ['$scope', '$filter', 
     // Remove existing Rating
     $scope.remove = function (rating) {
       if (rating) {
-        rating.$remove();
-
-        for (var i in $scope.ratings) {
-          if ($scope.ratings[i] === rating) {
-            $scope.ratings.splice(i, 1);
-          }
-        }
-      } else {
-        $scope.rating.$remove(function () {
-          $location.path('ratings');
+        rating.$remove(function () {
+          $location.path('projects');
+        }, function (errorResponse) {
+          $scope.error = errorResponse.data.message;
         });
+      }
+      else {
+        console.log('No rating specified');
       }
     };
 
     // Update existing Rating
     $scope.update = function (isValid) {
       $scope.error = null;
-
       if (!$scope.rated) {
         $scope.create();
         return;
       } else if (!isValid) {
         $scope.$broadcast('show-errors-check-validity', 'ratingForm');
         return false;
+      } else if (($scope.posterRating === '0' || $scope.posterRating === 0) && ($scope.presentationRating === '0' || $scope.presentationRating === 0) && ($scope.demoRating === '0' || $scope.demoRating === 0)) {
+        $scope.remove($scope.thisRating);
       } else {
         var rating = $scope.thisRating;
         rating.posterRating = $scope.posterRating;
@@ -125,8 +123,21 @@ angular.module('ratings').controller('RatingsController', ['$scope', '$filter', 
         if ($scope.thisRating.length > 0) {
           $scope.thisRating = $scope.thisRating[0];
           $scope.rated = true;
+
+          $scope.posterRating = $scope.thisRating.posterRating;
+          $scope.presentationRating = $scope.thisRating.presentationRating;
+          $scope.demoRating = $scope.thisRating.demoRating;
+          $scope.comment = $scope.thisRating.comment;
+
+          $scope.oldPoster = $scope.posterRating;
+          $scope.oldPresentation = $scope.presentationRating;
+          $scope.oldDemo = $scope.demoRating;
+          $scope.oldComment = $scope.comment;
         } else {
           $scope.rated = false;
+          $scope.posterRating = 0;
+          $scope.presentationRating = 0;
+          $scope.demoRating = 0;
         }
       });
     };
