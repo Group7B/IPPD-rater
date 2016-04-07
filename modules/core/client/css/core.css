@@ -13,6 +13,7 @@
 img {
   position: center;
   max-width: 100%;
+  max-height: 150px;
   height: auto;
   width: auto\9;
   /* ie8 */
@@ -25,7 +26,6 @@ img {
 
 th,
 td {
-  /*font-family: 'Open Sans',Helvetica,Arial,sans-serif;*/
   font-size: 20px;
   text-align: center;
   padding-top: 5px;
@@ -221,6 +221,29 @@ a:hover .header-profile-image {
   line-height: 20px;
 }
 
+.filterButton {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  -webkit-transition: all 200ms linear;
+  -moz-transition: all 200ms linear;
+  -o-transition: all 200ms linear;
+  -ms-transition: all 200ms linear;
+  transition: all 200ms linear;
+  border: none;
+  color: black;
+  border-radius: 4px;
+  margin-bottom: 15px;
+  display: inline-block;
+  text-align: center;
+  margin-right: 20px;
+}
+
+.filterButton:focus {
+  background-color: #005596;
+  color: white;
+  outline: 0 !important;
+}
+
 .listTabButton {
   -webkit-appearance: none;
   -moz-appearance: none;
@@ -229,7 +252,7 @@ a:hover .header-profile-image {
   -o-transition: all 200ms linear;
   -ms-transition: all 200ms linear;
   transition: all 200ms linear;
-  border-color: #999;
+  border-color: #AAA;
   color: black;
   border-radius: 4px;
   height: 50px;
@@ -257,8 +280,11 @@ a:hover .header-profile-image {
 }
 
 .listTabButtonActive {
+  padding-bottom: 10px;
   color: white;
   z-index: 0;
+  border-color: #005596;
+  border-bottom-color: #005596;
   height: 56px;
 }
 
@@ -286,7 +312,7 @@ a:hover .header-profile-image {
   height: 60px;
   transition: all .5s;
   margin-bottom: 10px;
-  border-right: solid gold 4px;
+  border-right: solid #FA9E42 4px;
 }
 
 .adminListButton:hover {
@@ -347,7 +373,6 @@ a:hover .header-profile-image {
 
 .title-bar {
   position: fixed;
-  /*font-family: 'Open Sans',Helvetica,Arial,sans-serif;*/
   font-family: 'Quicksand', sans-serif;
   font-weight: 800;
   font-size: 25px;
@@ -363,15 +388,11 @@ a:hover .header-profile-image {
 .image {
   padding-top: 50px;
   vertical-align: bottom;
-  /*position: relative;*/
-  /*padding-bottom: 10px;*/
 }
 
 .rate {
   display: inline-block;
   height: 45px;
-  /*padding: 0 2px;*/
-  /*padding-bottom: 5px;*/
 }
 
 .rate:not(:checked) > input {
@@ -410,10 +431,6 @@ a:hover .header-profile-image {
   color: #FA9E42;
 }
 
-/*.sub_form {
-  padding: 5px;
-}*/
-
 .clear_star_ratings {
   margin-top: 15px;
   margin-bottom: 0;
@@ -430,44 +447,18 @@ a:hover .header-profile-image {
   outline-color: none;
   display: block;
   text-align: center;
-  /*content: 'clear';*/
-  /*visibility: hidden;*/
-
 }
-
 
 .clear_star_ratings:not(:checked) > input {
   position: absolute;
   font-size: 50px;
   float: center;
   visibility: hidden;
-  /*text-align: center;*/
 }
 
 .clear_star_ratings:not(:checked) > label {
-  /*float: left;*/
   width: 4em;
   text-align: center;
-  /*overflow: hidden;*/
-  /*white-space: nowrap;*/
- /* cursor: pointer;
-  font-size: 45px;
-  color: #DBDCDE;*/
-  /*margin-top: 15px;
-  margin-bottom: 0;
-  -webkit-appearance:none;
-  -moz-appearance:none;
-  background:none;
-  border:none;
-  margin:0;
-  padding:0;
-  padding-top: 10px;
-  font-size: 15px;
-  color: #DBDCDE;
-  outline: 0;
-  outline-color: none;
-  display: block;
-  text-align: center;*/
 }
 
 .clear_star_ratings:not(:checked) > label:before {
@@ -484,19 +475,6 @@ label[for="star-null"] {
   color: #DBDCDE;
 }
 
-/*.clear_star_ratings:not(:checked) > label:hover,
-.clear_star_ratings:not(:checked) > label:hover ~ label {
-  color: #FA9E42;
-}*/
-
-/*.clear_star_ratings > input:checked + label:hover,
-.clear_star_ratings > input:checked + label:hover ~ label,
-.clear_star_ratings > input:checked ~ label:hover,
-.clear_star_ratings > input:checked ~ label:hover ~ label,
-.clear_star_ratings > label:hover ~ input:checked ~ label {
-  color: #FA9E42;
-}*/
-
 input[type="reset"] {
   -webkit-appearance:none;
   -moz-appearance:none;
@@ -509,7 +487,6 @@ input[type="reset"] {
   outline: 0;
   outline-color: none;
 }
-
 
 #back-button {
   position: absolute;
