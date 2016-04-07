@@ -221,29 +221,6 @@ a:hover .header-profile-image {
   line-height: 20px;
 }
 
-.filterButton {
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  -webkit-transition: all 200ms linear;
-  -moz-transition: all 200ms linear;
-  -o-transition: all 200ms linear;
-  -ms-transition: all 200ms linear;
-  transition: all 200ms linear;
-  border: none;
-  color: black;
-  border-radius: 4px;
-  margin-bottom: 15px;
-  display: inline-block;
-  text-align: center;
-  margin-right: 20px;
-}
-
-.filterButton:focus {
-  background-color: #005596;
-  color: white;
-  outline: 0 !important;
-}
-
 .listTabButton {
   -webkit-appearance: none;
   -moz-appearance: none;
@@ -252,7 +229,7 @@ a:hover .header-profile-image {
   -o-transition: all 200ms linear;
   -ms-transition: all 200ms linear;
   transition: all 200ms linear;
-  border-color: #AAA;
+  border-color: #999;
   color: black;
   border-radius: 4px;
   height: 50px;
@@ -280,11 +257,8 @@ a:hover .header-profile-image {
 }
 
 .listTabButtonActive {
-  padding-bottom: 10px;
   color: white;
   z-index: 0;
-  border-color: #005596;
-  border-bottom-color: #005596;
   height: 56px;
 }
 

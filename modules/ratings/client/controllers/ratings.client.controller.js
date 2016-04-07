@@ -7,9 +7,11 @@ angular.module('ratings').controller('RatingsController', ['$scope', '$filter', 
     $scope.adminListTabSort = 'project.teamName';
     $scope.sortBy = '_id';
     $scope.sortReverse = true;
-    $scope.project = Projects.get({
-      projectId: $stateParams.projectId
-    });
+    if($stateParams.projectId){
+      $scope.project = Projects.get({
+        projectId: $stateParams.projectId
+      });
+    }
 
     $scope.sortTabs = function(tabID, sortString) {
       $scope.adminListTabSort = sortString;
@@ -74,15 +76,12 @@ angular.module('ratings').controller('RatingsController', ['$scope', '$filter', 
       if (!$scope.rated) {
         $scope.create();
         return;
-      }
-      else if (!isValid) {
+      } else if (!isValid) {
         $scope.$broadcast('show-errors-check-validity', 'ratingForm');
         return false;
-      }
-      else if (($scope.posterRating === '0' || $scope.posterRating === 0) && ($scope.presentationRating === '0' || $scope.presentationRating === 0) && ($scope.demoRating === '0' || $scope.demoRating === 0)) {
+      } else if (($scope.posterRating === '0' || $scope.posterRating === 0) && ($scope.presentationRating === '0' || $scope.presentationRating === 0) && ($scope.demoRating === '0' || $scope.demoRating === 0)) {
         $scope.remove($scope.thisRating);
-      }
-      else {
+      } else {
         var rating = $scope.thisRating;
         rating.posterRating = $scope.posterRating;
         rating.presentationRating = $scope.presentationRating;
@@ -103,15 +102,6 @@ angular.module('ratings').controller('RatingsController', ['$scope', '$filter', 
       $scope.ratings = {};
       Ratings.query(function (data) {
         $scope.ratings = data;
-      });
-    };
-
-    // Find existing Rating
-    $scope.findOne = function () {
-      $scope.rating = Ratings.get({
-        ratingId: {
-          _id: $stateParams.ratingId
-        }
       });
     };
 
@@ -143,8 +133,7 @@ angular.module('ratings').controller('RatingsController', ['$scope', '$filter', 
           $scope.oldPresentation = $scope.presentationRating;
           $scope.oldDemo = $scope.demoRating;
           $scope.oldComment = $scope.comment;
-        }
-        else {
+        } else {
           $scope.rated = false;
           $scope.posterRating = 0;
           $scope.presentationRating = 0;
