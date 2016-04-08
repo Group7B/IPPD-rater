@@ -21,11 +21,11 @@
     <div class="row">
       <span class="col-xs-12 instructionLabel text-center" ng-bind="currentInstruction"></span>
     </div>
-    
+
     <div class="row">
       <button id="nextButton" class="col-xs-10 col-xs-offset-1 col-md-4 col-md-offset-4 buttonHover allButton rankNextButton" ng-click="nextButtonPressed()"> Next </button>
     </div>
-    
+
     <div class="row">
       <button id="posterButton" class="listTabButton listTabButtonActive thirdWidthListTabButton" ng-click="filterButtonPressed(0)"> Poster </button>
       <button id="presButton" class="listTabButton thirdWidthListTabButton" ng-click="filterButtonPressed(1)"> Presentation </button>
@@ -44,21 +44,38 @@
 
         <div class="col-xs-2 col-xs-offset-1">
           <div ng-show="sortType === 'posterRating'">
+            <div class="css-checkbox">
             <text>Rank:</text>
-            <select class="accentColor" style="color : white" ng-model="rating.posterRank" ng-options="n for n in [1,2,3]">
-            </select>
+            <br>
+            <input type="radio" name="{{rating._id}}poster" class="posterRank1 rankingRadio" value="1" ng-model="rating.posterRank" ng-click="updatePosterRankings($event, rating._id, 1)">
+            <label class="css-label" for="rankingRadio"><span><span></span></span>1</label><br>
+            <input type="radio" name="{{rating._id}}poster" class="posterRank2 rankingRadio" value="2" ng-model="rating.posterRank" ng-click="updatePosterRankings($event, rating._id, 2)">
+            <label class="css-label" for="rankingRadio"><span><span></span></span>2</label><br>
+            <input type="radio" name="{{rating._id}}poster" class="posterRank3 rankingRadio" value="3" ng-model="rating.posterRank" ng-click="updatePosterRankings($event, rating._id, 3)">
+            <label class="css-label" for="rankingRadio"><span><span></span></span>3</label>
           </div>
+            </div>
 
           <div ng-show="sortType === 'presentationRating'">
             <text>Rank:</text>
-            <select class="accentColor" style="color : white" ng-model="rating.presentationRank" ng-options="n for n in [1,2,3]">
-            </select>
+            <br>
+            <input type="radio" name="{{rating._id}}presentation" class="presentationRank1 rankingRadio" value="1" ng-model="rating.presentationRank" ng-click="updatePresentationRankings($event, rating._id, 1)">
+            <label class="css-label" for="rankingRadio"><span><span></span></span>1</label><br>
+            <input type="radio" name="{{rating._id}}presentation" class="presentationRank2 rankingRadio" value="2" ng-model="rating.presentationRank" ng-click="updatePresentationRankings($event, rating._id, 2)">
+            <label class="css-label" for="rankingRadio"><span><span></span></span>2</label><br>
+            <input type="radio" name="{{rating._id}}presentation" class="presentationRank3 rankingRadio" value="3" ng-model="rating.presentationRank" ng-click="updatePresentationRankings($event, rating._id, 3)">
+            <label class="css-label" for="rankingRadio"><span><span></span></span>3</label><br>
           </div>
 
           <div ng-show="sortType === 'demoRating'">
             <text>Rank:</text>
-            <select class="accentColor" style="color : white" ng-model="rating.demoRank" ng-options="n for n in [1,2,3]">
-            </select>
+            <br>
+            <input type="radio" name="{{rating._id}}demo" class="demoRank1 rankingRadio" value="1" ng-model="rating.demoRank" ng-click="updateDemoRankings($event, rating._id, 1)">
+            <label class="css-label" for="rankingRadio"><span><span></span></span>1</label><br> 
+            <input type="radio" name="{{rating._id}}demo" class="demoRank2 rankingRadio" value="2" ng-model="rating.demoRank" ng-click="updateDemoRankings($event, rating._id, 2)">
+            <label class="css-label" for="rankingRadio"><span><span></span></span>2</label><br>
+            <input type="radio" name="{{rating._id}}demo" class="demoRank3 rankingRadio" value="3" ng-model="rating.demoRank" ng-click="updateDemoRankings($event, rating._id, 3)">
+            <label class="css-label" for="rankingRadio"><span><span></span></span>3</label><br>
           </div>
         </div>
       </div>
