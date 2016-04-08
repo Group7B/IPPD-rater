@@ -498,19 +498,21 @@ input[type="reset"] {
   font-size: 10px;
   text-align: center;
 }
-input[type=radio   ]:not(old){
+input[type=radio]:not(old){
   width     : 2em;
+  min-height: 1em;
   margin    : 0;
   padding   : 0;
   font-size : 1em;
   opacity   : 0;
 }
-input[type=radio   ]:not(old) + label{
+input[type=radio]:not(old) + label{
   display      : inline-block;
   margin-left  : -2em;
   line-height  : 1.5em;
+  font-size    : 15px;
 }
-input[type=radio   ]:not(old) + label > span{
+input[type=radio]:not(old) + label > span{
   display          : inline-block;
   width            : 0.875em;
   height           : 0.875em;
@@ -525,7 +527,7 @@ input[type=radio   ]:not(old) + label > span{
   background-image :         linear-gradient(rgb(240,240,240),rgb(224,224,224));
   vertical-align   : bottom;
 }
-input[type=radio   ]:not(old):checked + label > span{
+input[type=radio]:not(old):checked + label > span{
   background-image :    -moz-linear-gradient(rgb(224,224,224),rgb(240,240,240));
   background-image :     -ms-linear-gradient(rgb(224,224,224),rgb(240,240,240));
   background-image :      -o-linear-gradient(rgb(224,224,224),rgb(240,240,240));
