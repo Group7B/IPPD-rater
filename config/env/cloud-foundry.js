@@ -33,35 +33,14 @@ module.exports = {
     options: {}
   },
   facebook: {
-    clientID: getCred('mean-facebook', 'id') || 'APP_ID',
-    clientSecret: getCred('mean-facebook', 'secret') || 'APP_SECRET',
+    clientID: getCred('mean-facebook', 'id') || '1705595979696162',
+    clientSecret: getCred('mean-facebook', 'secret') || 'ef6b45067d8488cdbf3f6373ef41a87a',
     callbackURL: '/api/auth/facebook/callback'
   },
   twitter: {
-    clientID: getCred('mean-twitter', 'key') || 'CONSUMER_KEY',
-    clientSecret: getCred('mean-twitter', 'secret') || 'CONSUMER_SECRET',
+    clientID: getCred('mean-twitter', 'key') || 'Szkz36JAbhTTelNAFNsFHEk2f',
+    clientSecret: getCred('mean-twitter', 'secret') || 'rhjsmdZ5tZ8s3c0JtY4Fa0oVApcSKjuoBjz4cNX90OgdVTBKdB',
     callbackURL: '/api/auth/twitter/callback'
-  },
-  google: {
-    clientID: getCred('mean-google', 'id') || 'APP_ID',
-    clientSecret: getCred('mean-google', 'secret') || 'APP_SECRET',
-    callbackURL: '/api/auth/google/callback'
-  },
-  linkedin: {
-    clientID: getCred('mean-linkedin', 'id') || 'APP_ID',
-    clientSecret: getCred('mean-linkedin', 'secret') || 'APP_SECRET',
-    callbackURL: '/api/auth/linkedin/callback'
-  },
-  github: {
-    clientID: getCred('mean-github', 'id') || 'APP_ID',
-    clientSecret: getCred('mean-github', 'secret') || 'APP_SECRET',
-    callbackURL: '/api/auth/github/callback'
-  },
-  paypal: {
-    clientID: getCred('mean-paypal', 'id') || 'CLIENT_ID',
-    clientSecret: getCred('mean-paypal', 'secret') || 'CLIENT_SECRET',
-    callbackURL: '/api/auth/paypal/callback',
-    sandbox: false
   },
   mailer: {
     from: getCred('mean-mail', 'from') || 'MAILER_FROM',

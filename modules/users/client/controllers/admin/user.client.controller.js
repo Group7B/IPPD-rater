@@ -42,7 +42,7 @@ angular.module('users.admin').controller('UserController', ['$scope', '$state', 
       if (user.roles !== oldUser.roles) {
 
         // check if the judge role was set
-        if (user.roles.indexOf('judge') > -1 && oldUser.roles.indexOf("judge") === -1){
+        if (user.roles.indexOf('judge') > -1 && oldUser.roles.indexOf('judge') === -1){
           Ratings.query(function (data) {
             var ratings = data;
             var userRatings = $filter('filter')(
@@ -57,7 +57,7 @@ angular.module('users.admin').controller('UserController', ['$scope', '$state', 
             }
           });
         } // otherwise check if the judge role was unset
-        else if (user.roles.indexOf("judge") === -1 && oldUser.roles.indexOf('judge') > -1) {
+        else if (user.roles.indexOf('judge') === -1 && oldUser.roles.indexOf('judge') > -1) {
           Ratings.query(function (data) {
             var ratings = data;
             var userRatings = $filter('filter')(

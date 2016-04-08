@@ -61,14 +61,14 @@ exports.exportRatings = function (req, res) {
     .populate('project user')
     .exec(function (err, data) {
       if (err) {
-        res.status(500).send("Something went wrong");
+        res.status(500).send('Something went wrong');
       } else if (data.length) {
         json2csv({
           data: data,
           fields: fields
         }, function (err, csv) {
           if (err) {
-            res.status(500).send("Something went wrong");
+            res.status(500).send('Something went wrong');
           } else {
             res.setHeader('Content-disposition', 'attachment; filename=testing.csv');
             res.set('Content-Type', 'text/csv');
@@ -76,7 +76,7 @@ exports.exportRatings = function (req, res) {
           }
         });
       } else {
-        res.status(404).send("Collection is empty");
+        res.status(404).send('Collection is empty');
       }
     });
 };

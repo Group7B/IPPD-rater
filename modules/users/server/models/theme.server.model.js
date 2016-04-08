@@ -20,12 +20,12 @@ var ThemeSchema = new Schema({
   },
   accentColor: {
     type: String,
-    default: '#00f'
+    default: '#005596'
   },
   textColor: {
     type: String,
     default: '#000'
-  },
+  }
 });
 
 mongoose.model('Theme', ThemeSchema);

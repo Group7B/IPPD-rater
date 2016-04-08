@@ -6,7 +6,6 @@ angular.module('users.admin').controller('UserListController', ['$scope', '$filt
       Users.query(function (data) {
         $scope.users = data;
         $scope.buildPager();
-        console.log($scope.users);
       });
     };
 
@@ -32,12 +31,10 @@ angular.module('users.admin').controller('UserListController', ['$scope', '$filt
     };
 
     $scope.DeleteAllUsers = function() {
-      //warning message
-      if(confirm("Do you want to delete all users (with the exception of admins) from the database?")) {
+      if(confirm('Do you want to delete all users (with the exception of admins) from the database?')) {
         Users.deleteAllUsers();
         alert('All users (save for admins) deleted!');
         location.reload();
-
       }
     };
   }

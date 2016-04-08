@@ -142,7 +142,7 @@ angular.module('projects').controller('ProjectController', ['$scope', '$filter',
 
     $scope.deleteAllProjects = function () {
       //warning message
-      if (confirm("Do you want to delete all projects from the database?")) {
+      if (confirm('Do you want to delete all projects from the database?')) {
         $scope.thisProject = {};
         Projects.query(function (data) {
           $scope.projects = data;
@@ -170,19 +170,25 @@ angular.module('projects').controller('ProjectController', ['$scope', '$filter',
         var index = $scope.projects.indexOf(project);
         $scope.projects.splice(index, 1);
         $scope.projects.push(project);
-        return 'Rated';
+        return 'rated';
       } else {
-        return 'Unrated';
+        return 'notRated';
       }
     };
 
     $scope.testFilter = function (projectFilter) {
-      if ($scope.projectFilter === projectFilter)
-        $scope.projectFilter = 'all';
-      else
-        $scope.projectFilter = projectFilter;
+      $scope.projectFilter = projectFilter;
+      $scope.sortProjectTabs('#' + projectFilter);
     };
-
-
+    
+    $scope.sortProjectTabs = function(tabID) {
+      var tabs = document.querySelectorAll('.listTabButton');
+      for (var i = 0; i < tabs.length; ++i) {
+        tabs[i].classList.remove('listTabButtonActive');
+        tabs[i].classList.remove('accentColor');
+      }
+      document.querySelector(tabID).classList.add('listTabButtonActive');
+      document.querySelector(tabID).classList.add('accentColor');
+    };
   }
 ]);
