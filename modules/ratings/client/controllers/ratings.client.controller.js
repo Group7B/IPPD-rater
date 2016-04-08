@@ -7,6 +7,7 @@ angular.module('ratings').controller('RatingsController', ['$scope', '$filter', 
     $scope.adminListTabSort = 'project.teamName';
     $scope.sortBy = '_id';
     $scope.sortReverse = true;
+    
     if($stateParams.projectId){
       $scope.project = Projects.get({
         projectId: $stateParams.projectId
@@ -184,12 +185,55 @@ angular.module('ratings').controller('RatingsController', ['$scope', '$filter', 
       }
     };
 
-    $scope.updateRanks = function () {
+    $scope.updateRanks = function () {  
       for (var i = 0; i < $scope.ratedBy.length; ++i) {
         $scope.ratedBy[i].$update();
       }
 
       $location.path('projects');
+    };
+    
+    $scope.posterRadioClasses = ['.posterRank1', '.posterRank2', '.posterRank3'];
+    $scope.demoRadioClasses = ['.demoRank1', '.demoRank2', '.demoRank3'];
+    $scope.presentationRadioClasses = ['.presentationRank1', '.presentationRank2', '.presentationRank3'];
+    
+    $scope.updatePosterRankings = function (event, ratingId, rank) {      
+      $scope.uncheckRadios(event, $scope.posterRadioClasses[rank-1]);
+      
+      for (var i = 0; i < $scope.ratedBy.length; ++i) {
+        if ($scope.ratedBy[i]._id !== ratingId && $scope.ratedBy[i].posterRank.toString() === event.target.value.toString()) {
+          $scope.ratedBy[i].posterRank = "0";
+        }
+      }
+    };
+    
+    $scope.updateDemoRankings = function (event, ratingId, rank) {      
+      $scope.uncheckRadios(event, $scope.demoRadioClasses[rank-1]);
+      
+      for (var i = 0; i < $scope.ratedBy.length; ++i) {
+        if ($scope.ratedBy[i]._id !== ratingId && $scope.ratedBy[i].demoRank.toString() === event.target.value.toString()) {
+          $scope.ratedBy[i].demoRank = "0";
+        }
+      }
+    };
+    
+    $scope.updatePresentationRankings = function (event, ratingId, rank) {      
+      $scope.uncheckRadios(event, $scope.presentationRadioClasses[rank-1]);
+      
+      for (var i = 0; i < $scope.ratedBy.length; ++i) {
+        if ($scope.ratedBy[i]._id !== ratingId && $scope.ratedBy[i].presentationRank.toString() === event.target.value.toString()) {
+          $scope.ratedBy[i].presentationRank = "0";
+        }
+      }
+    };
+    
+    $scope.uncheckRadios = function (event, selector) {
+      var radios = document.querySelectorAll(selector);
+      for (var i = 0; i < radios.length; ++i) {
+        if (radios[i] !== event.target) {
+          radios[i].checked = false;
+        }
+      }
     };
   }
 ]);
