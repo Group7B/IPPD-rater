@@ -39,6 +39,10 @@ label {
   font-weight: normal !important;
 }
 
+.list-group-item {
+  min-height: 100px;
+}
+
 .error-text {
   display: none;
 }
@@ -56,11 +60,15 @@ label {
 }
 
 .logo-icon {
-  float: left;
   margin: 0 15px 0 0;
-  width: 64px;
+  width: auto;
   height: auto;
-  max-height: 64px;
+  max-height: 90px;
+  padding: 0;
+}
+
+.logoIconCol {
+  padding: 0;
 }
 
 .logo-large {

@@ -24,15 +24,15 @@
               <input class="col-md-3 col-md-offset-4" type="file" nv-file-select uploader="uploader" />
               <p ng-show="invalidFile">Invalid file! {{invalidFileMessage}}</p>
 
-              <button type="button" class="allButton smallButton destructiveButton" ng-click="uploader.clearQueue()" ng-disabled="!uploader.queue.length">
-                Remove File
+              <button type="button" class="allButton smallButton destructiveButton textColor" ng-click="uploader.clearQueue()" ng-disabled="!uploader.queue.length">
+                Remove
               </button>
             </div>
             
             <br><br><br>
 
             <div class="form-group row">
-              <input type="submit" value="Update" class="col-xs-12 col-sm-2 col-sm-offset-5 buttonHover allButton accentColor">
+              <input type="submit" value="Update" class="col-xs-12 col-sm-2 col-sm-offset-5 buttonHover allButton accentColor textColor">
             </div>
             <div ng-show="error" class="text-danger">
               <strong ng-bind="error"></strong>
