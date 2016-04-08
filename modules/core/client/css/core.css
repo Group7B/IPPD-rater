@@ -1,5 +1,5 @@
 .backgroundColor {
-  background-color: #fff;
+  background-color: #FFFFFF;
 }
 
 .accentColor {
@@ -7,7 +7,7 @@
 }
 
 .textColor {
-  color: #fff;
+  color: #000000;
 }
 
 img {
@@ -208,7 +208,6 @@ a:hover .header-profile-image {
   border-radius: 4px;
   font-size: 2rem;
   line-height: 40px;
-  color: white;
   margin-bottom: 15px;
 }
 
@@ -230,7 +229,6 @@ a:hover .header-profile-image {
   -ms-transition: all 200ms linear;
   transition: all 200ms linear;
   border-color: #999;
-  color: black;
   border-radius: 4px;
   height: 50px;
   margin-bottom: -15px;
@@ -264,7 +262,6 @@ a:hover .header-profile-image {
 
 .rankNextButton {
   background-color: forestgreen;
-  color: #fff;
 }
 
 .instructionLabel {
@@ -306,8 +303,11 @@ a:hover .header-profile-image {
   right: 0;
   line-height: 60px;
   text-decoration: none;
-  color: #f4f4f4;
   font-size: 2rem;
+}
+
+.adminListButton a:hover, .adminListButton a:focus {
+  color: #f4f4f4;
 }
 
 .backToRatingsButton {

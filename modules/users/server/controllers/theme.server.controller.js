@@ -16,7 +16,7 @@ exports.readTheme = function (req, res) {
     } else {
       var defaultTheme = new Theme();
       defaultTheme.backgroundColor = '#FFFFFF';
-      defaultTheme.accentColor = '#FF0000';
+      defaultTheme.accentColor = '#005596';
       defaultTheme.textColor = '#000000';
       defaultTheme.save(function (err) {
         if (err) {

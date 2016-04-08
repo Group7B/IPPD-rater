@@ -12,13 +12,13 @@
     
     <input class="col-md-3 col-md-offset-4" type="file" nv-file-select uploader="uploader"/>
 
-    <button class="allButton smallButton destructiveButton" type="button" ng-click="uploader.clearQueue()" ng-disabled="!uploader.queue.length">
+    <button class="allButton smallButton destructiveButton textColor" type="button" ng-click="uploader.clearQueue()" ng-disabled="!uploader.queue.length">
       Remove File
     </button>
     
     <br><br>
     
-    <button class="col-sm-2 col-sm-offset-5 col-xs-12 buttonHover allButton accentColor" type="button" ng-click="uploader.uploadAll()" ng-disabled="!uploader.getNotUploadedItems().length" disabled="disabled">
+    <button class="col-sm-2 col-sm-offset-5 col-xs-12 buttonHover allButton accentColor textColor" type="button" ng-click="uploader.uploadAll()" ng-disabled="!uploader.getNotUploadedItems().length" disabled="disabled">
       Upload File
     </button>
   </div>
@@ -38,18 +38,18 @@
       </div>
       
       <div class="col-md-4">
-        Text: <input class="formField" colorpicker type="text" placeholder="{{theme.textColor}}" ng-model="textColor" />
+        Button Text: <input class="formField" colorpicker type="text" placeholder="{{theme.textColor}}" ng-model="textColor" />
       </div>
     </div>
     
     <br>
     
     <div class="row">
-        <button class="col-sm-2 col-sm-offset-5 col-xs-12 buttonHover allButton accentColor" type="button" ng-click="updateStoredColors()" ng-disabled="!(backgroundColor || accentColor || textColor)">
+        <button class="col-sm-2 col-sm-offset-5 col-xs-12 buttonHover allButton accentColor textColor" type="button" ng-click="updateStoredColors()" ng-disabled="!(backgroundColor || accentColor || textColor)">
           Save Colors
         </button>
         
-        <button class="col-sm-1 col-sm-offset-1 buttonHover allButton smallButton destructiveButton" type="button" ng-click="clearFields()" ng-disabled="!(backgroundColor || accentColor || textColor)">
+        <button class="col-sm-1 col-sm-offset-1 allButton smallButton destructiveButton textColor" type="button" ng-click="clearFields()" ng-disabled="!(backgroundColor || accentColor || textColor)">
           Clear
         </button>
     </div>
