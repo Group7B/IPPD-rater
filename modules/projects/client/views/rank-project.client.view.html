@@ -42,44 +42,40 @@
           <p class="list-group-item-text contentFont" ng-bind="rating.project.description"></p>
         </div>
 
-        <div class="col-xs-2 col-xs-offset-1">
+        <div class="col-xs-3 col-xs-offset-1">
           <div ng-show="sortType === 'posterRating'">
+            <div class="css-checkbox">
             <text>Rank:</text>
             <br>
-            <text>1:</text>
             <input type="radio" name="{{rating._id}}poster" class="posterRank1 rankingRadio" value="1" ng-model="rating.posterRank" ng-click="updatePosterRankings($event, rating._id, 1)">
-            <br>
-            <text>2:</text>
+            <label class="css-label" for="rankingRadio"><span><span></span></span>1</label><br>
             <input type="radio" name="{{rating._id}}poster" class="posterRank2 rankingRadio" value="2" ng-model="rating.posterRank" ng-click="updatePosterRankings($event, rating._id, 2)">
-            <br>
-            <text>3:</text>
+            <label class="css-label" for="rankingRadio"><span><span></span></span>2</label><br>
             <input type="radio" name="{{rating._id}}poster" class="posterRank3 rankingRadio" value="3" ng-model="rating.posterRank" ng-click="updatePosterRankings($event, rating._id, 3)">
+            <label class="css-label" for="rankingRadio"><span><span></span></span>3</label>
           </div>
+            </div>
 
           <div ng-show="sortType === 'presentationRating'">
             <text>Rank:</text>
             <br>
-            <text>1:</text>
             <input type="radio" name="{{rating._id}}presentation" class="presentationRank1 rankingRadio" value="1" ng-model="rating.presentationRank" ng-click="updatePresentationRankings($event, rating._id, 1)">
-            <br>
-            <text>2:</text>
+            <label class="css-label" for="rankingRadio"><span><span></span></span>1</label><br>
             <input type="radio" name="{{rating._id}}presentation" class="presentationRank2 rankingRadio" value="2" ng-model="rating.presentationRank" ng-click="updatePresentationRankings($event, rating._id, 2)">
-            <br>
-            <text>3:</text>
+            <label class="css-label" for="rankingRadio"><span><span></span></span>2</label><br>
             <input type="radio" name="{{rating._id}}presentation" class="presentationRank3 rankingRadio" value="3" ng-model="rating.presentationRank" ng-click="updatePresentationRankings($event, rating._id, 3)">
+            <label class="css-label" for="rankingRadio"><span><span></span></span>3</label><br>
           </div>
 
           <div ng-show="sortType === 'demoRating'">
             <text>Rank:</text>
             <br>
-            <text>1:</text>
             <input type="radio" name="{{rating._id}}demo" class="demoRank1 rankingRadio" value="1" ng-model="rating.demoRank" ng-click="updateDemoRankings($event, rating._id, 1)">
-            <br>
-            <text>2:</text>
+            <label class="css-label" for="rankingRadio"><span><span></span></span>1</label><br> 
             <input type="radio" name="{{rating._id}}demo" class="demoRank2 rankingRadio" value="2" ng-model="rating.demoRank" ng-click="updateDemoRankings($event, rating._id, 2)">
-            <br>
-            <text>3:</text>
+            <label class="css-label" for="rankingRadio"><span><span></span></span>2</label><br>
             <input type="radio" name="{{rating._id}}demo" class="demoRank3 rankingRadio" value="3" ng-model="rating.demoRank" ng-click="updateDemoRankings($event, rating._id, 3)">
+            <label class="css-label" for="rankingRadio"><span><span></span></span>3</label><br>
           </div>
         </div>
       </div>

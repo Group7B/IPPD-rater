@@ -11,20 +11,17 @@
             <button class="col-md-2 col-md-offset-2 buttonHover allButton accentColor textColor" ui-sref="admin.create-project">Add Project</button>
         </div>
     </div>
-    <div class="list-group">
-        <a ng-repeat="project in pagedItems" ui-sref="admin.project({projectId: project._id})" class="list-group-item" style="height: 100px">
-          <div class="col-sm-2">
+    <div class="list-group contentFont">
+        <a ng-repeat="project in pagedItems" ui-sref="admin.project({projectId: project._id})" class="list-group-item row">
+          <div class="col-xs-2 logoIconCol">
             <div class="post-thumb"><img class="logo-icon" ng-if="project.logo" ng-src='modules/projects/client/img/logos/{{project.logo}}' alt="No img"></div>
             <div class="post-thumb"><img class="logo-icon" ng-if="!project.logo" src='modules/projects/client/img/logos/default.jpg' alt="No img"></div>
           </div>
-          <div class="col-sm-10">
+          <div class="col-xs-10">
             <h4 class="list-group-item-heading" ng-bind="project.teamName"></h4>
             <p class="list-group-item-text contentFont" ng-bind="project.description"></p>
           </div>
         </a>
     </div>
     <pagination boundary-links="true" max-size="8" items-per-page="itemsPerPage" total-items="filterLength" ng-model="currentPage" ng-change="pageChanged()"></pagination>
-    <div class="alert alert-warning text-center" ng-if="projects.$resolved && !projects.length">
-        No projects yet, why don't you <a ui-sref="projects.create">create one</a>?
-    </div>
 </section>
