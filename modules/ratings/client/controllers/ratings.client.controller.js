@@ -202,7 +202,7 @@ angular.module('ratings').controller('RatingsController', ['$scope', '$filter', 
       
       for (var i = 0; i < $scope.ratedBy.length; ++i) {
         if ($scope.ratedBy[i]._id !== ratingId && $scope.ratedBy[i].posterRank.toString() === event.target.value.toString()) {
-          $scope.ratedBy[i].posterRank = "0";
+          $scope.ratedBy[i].posterRank = '0';
         }
       }
     };
@@ -212,7 +212,7 @@ angular.module('ratings').controller('RatingsController', ['$scope', '$filter', 
       
       for (var i = 0; i < $scope.ratedBy.length; ++i) {
         if ($scope.ratedBy[i]._id !== ratingId && $scope.ratedBy[i].demoRank.toString() === event.target.value.toString()) {
-          $scope.ratedBy[i].demoRank = "0";
+          $scope.ratedBy[i].demoRank = '0';
         }
       }
     };
@@ -222,7 +222,7 @@ angular.module('ratings').controller('RatingsController', ['$scope', '$filter', 
       
       for (var i = 0; i < $scope.ratedBy.length; ++i) {
         if ($scope.ratedBy[i]._id !== ratingId && $scope.ratedBy[i].presentationRank.toString() === event.target.value.toString()) {
-          $scope.ratedBy[i].presentationRank = "0";
+          $scope.ratedBy[i].presentationRank = '0';
         }
       }
     };
