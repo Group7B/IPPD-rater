@@ -40,10 +40,10 @@
       </div>
       <hr/>
       <div class="row">
-        <button class="col-xs-2 col-xs-offset-3 buttonHover allButton accentColor" ui-sref="admin.user-edit({userId: user._id})">
+        <button class="col-xs-2 col-xs-offset-3 buttonHover allButton accentColor textColor" ui-sref="admin.user-edit({userId: user._id})">
           Edit
         </button>
-        <button class="col-xs-2 col-xs-offset-1 buttonHover allButton destructiveButton" ng-click="remove();" ng-if="user._id !== authentication.user._id">
+        <button class="col-xs-2 col-xs-offset-1 buttonHover allButton destructiveButton textColor" ng-click="remove();" ng-if="user._id !== authentication.user._id">
           Delete
         </button>
       </div>
