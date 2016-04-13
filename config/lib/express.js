@@ -96,7 +96,6 @@ module.exports.initMiddleware = function (app) {
   app.use(session({ secret: 'keyboard cat' }));
   app.use(passport.initialize());
   app.use(passport.session());
-
 };
 
 /**

@@ -42,13 +42,15 @@ angular.module('users').controller('AuthenticationController', ['$scope', '$stat
         return false;
       }
 
-      $http.post('/api/auth/signin', $scope.credentials).success(function (response) {
+      $http.get('/api/auth/shib/login').success(function (response) {
         // If successful we assign the response to the global user model
+        console.log('aw yes');
         $scope.authentication.user = response;
 
         // And redirect to the previous or home page
         $state.go('projects.list', $state.previous.params);
       }).error(function (response) {
+        console.log('aw no');
         $scope.error = response.message;
       });
     };

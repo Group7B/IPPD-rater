@@ -12,7 +12,17 @@ module.exports = function (app) {
   var users = require('../controllers/users.server.controller');
 
   //Setting up Shibboleth routes
+
+  app.use('/',function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    next();
+  });
+
+
   app.get('/api/auth/shib', (function(req, res) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     if(req.isAuthenticated()) {
       res.render('home', {
         user : req.user
@@ -29,19 +39,19 @@ module.exports = function (app) {
   app.get('/api/auth/shib/login',(
       passport.authenticate(config.passport.strategy,
         {
-          successRedirect : '/',
-          failureRedirect : '/login',
+          successRedirect : '/callback',
+          failureRedirect : '/',
         })
     ));
 
   app.post('/api/auth/shib/login/callback', (
     passport.authenticate(config.passport.strategy,
       {
-        failureRedirect: '/',
+        failureRedirect: '/there',
         failureFlash: true
       }),
     function(req, res) {
-      res.redirect('/');
+      res.redirect('/here');
     }
   ));
 
