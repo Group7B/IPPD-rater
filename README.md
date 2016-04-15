@@ -12,6 +12,28 @@ passport-saml
 ### About
 This project is intended for use by IPPD to rate projects during the end-of-year showcase.
 
+### Features
+Login with your email, Facebook, or Twitter
+<a href="http://imgur.com/rfHiRGD"><img src="http://i.imgur.com/rfHiRGD.png" title="source: imgur.com" /></a>
+
+View a list of projects that you have not ranked
+<a href="http://imgur.com/XXOmlJ6"><img src="http://i.imgur.com/XXOmlJ6.png" title="source: imgur.com" /></a>
+
+Rate project qccording to 3 exciting criteria
+<a href="http://imgur.com/afpenCd"><img src="http://i.imgur.com/afpenCd.png" title="source: imgur.com" /></a>
+
+Easily revisit projects you have rated
+<a href="http://imgur.com/V7rDL8y"><img src="http://i.imgur.com/V7rDL8y.png" title="source: imgur.com" /></a>
+
+Judges can rank their top 3 projects for each category
+<a href="http://imgur.com/3tB7GWd"><img src="http://i.imgur.com/3tB7GWd.png" title="source: imgur.com" /></a>
+
+Admins can change the website's theme with ease
+<a href="http://imgur.com/PjxjLZq"><img src="http://i.imgur.com/PjxjLZq.png" title="source: imgur.com" /></a>
+
+Admins can easily delete, add, and manage projects and users
+<a href="http://imgur.com/JukPyxo"><img src="http://i.imgur.com/JukPyxo.png" title="source: imgur.com" /></a>
+
 ### Setup
 In order to setup this repository clone the project then run
 
@@ -58,4 +80,4 @@ Once the local.js file has been created run
 $ grunt
 ```
 
-then open a browser and go to "localhost/3000" (or if you're still using IE or Edge, then "http://localhost/3000") and you should see the webpage.
+Next, open a browser and go to "localhost/3000" (or if you're still using IE or Edge, then "http://localhost/3000") and you should see the webpage.
