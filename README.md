@@ -13,15 +13,15 @@ passport-saml
 This project is intended for use by IPPD to rate projects during the end-of-year showcase.
 
 ### Features
-Login with your email, Facebook, or Twitter
+Login with your email, Facebook, or Twitter!
 
 <a href="http://imgur.com/rfHiRGD"><img src="http://i.imgur.com/rfHiRGD.png" title="source: imgur.com" width="50%" height="50%"/></a>
 
-View a list of projects that you have not ranked
+View a list of projects that you have not yet ranked
 
 <a href="http://imgur.com/XXOmlJ6"><img src="http://i.imgur.com/XXOmlJ6.png" title="source: imgur.com" width="50%" height="50%" /></a>
 
-Rate project qccording to 3 exciting criteria
+Rate projects according to 3 exciting criteria!
 
 <a href="http://imgur.com/afpenCd"><img src="http://i.imgur.com/afpenCd.png" title="source: imgur.com" width="50%" height="50%"/></a>
 
