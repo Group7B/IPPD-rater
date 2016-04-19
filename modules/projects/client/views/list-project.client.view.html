@@ -13,7 +13,7 @@
     </div>
 
     <div class="row">
-      <button class="buttonHover allButton accentColor col-xs-12 col-md-3" ui-sref="projects.rank" ng-show="authentication.user.roles.indexOf('judge') > -1">
+      <button class="buttonHover allButton accentColor textColor col-xs-12 col-md-3" ui-sref="projects.rank" ng-show="authentication.user.roles.indexOf('judge') > -1 || authentication.user.roles.indexOf('admin') > -1">
         Submit Rankings
       </button>
     </div>
@@ -32,12 +32,11 @@
 
   <div class="list-group contentFont">
     <a ng-repeat="project in projects | filter:searchText" ui-sref="projects.rate({projectId: project._id})" class="list-group-item row" ng-show="projectFilter === 'all' || projectFilter === hasRated(project)">
-      <div class="row">
-        <div class="col-sm-2">
+        <div class="col-xs-2 logoIconCol">
           <div class="post-thumb"><img class="logo-icon" ng-if="project.logo" ng-src='modules/projects/client/img/logos/{{project.logo}}' alt="No img"></div>
           <div class="post-thumb"><img class="logo-icon" ng-if="!project.logo" src='modules/projects/client/img/logos/default.jpg' alt="No img"></div>
         </div>
-        <div class="col-sm-10">
+        <div class="col-xs-10">
 
           <div class="list-group-item-text headerFont" style="float:right; color: green;" ng-show="hasRated(project) === 'rated'">
             <text> Rated! </text>
@@ -49,7 +48,6 @@
           <h4 class="list-group-item-heading headerFont" ng-bind="project.teamName"></h4>
           <p class="list-group-item-text contentFont" ng-bind="project.description"></p>
         </div>
-      </div>
     </a>
   </div>
 </section>

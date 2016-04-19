@@ -40,7 +40,7 @@ exports.invokeRolesPolicies = function () {
       permissions: ['get']
     }, {
       resources: '/api/projects/rank',
-      permissions: ['*']
+      permissions: []
     }]
   }, {
     roles: ['guest'],
@@ -55,7 +55,7 @@ exports.invokeRolesPolicies = function () {
       permissions: ['get']
     }, {
       resources: '/api/projects/rank',
-      permissions: ['*']
+      permissions: []
     }]
   }]);
 };

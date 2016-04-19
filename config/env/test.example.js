@@ -50,35 +50,14 @@ module.exports = {
     title: defaultEnvConfig.app.title + ' - Test Environment'
   },
   facebook: {
-    clientID: process.env.FACEBOOK_ID || 'APP_ID',
-    clientSecret: process.env.FACEBOOK_SECRET || 'APP_SECRET',
+    clientID: process.env.FACEBOOK_ID || '1705595979696162',
+    clientSecret: process.env.FACEBOOK_SECRET || 'ef6b45067d8488cdbf3f6373ef41a87a',
     callbackURL: '/api/auth/facebook/callback'
   },
   twitter: {
-    clientID: process.env.TWITTER_KEY || 'CONSUMER_KEY',
-    clientSecret: process.env.TWITTER_SECRET || 'CONSUMER_SECRET',
+    clientID: process.env.TWITTER_KEY || 'Szkz36JAbhTTelNAFNsFHEk2f',
+    clientSecret: process.env.TWITTER_SECRET || 'rhjsmdZ5tZ8s3c0JtY4Fa0oVApcSKjuoBjz4cNX90OgdVTBKdB',
     callbackURL: '/api/auth/twitter/callback'
-  },
-  google: {
-    clientID: process.env.GOOGLE_ID || 'APP_ID',
-    clientSecret: process.env.GOOGLE_SECRET || 'APP_SECRET',
-    callbackURL: '/api/auth/google/callback'
-  },
-  linkedin: {
-    clientID: process.env.LINKEDIN_ID || 'APP_ID',
-    clientSecret: process.env.LINKEDIN_SECRET || 'APP_SECRET',
-    callbackURL: '/api/auth/linkedin/callback'
-  },
-  github: {
-    clientID: process.env.GITHUB_ID || 'APP_ID',
-    clientSecret: process.env.GITHUB_SECRET || 'APP_SECRET',
-    callbackURL: '/api/auth/github/callback'
-  },
-  paypal: {
-    clientID: process.env.PAYPAL_ID || 'CLIENT_ID',
-    clientSecret: process.env.PAYPAL_SECRET || 'CLIENT_SECRET',
-    callbackURL: '/api/auth/paypal/callback',
-    sandbox: true
   },
   mailer: {
     from: process.env.MAILER_FROM || 'MAILER_FROM',
