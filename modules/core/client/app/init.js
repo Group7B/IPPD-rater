@@ -30,7 +30,7 @@ angular.module(ApplicationConfiguration.applicationModuleName).run(function ($ro
         if (Authentication.user !== undefined && typeof Authentication.user === 'object') {
           $state.go('forbidden');
         } else {
-          $state.go('authentication.signin').then(function () {
+          $state.go('home').then(function () {
             storePreviousState(toState, toParams);
           });
         }
@@ -45,7 +45,7 @@ angular.module(ApplicationConfiguration.applicationModuleName).run(function ($ro
 
   // Store previous state
   function storePreviousState(state, params) {
-    // only store this state if it shouldn't be ignored 
+    // only store this state if it shouldn't be ignored
     if (!state.data || !state.data.ignoreState) {
       $state.previous = {
         state: state,
