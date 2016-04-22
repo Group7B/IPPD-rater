@@ -2,6 +2,7 @@
   <div class="userBar headerFont">
     <span class="welcomeMessage">Welcome, {{authentication.user.firstName}}!</span>
     <br>
+    <!-- Checks if user has admin privilege -->
     <a class="" ng-show="userIsAdmin()" ui-sref="admin.users">Admin Dashboard</a>
     <br>
     <a class="signOutButton" href="/api/auth/signout" target="_self">Signout</a>
@@ -13,6 +14,7 @@
     </div>
 
     <div class="row">
+    <!-- If user is an admin or judge the button for ranking will be true -->
       <button class="buttonHover allButton accentColor textColor col-xs-12 col-md-3" ui-sref="projects.rank" ng-show="authentication.user.roles.indexOf('judge') > -1 || authentication.user.roles.indexOf('admin') > -1">
         Submit Rankings
       </button>
@@ -31,13 +33,14 @@
   </div>
 
   <div class="list-group contentFont">
+      <!-- Displays each Project along with its Logo and description -->
     <a ng-repeat="project in projects | filter:searchText" ui-sref="projects.rate({projectId: project._id})" class="list-group-item row" ng-show="projectFilter === 'all' || projectFilter === hasRated(project)">
         <div class="col-xs-2 logoIconCol">
           <div class="post-thumb"><img class="logo-icon" ng-if="project.logo" ng-src='modules/projects/client/img/logos/{{project.logo}}' alt="No img"></div>
           <div class="post-thumb"><img class="logo-icon" ng-if="!project.logo" src='modules/projects/client/img/logos/default.jpg' alt="No img"></div>
         </div>
         <div class="col-xs-10">
-
+            <!-- Shows if each project has been rated or not rated  -->
           <div class="list-group-item-text headerFont" style="float:right; color: green;" ng-show="hasRated(project) === 'rated'">
             <text> Rated! </text>
           </div>

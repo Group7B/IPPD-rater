@@ -14,12 +14,12 @@ angular.module('users.admin').controller('ThemeController', ['$scope', 'Theme',
         sheet.addRule(selector, rules, index);
       }
     };
-
+//Updating any updated colors into the DB
     $scope.updateDatabase = function () {
       if ($scope.backgroundColor) {
         $scope.theme.backgroundColor = $scope.backgroundColor;
       }
-
+        
       if ($scope.accentColor) {
         $scope.theme.accentColor = $scope.accentColor;
       }
@@ -49,7 +49,7 @@ angular.module('users.admin').controller('ThemeController', ['$scope', 'Theme',
 
       $scope.updateDatabase();
     };
-
+      //Return all fields to the default colors
     $scope.clearFields = function () {
       $scope.backgroundColor = null;
       $scope.accentColor = null;

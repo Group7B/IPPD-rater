@@ -1,15 +1,19 @@
 <section ng-controller="RatingsController" ng-init="findRatingByProjectAndUser()">
   <div class="title-bar">
     <div>
+        <!-- Back button to return to project listing -->
       <a id="back-button" class="glyphicon glyphicon-menu-left" aria-hidden="true" href="projects"></a>
     </div>
+      <!-- Displays the project name -->
     <div id="title-text">
       {{project.teamName}}
     </div>
   </div>
+    <!-- Displays the project logo -->
   <div class="image">
     <img ng-if="project.logo" ng-src="modules/projects/client/img/logos/{{project.logo}}" alt="Project Poster"></img>
   </div>
+<!-- A form allowing users to rate each project section  -->
   <form name="ratingForm" role="form" ng-submit="update(ratingForm)">
   	<table class="table">
   		<tbody>
@@ -25,6 +29,7 @@
                 <input type="radio" id="poster_star2" name="Poster_Rating" value="2" ng-model="posterRating"/><label for="poster_star2"></label>
                 <input type="radio" id="poster_star1" name="Poster_Rating" value="1" ng-model="posterRating"/><label for="poster_star1"></label>
               </div>
+                <!-- Allows users to clear buttons if they do not want to submit a rating -->
               <div class="clear_star_ratings">
                 <input type="radio" id="poster_star0" name="Poster_Rating" value="0" ng-model="posterRating"/><label for="poster_star0"></label>
               </div>
@@ -42,6 +47,7 @@
     				    <input type="radio" id="presentation_star2" name="Presentation_Rating" value="2" ng-model="presentationRating"/><label for="presentation_star2"></label>
     				    <input type="radio" id="presentation_star1" name="Presentation_Rating" value="1" ng-model="presentationRating"/><label for="presentation_star1"></label>
     				  </div>
+                <!-- Allows users to clear buttons if they do not want to submit a rating -->
               <div class="clear_star_ratings">
                 <input type="radio" id="presentation_star0" name="Presentation_Rating" value="0" ng-model="presentationRating"/><label for="presentation_star0"></label>
               </div>
@@ -59,12 +65,14 @@
     				    <input type="radio" id="demo_star2" name="TechDemo_Rating" value="2" ng-model="demoRating"/><label for="demo_star2"></label>
     				    <input type="radio" id="demo_star1" name="TechDemo_Rating" value="1" ng-model="demoRating"/><label for="demo_star1"></label>
     				  </div>
+                <!-- Allows users to clear buttons if they do not want to submit a rating -->
               <div class="clear_star_ratings">
                 <input type="radio" id="demo_star0" name="TechDemo_Rating" value="0" ng-model="demoRating"/><label for="demo_star0"></label>
               </div>
   		    </td>
   		  </tr>
   			<tr>
+                <!-- Used to store comments into the MongoDB-->
   				<td class="form-group">
   		      <label id="singlelabel" for="comment">Comments</label>
   		      <textarea class="form-control" rows="3" id="comment" placeholder="Put optional comments or notes here" ng-model="comment"></textarea>
@@ -72,6 +80,7 @@
   		  </tr>
   		  <tr>
   		    <td>
+                <!-- If a single rating is changed submit will be true, if not you cannot submit the rating-->
   		      <div class="form-group">
   		        <button id="submit_rating" type="submit" class="btn btn-primary btn-lg btn-block" ng-disabled="(!rated && (demoRating == 0) && (presentationRating == 0) && (posterRating == 0)) || ((demoRating == oldDemo) && (presentationRating == oldPresentation) && (posterRating == oldPoster) && (oldComment === comment))"> Submit Rating </button>
   		      </div>
