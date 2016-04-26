@@ -29,7 +29,7 @@ angular.module('users.admin').controller('UserListController', ['$scope', '$filt
     $scope.pageChanged = function () {
       $scope.figureOutItemsToDisplay();
     };
-
+      //Function to delete all users with a prior warning message before executing
     $scope.DeleteAllUsers = function() {
       if(confirm('Do you want to delete all users (with the exception of admins) from the database?')) {
         Users.deleteAllUsers();

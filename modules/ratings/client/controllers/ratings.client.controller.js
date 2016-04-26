@@ -105,7 +105,7 @@ angular.module('ratings').controller('RatingsController', ['$scope', '$filter', 
         $scope.ratings = data;
       });
     };
-
+//Find a specific rating for a project created by a single user.
     $scope.findRatingByProjectAndUser = function () {
       $scope.isJudge = (Authentication.user.roles.indexOf('judge') > -1) ? true : false;
 
@@ -124,7 +124,7 @@ angular.module('ratings').controller('RatingsController', ['$scope', '$filter', 
         if ($scope.thisRating.length > 0) {
           $scope.thisRating = $scope.thisRating[0];
           $scope.rated = true;
-
+          //This sets all the ratings in the form to the values in the MongoDB
           $scope.posterRating = $scope.thisRating.posterRating;
           $scope.presentationRating = $scope.thisRating.presentationRating;
           $scope.demoRating = $scope.thisRating.demoRating;
@@ -142,7 +142,7 @@ angular.module('ratings').controller('RatingsController', ['$scope', '$filter', 
         }
       });
     };
-
+      //Finds all the ratings created by a specific user
     $scope.findRatingsByUser = function () {
       $scope.ratedBy = {};
       Ratings.query(function (data) {
@@ -155,7 +155,6 @@ angular.module('ratings').controller('RatingsController', ['$scope', '$filter', 
           });
       });
     };
-
     $scope.getStars = function (num) {
       var rating = 'Unrated';
 
@@ -169,7 +168,7 @@ angular.module('ratings').controller('RatingsController', ['$scope', '$filter', 
       }
       return rating;
     };
-
+      //This is a function to delete all ratings on the admin panel
     $scope.deleteAllRatings = function () {
       //warning message
       if(confirm('Do you want to delete all ratings from the database?')) {
@@ -184,7 +183,7 @@ angular.module('ratings').controller('RatingsController', ['$scope', '$filter', 
         alert('All ratings successfully deleted!');
       }
     };
-
+      //When a user updates rankings we call this function
     $scope.updateRanks = function () {  
       for (var i = 0; i < $scope.ratedBy.length; ++i) {
         $scope.ratedBy[i].$update();
@@ -196,7 +195,7 @@ angular.module('ratings').controller('RatingsController', ['$scope', '$filter', 
     $scope.posterRadioClasses = ['.posterRank1', '.posterRank2', '.posterRank3'];
     $scope.demoRadioClasses = ['.demoRank1', '.demoRank2', '.demoRank3'];
     $scope.presentationRadioClasses = ['.presentationRank1', '.presentationRank2', '.presentationRank3'];
-    
+    //Checks to make sure the same id's are checked and the values are correct then sets the old rating to 0 which is default
     $scope.updatePosterRankings = function (event, ratingId, rank) {      
       $scope.uncheckRadios(event, $scope.posterRadioClasses[rank-1]);
       
@@ -206,7 +205,7 @@ angular.module('ratings').controller('RatingsController', ['$scope', '$filter', 
         }
       }
     };
-    
+    //Checks to make sure the same id's are checked and the values are correct then sets the old rating to 0 which is default
     $scope.updateDemoRankings = function (event, ratingId, rank) {      
       $scope.uncheckRadios(event, $scope.demoRadioClasses[rank-1]);
       
@@ -216,7 +215,7 @@ angular.module('ratings').controller('RatingsController', ['$scope', '$filter', 
         }
       }
     };
-    
+    //Checks to make sure the same id's are checked and the values are correct then sets the old rating to 0 which is default
     $scope.updatePresentationRankings = function (event, ratingId, rank) {      
       $scope.uncheckRadios(event, $scope.presentationRadioClasses[rank-1]);
       
@@ -226,7 +225,7 @@ angular.module('ratings').controller('RatingsController', ['$scope', '$filter', 
         }
       }
     };
-    
+    //If the same radio button is checked on another project, this will deselect it
     $scope.uncheckRadios = function (event, selector) {
       var radios = document.querySelectorAll(selector);
       for (var i = 0; i < radios.length; ++i) {

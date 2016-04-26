@@ -5,7 +5,7 @@
  */
 var mongoose = require('mongoose'),
   Schema = mongoose.Schema;
-
+//This is the model for our mongoDB allowing us to store data in each _id
 var ProjectSchema = new Schema({
   teamName: {
     type: String,

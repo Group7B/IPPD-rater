@@ -2,6 +2,7 @@
   <div class="userBar headerFont">
     <span class="welcomeMessage">Welcome, {{authentication.user.firstName}}!</span>
     <br>
+      <!-- Checks if user has admin privilege -->
     <a class="" ng-show="userIsAdmin()" ui-sref="admin.users">Admin Dashboard</a>
     <br>
     <a class="signOutButton" href="/api/auth/signout" target="_self">Signout</a>
@@ -13,6 +14,7 @@
     </div>
 
     <div class="row">
+         <!-- Allows user to go back to project listing -->
       <button class="buttonHover allButton smallButton accentColor textColor col-xs-2 col-md-1 col-xs-offset-1" ui-sref="projects.list"> Back </button>
     </div>
   </div>
@@ -27,6 +29,7 @@
     </div>
 
     <div class="row">
+     <!-- Three filter buttons-->
       <button id="posterButton" class="listTabButton listTabButtonActive thirdWidthListTabButton" ng-click="filterButtonPressed(0)"> Poster </button>
       <button id="presButton" class="listTabButton thirdWidthListTabButton" ng-click="filterButtonPressed(1)"> Presentation </button>
       <button id="demoButton" class="listTabButton thirdWidthListTabButton rightmostListTabButton" ng-click="filterButtonPressed(2)"> Demo </button>
@@ -37,12 +40,14 @@
     <div ng-repeat="rating in ratedBy | orderBy:[sortType,sortType2]:sortReverse" class="list-group-item row">
 
       <div class="row">
+          <!-- Listing all the rated projects by user -->
         <div class="col-xs-8">
           <h4 class="list-group-item-heading headerFont" ng-bind="rating.project.teamName"></h4>
           <p class="list-group-item-text contentFont" ng-bind="rating.project.description"></p>
         </div>
 
         <div class="col-xs-3 col-xs-offset-1">
+            <!-- If sortType is poster then shows only poster-->
           <div ng-show="sortType === 'posterRating'">
             <div class="css-checkbox">
             <text>Rank:</text>
@@ -55,7 +60,7 @@
             <label class="css-label" for="rankingRadio"><span><span></span></span>3</label>
           </div>
             </div>
-
+            <!-- If sortType is presentation then shows only presentation-->
           <div ng-show="sortType === 'presentationRating'">
             <text>Rank:</text>
             <br>
@@ -66,7 +71,7 @@
             <input type="radio" name="{{rating._id}}presentation" class="presentationRank3 rankingRadio" value="3" ng-model="rating.presentationRank" ng-click="updatePresentationRankings($event, rating._id, 3)">
             <label class="css-label" for="rankingRadio"><span><span></span></span>3</label><br>
           </div>
-
+            <!-- If sortType is demo then shows only demo-->
           <div ng-show="sortType === 'demoRating'">
             <text>Rank:</text>
             <br>
@@ -81,7 +86,7 @@
       </div>
 
       <br>
-
+        <!-- Displaying the ratings and comments given for each project listed-->
       <div class="row" ng-show="sortType === 'posterRating'">
         <text class="col-xs-2">Poster: </text>
         <text class="col-xs-8 col-xs-offset-2 col-md-offset-1" ng-bind="getStars(rating.posterRating)"></text>
@@ -103,7 +108,7 @@
       </div>
 
       <br>
-
+        <!-- Allows you to edit previous ratings by redirecting you to rating-->
       <div class="row">
         <button class="col-xs-2 col-xs-offset-5 col-md-1 col-md-offset-2 buttonHover allButton smallButton accentColor textColor" ui-sref="projects.rate({projectId: rating.project._id})">Edit</button>
       </div>
